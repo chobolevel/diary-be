@@ -3,14 +3,13 @@ server:
 
 logging:
   level:
-    root: debug
+    root: info
     org.hibernate.envers.boot: OFF
 
 spring:
   jpa:
     database: mysql
     open-in-view: false
-    databse-platform: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate.id.new_generator_mappings: false
       hibernate.implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -22,7 +21,7 @@ spring:
         hibernate:
           envers:
             revision_field_name: revision_id
-            revision_type_name: revision_type
+            revision_type_field_name: revision_type
             audit_table_suffix: _histories
             store_data_at_delete: true
       hibernate:
@@ -31,7 +30,7 @@ spring:
     hibernate:
       ddl-auto: validate
   datasource:
-    url: jdbc:mysql://localhost:3306/log
+    url: jdbc:mysql://localhost:3306/scrimmers
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
@@ -39,3 +38,19 @@ spring:
     enabled: true
     baseline-version: 0
     out-of-order: true
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    key-obtention-iterations: 1000
+    pool-size: 1
+    provider-name: SunJCE
+    salt-generator-classname: org.jasypt.salt.RandomSaltGenerator
+    iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+    string-output-type: base64
+
+redis:
+  chobolevel:
+    host: localhost
+    port: 6379
+    password:
