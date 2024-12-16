@@ -6,7 +6,7 @@ plugins {
     kotlin("kapt") version kotlinVersion apply false
     kotlin("plugin.spring") version kotlinVersion apply false
     kotlin("plugin.jpa") version kotlinVersion apply false
-    id("org.springframework.boot") version "3.4.0" apply false
+    id("org.springframework.boot") version "3.1.0" apply false
     id("io.spring.dependency-management") version "1.1.0" apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1" apply false
     id("org.flywaydb.flyway") version "7.13.0" apply false
@@ -38,6 +38,11 @@ subprojects {
     }
 
     dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+        implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+
         // test
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
