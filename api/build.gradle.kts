@@ -1,0 +1,9 @@
+plugins {
+    id("com.google.cloud.tools.jib")
+}
+
+dependencies {
+    // 모듈 의존성 추가
+    api(project(":domain"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+}
