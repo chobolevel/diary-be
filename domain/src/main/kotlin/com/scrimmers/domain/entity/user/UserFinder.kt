@@ -1,7 +1,7 @@
 package com.scrimmers.domain.entity.user
 
 import com.querydsl.core.types.OrderSpecifier
-import com.scrimmers.domain.Pagination
+import com.scrimmers.domain.dto.common.Pagination
 import com.scrimmers.domain.entity.user.QUser.user
 import com.scrimmers.domain.exception.DataNotFoundException
 import com.scrimmers.domain.exception.ErrorCode

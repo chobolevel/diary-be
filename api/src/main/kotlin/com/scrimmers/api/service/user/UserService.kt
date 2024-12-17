@@ -7,7 +7,7 @@ import com.scrimmers.api.dto.user.UserResponseDto
 import com.scrimmers.api.service.user.converter.UserConverter
 import com.scrimmers.api.service.user.updater.UserUpdater
 import com.scrimmers.api.service.user.validator.UserValidator
-import com.scrimmers.domain.Pagination
+import com.scrimmers.domain.dto.common.Pagination
 import com.scrimmers.domain.entity.user.UserFinder
 import com.scrimmers.domain.entity.user.UserOrderType
 import com.scrimmers.domain.entity.user.UserQueryFilter
