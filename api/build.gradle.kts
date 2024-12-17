@@ -27,9 +27,6 @@ dependencies {
     // Java JWT 라이브러리
     implementation("io.jsonwebtoken:jjwt:0.9.1")
 
-    // XML 문서의 Java 객체 간 매핑 자동화
-    implementation("javax.xml.bind:jaxb-api:2.3.1")
-
     // tsid
     implementation("io.hypersistence:hypersistence-utils-hibernate-60:3.7.3")
 }

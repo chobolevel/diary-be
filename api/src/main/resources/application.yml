@@ -1,5 +1,14 @@
 server:
   port: 8080
+  reactive:
+    session:
+      cookie:
+        path: "/"
+        max-age: 31536000
+        domain: localhost
+        secure: true
+        http-only: true
+        same-site: none
 
 logging:
   level:
@@ -38,6 +47,10 @@ spring:
     enabled: true
     baseline-version: 0
     out-of-order: true
+
+jwt:
+  issuer: ENC(e1Aco7xX3BcNC142nLMG5Mi9qBkR2chRK7Pj6AMmdEft+ZpeavpsUNz1H5CE0VuO)
+  secret: ENC(4b2Jr2fE0xxQap9Yn0osoRWrSx+9N6KbEwRHuxWTUH8AbNjy1PeJEYjPZynMw8xO)
 
 jasypt:
   encryptor:
