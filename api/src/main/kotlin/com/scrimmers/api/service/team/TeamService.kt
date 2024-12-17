@@ -8,11 +8,15 @@ import com.scrimmers.api.service.team.converter.TeamConverter
 import com.scrimmers.api.service.team.updater.TeamUpdater
 import com.scrimmers.api.service.team.validator.TeamValidator
 import com.scrimmers.domain.dto.common.Pagination
+import com.scrimmers.domain.entity.team.Team
 import com.scrimmers.domain.entity.team.TeamFinder
 import com.scrimmers.domain.entity.team.TeamOrderType
 import com.scrimmers.domain.entity.team.TeamQueryFilter
 import com.scrimmers.domain.entity.team.TeamRepository
 import com.scrimmers.domain.entity.user.UserFinder
+import com.scrimmers.domain.exception.ErrorCode
+import com.scrimmers.domain.exception.PolicyException
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -68,6 +72,10 @@ class TeamService(
             id = teamId,
             ownerId = userId
         )
+        validateOwner(
+            userId = userId,
+            team = team
+        )
         updater.markAsUpdate(
             request = request,
             entity = team
@@ -81,7 +89,21 @@ class TeamService(
             id = teamId,
             ownerId = userId
         )
+        validateOwner(
+            userId = userId,
+            team = team
+        )
         team.delete()
         return true
+    }
+
+    private fun validateOwner(userId: String, team: Team) {
+        if (team.owner!!.id != userId) {
+            throw PolicyException(
+                errorCode = ErrorCode.NO_ACCESS_EXCEPT_FOR_OWNER,
+                status = HttpStatus.BAD_REQUEST,
+                message = ErrorCode.NO_ACCESS_EXCEPT_FOR_OWNER.desc
+            )
+        }
     }
 }

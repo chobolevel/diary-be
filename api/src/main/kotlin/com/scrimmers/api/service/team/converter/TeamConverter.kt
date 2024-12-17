@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class TeamConverter(
-    private val userConverter: UserConverter
+    private val userConverter: UserConverter,
+    private val teamImageConverter: TeamImageConverter
 ) {
 
     fun convert(request: CreateTeamRequestDto): Team {
@@ -26,6 +27,7 @@ class TeamConverter(
             owner = userConverter.convert(entity.owner!!),
             name = entity.name,
             description = entity.description,
+            logo = teamImageConverter.convert(entity.teamImage),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli(),
         )
