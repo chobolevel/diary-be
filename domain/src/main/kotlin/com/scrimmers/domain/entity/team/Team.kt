@@ -1,44 +1,39 @@
-package com.scrimmers.domain.entity.user.image
+package com.scrimmers.domain.entity.team
 
 import com.scrimmers.domain.entity.BaseEntity
 import com.scrimmers.domain.entity.user.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToOne
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import org.hibernate.envers.Audited
 
 @Entity
-@Table(name = "users_images")
+@Table(name = "teams")
 @Audited
-class UserImage(
+class Team(
     @Id
     @Column(nullable = false, updatable = false)
     var id: String,
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    var type: UserImageType,
     @Column(nullable = false)
     var name: String,
     @Column(nullable = false)
-    var url: String
+    var description: String
 ) : BaseEntity() {
 
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    var user: User? = null
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    var owner: User? = null
 
     @Column(nullable = false)
     var deleted: Boolean = false
 
-    fun setBy(user: User) {
-        if (this.user != user) {
-            this.user = user
+    fun setBy(owner: User) {
+        if (this.owner != owner) {
+            this.owner = owner
         }
     }
 
@@ -47,12 +42,12 @@ class UserImage(
     }
 }
 
-enum class UserImageType {
-    PROFILE
+enum class TeamOrderType {
+    CREATED_AT_ASC,
+    CREATED_AT_DESC
 }
 
-enum class UserImageUpdateMask {
-    TYPE,
+enum class TeamUpdateMask {
     NAME,
-    URL
+    DESCRIPTION
 }
