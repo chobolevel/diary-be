@@ -21,5 +21,12 @@ enum class ErrorCode(val desc: String) {
     USER_PHONE_IS_ALREADY_EXISTS("이미 존재하는 전화번호입니다."),
 
     // USER IMAGE
-    USER_IMAGE_IS_NOT_FOUND("회원 이미지를 찾을 수 없습니다.")
+    USER_IMAGE_IS_NOT_FOUND("회원 이미지를 찾을 수 없습니다."),
+
+    // TEAM
+    TEAM_IS_NOT_FOUND("팁을 찾을 수 없습니다."),
+    NO_ACCESS_EXCEPT_FOR_OWNER("팁장 외 접근 불가"),
+
+    // TEAM IMAGE
+    TEAM_IMAGE_IS_NOT_FOUND("팀 이미지를 찾을 수 없습니다."),
 }

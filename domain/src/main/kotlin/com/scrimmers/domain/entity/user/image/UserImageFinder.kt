@@ -15,7 +15,7 @@ class UserImageFinder(
             userId = userId
         ) ?: throw DataNotFoundException(
             errorCode = ErrorCode.USER_IMAGE_IS_NOT_FOUND,
-            message = "이미지를 찾을 수 없습니다."
+            message = ErrorCode.USER_IMAGE_IS_NOT_FOUND.desc
         )
     }
 }

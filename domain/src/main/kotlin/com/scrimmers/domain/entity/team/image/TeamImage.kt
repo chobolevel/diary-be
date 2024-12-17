@@ -1,7 +1,7 @@
-package com.scrimmers.domain.entity.user.image
+package com.scrimmers.domain.entity.team.image
 
 import com.scrimmers.domain.entity.BaseEntity
-import com.scrimmers.domain.entity.user.User
+import com.scrimmers.domain.entity.team.Team
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -14,15 +14,15 @@ import jakarta.persistence.Table
 import org.hibernate.envers.Audited
 
 @Entity
-@Table(name = "users_images")
+@Table(name = "teams_images")
 @Audited
-class UserImage(
+class TeamImage(
     @Id
     @Column(nullable = false, updatable = false)
     var id: String,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    var type: UserImageType,
+    var type: TeamImageType,
     @Column(nullable = false)
     var name: String,
     @Column(nullable = false)
@@ -30,15 +30,15 @@ class UserImage(
 ) : BaseEntity() {
 
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    var user: User? = null
+    @JoinColumn(name = "team_id")
+    var team: Team? = null
 
     @Column(nullable = false)
     var deleted: Boolean = false
 
-    fun setBy(user: User) {
-        if (this.user != user) {
-            this.user = user
+    fun setBy(team: Team) {
+        if (this.team != team) {
+            this.team = team
         }
     }
 
@@ -47,11 +47,11 @@ class UserImage(
     }
 }
 
-enum class UserImageType {
-    PROFILE
+enum class TeamImageType {
+    LOGO
 }
 
-enum class UserImageUpdateMask {
+enum class TeamImageUpdateMask {
     TYPE,
     NAME,
     URL
