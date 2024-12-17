@@ -2,7 +2,7 @@ package com.scrimmers.domain.entity.user
 
 import com.querydsl.core.types.OrderSpecifier
 import com.querydsl.core.types.dsl.BooleanExpression
-import com.scrimmers.domain.Pagination
+import com.scrimmers.domain.dto.common.Pagination
 import com.scrimmers.domain.entity.user.QUser.user
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository

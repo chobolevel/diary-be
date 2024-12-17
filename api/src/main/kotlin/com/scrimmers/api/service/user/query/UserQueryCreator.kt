@@ -1,6 +1,6 @@
 package com.scrimmers.api.service.user.query
 
-import com.scrimmers.domain.Pagination
+import com.scrimmers.domain.dto.common.Pagination
 import com.scrimmers.domain.entity.user.UserLoginType
 import com.scrimmers.domain.entity.user.UserQueryFilter
 import com.scrimmers.domain.entity.user.UserRoleType

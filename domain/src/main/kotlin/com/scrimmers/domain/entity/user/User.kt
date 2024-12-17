@@ -1,12 +1,16 @@
 package com.scrimmers.domain.entity.user
 
 import com.scrimmers.domain.entity.BaseEntity
+import com.scrimmers.domain.entity.user.image.UserImage
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
+import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 
 @Entity
@@ -36,6 +40,10 @@ class User(
 
     @Column(nullable = false)
     var resigned: Boolean = false
+
+    @OneToOne(mappedBy = "user", cascade = [(CascadeType.ALL)], orphanRemoval = true)
+    @Where(clause = "deleted = false")
+    var userImage: UserImage? = null
 
     fun resign() {
         this.resigned = true
