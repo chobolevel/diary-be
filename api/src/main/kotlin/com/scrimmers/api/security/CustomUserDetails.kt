@@ -1,6 +1,7 @@
 package com.scrimmers.api.security
 
 import com.scrimmers.domain.entity.user.User
+import com.scrimmers.domain.entity.user.UserLoginType
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
@@ -14,11 +15,14 @@ class CustomUserDetails(
     }
 
     override fun getPassword(): String {
-        return user.password ?: ""
+        return when (user.loginType) {
+            UserLoginType.GENERAL -> user.password!!
+            else -> user.socialId!!
+        }
     }
 
     override fun getUsername(): String {
-        return user.email
+        return user.id
     }
 
     override fun isAccountNonExpired(): Boolean {

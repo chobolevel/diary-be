@@ -1,5 +1,14 @@
 server:
   port: 8080
+  reactive:
+    session:
+      cookie:
+        path: "/"
+        max-age: 31536000
+        domain: localhost
+        secure: true
+        http-only: true
+        same-site: none
 
 logging:
   level:
@@ -39,6 +48,10 @@ spring:
     baseline-version: 0
     out-of-order: true
 
+jwt:
+  issuer: ENC(e1Aco7xX3BcNC142nLMG5Mi9qBkR2chRK7Pj6AMmdEft+ZpeavpsUNz1H5CE0VuO)
+  secret: ENC(4b2Jr2fE0xxQap9Yn0osoRWrSx+9N6KbEwRHuxWTUH8AbNjy1PeJEYjPZynMw8xO)
+
 jasypt:
   encryptor:
     algorithm: PBEWITHHMACSHA512ANDAES_256
@@ -54,3 +67,13 @@ redis:
     host: localhost
     port: 6379
     password:
+
+cloud:
+  aws:
+    s3:
+      bucket: "chobolevel"
+    stack.auto: false
+    region.static: "ap-northeast-2"
+    credentials:
+      accessKey: ENC(3z3tgBF1xcckNt0nePUL8V7XTTp9RZtu4Pa49u0nXaq6uJnoW9FoNsqmq9A90nQm+F4yjB16DePfoewGeK3xoA==)
+      secretKey: ENC(s9Ac1p97z4ZUodOFwnQ3oWl74FX7CHeKWrvIhjiqRXVQwkKAZkXQKamUKaFxej5HMKzVazRVxzJ6AIleyh5rZIs+6NnGZpq8pt63UbSNMxc=)

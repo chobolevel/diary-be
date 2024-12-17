@@ -14,7 +14,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-class WebConfiguration {
+class WebConfiguration(
+    private val authManager: CustomAuthenticationManager,
+    private val tokenProvider: TokenProvider
+) {
 
     @Bean
     @Throws(Exception::class)
@@ -60,6 +63,12 @@ class WebConfiguration {
                     .requestMatchers("/api/**").permitAll()
                     .anyRequest().permitAll()
             }
+            .addFilter(
+                JwtAuthorizationFilter(
+                    authManager = authManager,
+                    tokenProvider = tokenProvider
+                )
+            )
             .build()
     }
 }
