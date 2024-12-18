@@ -14,7 +14,7 @@ import jakarta.persistence.Table
 import org.hibernate.envers.Audited
 
 @Entity
-@Table(name = "users_images")
+@Table(name = "user_images")
 @Audited
 class UserImage(
     @Id
