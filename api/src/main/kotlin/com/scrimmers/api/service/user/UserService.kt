@@ -3,7 +3,7 @@ package com.scrimmers.api.service.user
 import com.scrimmers.api.dto.common.PaginationResponseDto
 import com.scrimmers.api.dto.user.CreateUserRequestDto
 import com.scrimmers.api.dto.user.UpdateUserRequestDto
-import com.scrimmers.api.dto.user.UserResponseDto
+import com.scrimmers.api.dto.user.UserDetailResponseDto
 import com.scrimmers.api.service.user.converter.UserConverter
 import com.scrimmers.api.service.user.updater.UserUpdater
 import com.scrimmers.api.service.user.validator.UserValidator
@@ -52,9 +52,9 @@ class UserService(
     }
 
     @Transactional(readOnly = true)
-    fun getUser(id: String): UserResponseDto {
+    fun getUser(id: String): UserDetailResponseDto {
         val user = finder.findById(id)
-        return converter.convert(user)
+        return converter.convertForDetail(user)
     }
 
     @Transactional

@@ -1,4 +1,4 @@
-create table scrimmers.users_images
+create table scrimmers.user_images
 (
   id         varchar(13)  not null
     primary key,
@@ -13,7 +13,7 @@ create table scrimmers.users_images
     foreign key (user_id) references scrimmers.users (id)
 ) comment '회원 이미지 테이블';
 
-create table scrimmers.users_images_histories
+create table scrimmers.user_images_histories
 (
   id            varchar(13)  not null,
   revision_id   bigint       not null,

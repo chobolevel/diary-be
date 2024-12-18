@@ -39,7 +39,7 @@ data class DataNotFoundException(
 
 data class ParameterInvalidException(
     override val errorCode: ErrorCode,
-    override val status: HttpStatus,
+    override val status: HttpStatus = HttpStatus.BAD_REQUEST,
     override val message: String,
     override val throwable: Throwable? = null
 ) : ApiException(errorCode, status, message, throwable)

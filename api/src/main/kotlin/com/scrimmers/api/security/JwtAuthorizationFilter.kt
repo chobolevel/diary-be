@@ -15,11 +15,11 @@ class JwtAuthorizationFilter(
 
     @Throws(IOException::class, ServletException::class, AccessDeniedException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-        val accessToken = request.cookies.find { it.name == "_sat" }
-        if (accessToken == null) {
+        if (request.cookies.isNullOrEmpty() || request.cookies.find { it.name == "_sat" } == null) {
             chain.doFilter(request, response)
             return
         }
+        val accessToken = request.cookies.find { it.name == "_sat" }!!
         tokenProvider.getAuthentication(accessToken.value).also {
             SecurityContextHolder.getContext().authentication = it
         }

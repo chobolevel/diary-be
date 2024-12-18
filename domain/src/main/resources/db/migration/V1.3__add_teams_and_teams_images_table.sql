@@ -26,7 +26,7 @@ create table scrimmers.teams_histories
   primary key (id, revision_id)
 ) comment '회원 소속팀 내역 테이블';
 
-create table scrimmers.teams_images
+create table scrimmers.team_images
 (
   id         varchar(13)  not null
     primary key,
@@ -41,7 +41,7 @@ create table scrimmers.teams_images
     foreign key (team_id) references scrimmers.teams (id)
 ) comment '팀 이미지 테이블';
 
-create table scrimmers.teams_images_histories
+create table scrimmers.team_images_histories
 (
   id            varchar(13)  not null,
   revision_id   bigint       not null,

@@ -1,13 +1,18 @@
 package com.scrimmers.domain.entity.user
 
 import com.scrimmers.domain.entity.BaseEntity
+import com.scrimmers.domain.entity.team.Team
 import com.scrimmers.domain.entity.user.image.UserImage
+import com.scrimmers.domain.entity.user.summoner.UserSummoner
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
+import jakarta.persistence.FetchType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import org.hibernate.annotations.Where
@@ -38,12 +43,26 @@ class User(
     var role: UserRoleType
 ) : BaseEntity() {
 
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    var team: Team? = null
+
     @Column(nullable = false)
     var resigned: Boolean = false
 
     @OneToOne(mappedBy = "user", cascade = [(CascadeType.ALL)], orphanRemoval = true)
     @Where(clause = "deleted = false")
     var userImage: UserImage? = null
+
+    @OneToMany(mappedBy = "user", cascade = [(CascadeType.ALL)], orphanRemoval = true)
+    @Where(clause = "deleted = false")
+    var summoners = mutableListOf<UserSummoner>()
+
+    fun setBy(team: Team) {
+        if (this.team != team) {
+            this.team = team
+        }
+    }
 
     fun resign() {
         this.resigned = true

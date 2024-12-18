@@ -36,7 +36,9 @@ class TeamService(
         val team = converter.convert(request).also {
             it.setBy(user)
         }
-        return repository.save(team).id
+        val savedTeam = repository.save(team)
+        user.setBy(savedTeam)
+        return savedTeam.id
     }
 
     @Transactional(readOnly = true)
