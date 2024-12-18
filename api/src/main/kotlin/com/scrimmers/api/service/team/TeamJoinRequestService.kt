@@ -42,6 +42,7 @@ class TeamJoinRequestService(
             it.setBy(team)
             it.setBy(user)
         }
+        user.setBy(team)
         return repository.save(teamJoinRequest).id
     }
 
@@ -96,7 +97,7 @@ class TeamJoinRequestService(
         )
         validateStatus(teamJoinRequest)
         teamJoinRequest.status = TeamJoinRequestStatus.APPROVED
-        // TODO 여기서 팀에 멤버 넣는 작업 필요
+        teamJoinRequest.user!!.setBy(teamJoinRequest.team!!)
         return teamJoinRequest.id
     }
 

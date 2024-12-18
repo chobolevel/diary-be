@@ -2,6 +2,7 @@ package com.scrimmers.api.dto.user
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
+import com.scrimmers.api.dto.team.TeamResponseDto
 import com.scrimmers.api.dto.user.image.UserImageResponseDto
 import com.scrimmers.api.dto.user.summoner.UserSummonerResponseDto
 import com.scrimmers.domain.entity.user.UserLoginType
@@ -23,6 +24,7 @@ data class UserResponseDto(
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UserDetailResponseDto(
     val id: String,
+    val team: TeamResponseDto?,
     val email: String,
     val loginType: UserLoginType,
     val nickname: String,
