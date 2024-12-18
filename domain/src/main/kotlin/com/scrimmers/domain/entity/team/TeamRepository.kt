@@ -7,4 +7,6 @@ interface TeamRepository : JpaRepository<Team, String> {
     fun findByIdAndDeletedFalse(id: String): Team?
 
     fun findByIdAndOwnerIdAndDeletedFalse(id: String, ownerId: String): Team?
+
+    fun existsByNameAndDeletedFalse(name: String): Boolean
 }
