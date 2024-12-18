@@ -24,6 +24,10 @@ enum class ErrorCode(val desc: String) {
     // USER IMAGE
     USER_IMAGE_IS_NOT_FOUND("회원 이미지를 찾을 수 없습니다."),
 
+    // USER SUMMONER
+    USER_SUMMONER_IS_NOT_FOUND("회원 소환사 정보를 찾을 수 없습니다."),
+    ONLY_ACCESS_FOR_USER_SUMMONER_OWNER("회원 소환사 정보를 등록한 회원만 접근할 수 있습니다."),
+
     // TEAM
     TEAM_IS_NOT_FOUND("팁을 찾을 수 없습니다."),
     NO_ACCESS_EXCEPT_FOR_OWNER("팁장 외 접근 불가"),
