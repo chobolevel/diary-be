@@ -2,6 +2,7 @@ create table scrimmers.users
 (
   id         varchar(13)  not null
     primary key,
+  team_id    varchar(13) null,
   email      varchar(255) not null,
   password   varchar(255) null,
   social_id  varchar(255) null,
@@ -11,7 +12,9 @@ create table scrimmers.users
   role       varchar(100) not null,
   resigned   bit          not null,
   created_at datetime     not null,
-  updated_at datetime     not null
+  updated_at datetime not null,
+  constraint users_teams_id_fk
+    foreign key (team_id) references scrimmers.teams (id)
 ) comment '회원 테이블';
 
 create index users_email_login_type_index
@@ -25,6 +28,7 @@ create table scrimmers.users_histories
   id            varchar(13)  not null,
   revision_id   bigint       not null,
   revision_type tinyint      not null,
+  team_id varchar(13) null,
   email         varchar(255) not null,
   password      varchar(255) null,
   social_id     varchar(255) null,
