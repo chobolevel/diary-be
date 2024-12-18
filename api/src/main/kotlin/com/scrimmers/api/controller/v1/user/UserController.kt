@@ -46,6 +46,7 @@ class UserController(
     @Operation(summary = "회원 목록 조회 API")
     @GetMapping("/users")
     fun getUsers(
+        @RequestParam(required = false) teamId: String?,
         @RequestParam(required = false) loginType: UserLoginType?,
         @RequestParam(required = false) role: UserRoleType?,
         @RequestParam(required = false) resigned: Boolean?,
@@ -54,6 +55,7 @@ class UserController(
         @RequestParam(required = false) orderTypes: List<UserOrderType>?
     ): ResponseEntity<ResultResponse> {
         val queryFilter = queryCreator.createQueryFilter(
+            teamId = teamId,
             loginType = loginType,
             role = role,
             resigned = resigned

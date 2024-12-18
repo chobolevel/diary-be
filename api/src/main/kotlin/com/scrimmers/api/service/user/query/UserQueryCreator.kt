@@ -9,8 +9,14 @@ import org.springframework.stereotype.Component
 @Component
 class UserQueryCreator {
 
-    fun createQueryFilter(loginType: UserLoginType?, role: UserRoleType?, resigned: Boolean?): UserQueryFilter {
+    fun createQueryFilter(
+        teamId: String?,
+        loginType: UserLoginType?,
+        role: UserRoleType?,
+        resigned: Boolean?
+    ): UserQueryFilter {
         return UserQueryFilter(
+            teamId = teamId,
             loginType = loginType,
             role = role,
             resigned = resigned
