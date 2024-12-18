@@ -27,6 +27,7 @@ enum class ErrorCode(val desc: String) {
     // USER SUMMONER
     USER_SUMMONER_IS_NOT_FOUND("회원 소환사 정보를 찾을 수 없습니다."),
     ONLY_ACCESS_FOR_USER_SUMMONER_OWNER("회원 소환사 정보를 등록한 회원만 접근할 수 있습니다."),
+    USER_SUMMONER_IS_ALREADY_EXISTS("이미 다른 회원이 등록한 소환사 정보입니다."),
 
     // TEAM
     TEAM_IS_NOT_FOUND("팁을 찾을 수 없습니다."),

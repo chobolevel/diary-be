@@ -21,6 +21,13 @@ class UserSummonerService(
     @Transactional
     fun create(userId: String, request: CreateUserSummonerRequestDto): String {
         val user = userFinder.findById(userId)
+        val isExists = finder.existsBySummonerId(request.summonerId)
+        if (isExists) {
+            throw PolicyException(
+                errorCode = ErrorCode.USER_SUMMONER_IS_ALREADY_EXISTS,
+                message = ErrorCode.USER_SUMMONER_IS_ALREADY_EXISTS.desc
+            )
+        }
         val userSummoner = converter.convert(request).also {
             it.setBy(user)
         }

@@ -17,4 +17,8 @@ class UserSummonerFinder(
             message = ErrorCode.USER_SUMMONER_IS_NOT_FOUND.desc
         )
     }
+
+    fun existsBySummonerId(summonerId: String): Boolean {
+        return repository.existsBySummonerIdAndDeletedFalse(summonerId)
+    }
 }
