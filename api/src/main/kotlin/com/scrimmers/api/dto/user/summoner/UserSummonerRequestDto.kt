@@ -3,8 +3,10 @@ package com.scrimmers.api.dto.user.summoner
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.scrimmers.domain.entity.user.summoner.SummonerRank
+import com.scrimmers.domain.entity.user.summoner.UserSummonerUpdateMask
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class CreateUserSummonerRequestDto(
@@ -20,4 +22,12 @@ data class CreateUserSummonerRequestDto(
     val summonerIconUrl: String,
     val summonerSoloRank: SummonerRank?,
     val summonerFlexRank: SummonerRank?,
+)
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+data class UpdateUserSummonerRequestDto(
+    val summonerSoloRank: SummonerRank?,
+    val summonerFlexRank: SummonerRank?,
+    @field:Size(min = 1, message = "update_mask는 필수 값입니다.")
+    val updateMask: List<UserSummonerUpdateMask>
 )

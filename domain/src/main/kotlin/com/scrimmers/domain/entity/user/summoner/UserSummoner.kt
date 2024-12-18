@@ -69,3 +69,8 @@ enum class SummonerRank {
     GRAND_MASTER,
     CHALLENGER
 }
+
+enum class UserSummonerUpdateMask {
+    SUMMONER_SOLO_RANK,
+    SUMMONER_FLEX_RANK
+}
