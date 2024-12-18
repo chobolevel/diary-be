@@ -6,6 +6,7 @@ enum class ErrorCode(val desc: String) {
 
     // AUTH
     BAD_CREDENTIALS("사용자 인증에 실패하였습니다."),
+    FORBIDDEN("엑세스 권한 없음"),
 
     // JWT
     EXPIRED_TOKEN("만료된 토큰입니다."),
@@ -29,4 +30,9 @@ enum class ErrorCode(val desc: String) {
 
     // TEAM IMAGE
     TEAM_IMAGE_IS_NOT_FOUND("팀 이미지를 찾을 수 없습니다."),
+
+    // TEAM JOIN REQUEST
+    TEAM_JOIN_REQUEST_IS_NOT_FOUND("팀 합류 요청을 찾을 수 없습니다."),
+    NO_ACCESS_EXCEPT_FOR_REQUESTER("요청자 외 접근 불가"),
+    TEAM_JOIN_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 팀 합류 요청입니다.")
 }

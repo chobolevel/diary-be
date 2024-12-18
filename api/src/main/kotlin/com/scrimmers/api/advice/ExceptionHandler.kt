@@ -15,6 +15,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class ExceptionHandler {
 
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException::class)
+    fun accessDeniedExceptionHandler(e: org.springframework.security.access.AccessDeniedException): ResponseEntity<ErrorResponse> {
+        val errorResponse = ErrorResponse(
+            errorCode = ErrorCode.FORBIDDEN,
+            errorMessage = ErrorCode.FORBIDDEN.desc
+        )
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse)
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun httpMessageNotReadableExceptionHandler(e: HttpMessageNotReadableException): ResponseEntity<ErrorResponse> {
         val errorResponse = ErrorResponse(
