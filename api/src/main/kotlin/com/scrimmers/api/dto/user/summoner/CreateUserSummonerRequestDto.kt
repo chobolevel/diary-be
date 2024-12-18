@@ -2,6 +2,7 @@ package com.scrimmers.api.dto.user.summoner
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
+import com.scrimmers.domain.entity.user.summoner.SummonerRank
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 
@@ -16,5 +17,7 @@ data class CreateUserSummonerRequestDto(
     @field:NotNull(message = "소환사 레벨은 필수 값입니다.")
     val summonerLevel: Int,
     @field:NotEmpty(message = "소환사 아이콘 경로는 필수 값입니다.")
-    val summonerIconUrl: String
+    val summonerIconUrl: String,
+    val summonerSoloRank: SummonerRank?,
+    val summonerFlexRank: SummonerRank?,
 )

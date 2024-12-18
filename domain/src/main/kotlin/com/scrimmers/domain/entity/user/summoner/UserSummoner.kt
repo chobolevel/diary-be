@@ -4,6 +4,8 @@ import com.scrimmers.domain.entity.BaseEntity
 import com.scrimmers.domain.entity.user.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
@@ -28,6 +30,12 @@ class UserSummoner(
     var summonerLevel: Int,
     @Column(nullable = false, updatable = false)
     var summonerIconUrl: String,
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    var summonerSoloRank: SummonerRank,
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    var summonerFlexRank: SummonerRank
 ) : BaseEntity() {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -46,4 +54,18 @@ class UserSummoner(
     fun delete() {
         this.deleted = true
     }
+}
+
+enum class SummonerRank {
+    NONE,
+    IRON,
+    BRONZE,
+    SILVER,
+    GOLD,
+    PLATINUM,
+    EMERALD,
+    DIAMOND,
+    MASTER,
+    GRAND_MASTER,
+    CHALLENGER
 }
