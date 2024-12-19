@@ -13,6 +13,8 @@ class UserUpdater {
             when (it) {
                 UserUpdateMask.NICKNAME -> entity.nickname = request.nickname!!
                 UserUpdateMask.PHONE -> entity.phone = request.phone!!
+                UserUpdateMask.BIRTH -> entity.birth = request.birth!!
+                UserUpdateMask.GENDER -> entity.gender = request.gender!!
             }
         }
         return entity

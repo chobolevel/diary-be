@@ -30,6 +30,8 @@ class UserConverter(
                     loginType = request.loginType,
                     nickname = request.nickname,
                     phone = request.phone,
+                    birth = request.birth,
+                    gender = request.gender,
                     role = UserRoleType.ROLE_USER,
                 )
             }
@@ -43,6 +45,8 @@ class UserConverter(
                     loginType = request.loginType,
                     nickname = request.nickname,
                     phone = request.phone,
+                    birth = request.birth,
+                    gender = request.gender,
                     role = UserRoleType.ROLE_USER,
                 )
             }
@@ -56,6 +60,8 @@ class UserConverter(
             loginType = entity.loginType,
             nickname = entity.nickname,
             phone = entity.phone,
+            birth = entity.birth,
+            gender = entity.gender,
             role = entity.role,
             profileImage = userImageConverter.convert(entity.userImage),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
@@ -71,6 +77,8 @@ class UserConverter(
             loginType = entity.loginType,
             nickname = entity.nickname,
             phone = entity.phone,
+            birth = entity.birth,
+            gender = entity.gender,
             role = entity.role,
             profileImage = userImageConverter.convert(entity.userImage),
             summoners = entity.summoners.map { userSummonerConverter.convert(it) },

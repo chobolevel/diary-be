@@ -9,10 +9,12 @@ create table scrimmers.users
   login_type varchar(100) not null,
   nickname   varchar(100) not null,
   phone      varchar(100) not null,
+  birth      date        not null,
+  gender     varchar(10) not null,
   role       varchar(100) not null,
   resigned   bit          not null,
   created_at datetime     not null,
-  updated_at datetime not null,
+  updated_at datetime    not null,
   constraint users_teams_id_fk
     foreign key (team_id) references scrimmers.teams (id)
 ) comment '회원 테이블';
@@ -35,6 +37,8 @@ create table scrimmers.users_histories
   login_type    varchar(100) not null,
   nickname      varchar(100) not null,
   phone         varchar(100) not null,
+  birth   date        not null,
+  gender  varchar(10) not null,
   role          varchar(100) not null,
   resigned      bit          not null,
   created_at    datetime     not null,
