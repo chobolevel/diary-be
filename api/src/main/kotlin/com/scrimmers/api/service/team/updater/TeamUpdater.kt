@@ -13,6 +13,7 @@ class TeamUpdater {
             when (it) {
                 TeamUpdateMask.NAME -> entity.name = request.name!!
                 TeamUpdateMask.DESCRIPTION -> entity.description = request.description!!
+                TeamUpdateMask.MAX_HEAD_COUNT -> entity.maxHeadCount = request.maxHeadCount!!
             }
         }
         return entity

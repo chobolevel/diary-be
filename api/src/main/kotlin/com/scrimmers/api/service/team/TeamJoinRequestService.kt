@@ -98,6 +98,7 @@ class TeamJoinRequestService(
         validateStatus(teamJoinRequest)
         teamJoinRequest.status = TeamJoinRequestStatus.APPROVED
         teamJoinRequest.user!!.setBy(teamJoinRequest.team!!)
+        teamJoinRequest.team!!.increaseHeadCount()
         return teamJoinRequest.id
     }
 

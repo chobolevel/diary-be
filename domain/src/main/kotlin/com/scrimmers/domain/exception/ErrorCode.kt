@@ -33,6 +33,7 @@ enum class ErrorCode(val desc: String) {
     // TEAM
     TEAM_IS_NOT_FOUND("팁을 찾을 수 없습니다."),
     NO_ACCESS_EXCEPT_FOR_OWNER("팁장 외 접근 불가"),
+    TEAM_MAX_HEAD_COUNT_IS_OVER("팀 최대 인원이 찼습니다."),
 
     // TEAM IMAGE
     TEAM_IMAGE_IS_NOT_FOUND("팀 이미지를 찾을 수 없습니다."),

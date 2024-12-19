@@ -16,6 +16,8 @@ class TeamConverter(
             id = TSID.fast().toString(),
             name = request.name,
             description = request.description,
+            headCount = 1,
+            maxHeadCount = request.maxHeadCount
         )
     }
 
@@ -26,6 +28,8 @@ class TeamConverter(
             ownerNickname = entity.owner!!.nickname,
             name = entity.name,
             description = entity.description,
+            headCount = entity.headCount,
+            maxHeadCount = entity.maxHeadCount,
             logo = teamImageConverter.convert(entity.teamImage),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli(),
