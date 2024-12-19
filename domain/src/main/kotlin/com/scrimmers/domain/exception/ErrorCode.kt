@@ -47,4 +47,11 @@ enum class ErrorCode(val desc: String) {
     TEAM_LEAVE_REQUEST_IS_ONLY_FOR_TEAM_MEMBER("팀 탈퇴 요청은 팀원만 가능합니다."),
     TEAM_LEAVE_REQUEST_IS_NOT_FOUND("팀 탈퇴 요청을 찾을 수 없습니다."),
     TEAM_LEAVE_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 팀 탈퇴 요청입니다."),
+
+    // SCRIM
+    SCRIM_IS_NOT_FOUND("스크림 정보를 찾을 수 없습니다."),
+
+    // SCRIM REQUEST
+    SCRIM_REQUEST_IS_NOT_FOUND("스크림 요청을 찾을 수 없습니다."),
+    SCRIM_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 스크림 요청입니다.")
 }
