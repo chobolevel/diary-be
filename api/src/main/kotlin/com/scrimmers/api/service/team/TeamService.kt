@@ -32,6 +32,7 @@ class TeamService(
 
     @Transactional
     fun create(userId: String, request: CreateTeamRequestDto): String {
+        validator.validate(request)
         val user = userFinder.findById(userId)
         val isExists = finder.existsByName(request.name.lowercase())
         if (isExists) {

@@ -25,7 +25,11 @@ class Team(
     @Column(nullable = false)
     var name: String,
     @Column(nullable = false)
-    var description: String
+    var description: String,
+    @Column(nullable = false)
+    var headCount: Int,
+    @Column(nullable = false)
+    var maxHeadCount: Int,
 ) : BaseEntity() {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -38,6 +42,14 @@ class Team(
     @OneToOne(mappedBy = "team", cascade = [CascadeType.ALL], orphanRemoval = true)
     @Where(clause = "deleted = false")
     var teamImage: TeamImage? = null
+
+    fun increaseHeadCount() {
+        this.headCount += 1
+    }
+
+    fun decreaseHeadCount() {
+        this.headCount -= 1
+    }
 
     fun setBy(owner: User) {
         if (this.owner != owner) {
@@ -57,5 +69,6 @@ enum class TeamOrderType {
 
 enum class TeamUpdateMask {
     NAME,
-    DESCRIPTION
+    DESCRIPTION,
+    MAX_HEAD_COUNT
 }

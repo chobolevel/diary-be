@@ -78,6 +78,10 @@ class User(
         }
     }
 
+    fun leaveTeam() {
+        this.team = null
+    }
+
     fun resign() {
         this.resigned = true
     }

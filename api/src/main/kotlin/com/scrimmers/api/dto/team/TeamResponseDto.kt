@@ -11,6 +11,8 @@ data class TeamResponseDto(
     val ownerNickname: String,
     val name: String,
     val description: String,
+    val headCount: Int,
+    val maxHeadCount: Int,
     val logo: TeamImageResponseDto?,
     val createdAt: Long,
     val updatedAt: Long,
