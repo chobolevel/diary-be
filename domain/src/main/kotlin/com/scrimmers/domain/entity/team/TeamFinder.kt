@@ -32,6 +32,10 @@ class TeamFinder(
         )
     }
 
+    fun existsByName(name: String): Boolean {
+        return repository.existsByNameAndDeletedFalse(name)
+    }
+
     fun search(queryFilter: TeamQueryFilter, pagination: Pagination, orderTypes: List<TeamOrderType>?): List<Team> {
         return customRepository.searchByPredicates(
             booleanExpressions = queryFilter.toBooleanExpressions(),

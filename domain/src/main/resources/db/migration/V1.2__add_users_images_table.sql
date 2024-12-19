@@ -9,7 +9,7 @@ create table scrimmers.user_images
   deleted    bit          not null,
   created_at datetime     not null,
   updated_at datetime     not null,
-  constraint users_images_users_id_fk
+  constraint user_images_users_id_fk
     foreign key (user_id) references scrimmers.users (id)
 ) comment '회원 이미지 테이블';
 

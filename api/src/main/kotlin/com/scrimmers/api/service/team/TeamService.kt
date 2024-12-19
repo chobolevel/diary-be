@@ -33,6 +33,13 @@ class TeamService(
     @Transactional
     fun create(userId: String, request: CreateTeamRequestDto): String {
         val user = userFinder.findById(userId)
+        val isExists = finder.existsByName(request.name.lowercase())
+        if (isExists) {
+            throw PolicyException(
+                errorCode = ErrorCode.PARAMETER_INVALID,
+                message = "이미 존재하는 팀명입니다."
+            )
+        }
         val team = converter.convert(request).also {
             it.setBy(user)
         }

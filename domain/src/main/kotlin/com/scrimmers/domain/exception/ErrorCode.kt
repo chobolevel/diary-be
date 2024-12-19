@@ -6,6 +6,7 @@ enum class ErrorCode(val desc: String) {
 
     // AUTH
     BAD_CREDENTIALS("사용자 인증에 실패하였습니다."),
+    UNAUTHORIZED("인증되지 않은 사용자입니다."),
     FORBIDDEN("엑세스 권한 없음"),
 
     // JWT

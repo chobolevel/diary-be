@@ -18,10 +18,10 @@ class ExceptionHandler {
     @ExceptionHandler(org.springframework.security.access.AccessDeniedException::class)
     fun accessDeniedExceptionHandler(e: org.springframework.security.access.AccessDeniedException): ResponseEntity<ErrorResponse> {
         val errorResponse = ErrorResponse(
-            errorCode = ErrorCode.FORBIDDEN,
-            errorMessage = ErrorCode.FORBIDDEN.desc
+            errorCode = ErrorCode.UNAUTHORIZED,
+            errorMessage = ErrorCode.UNAUTHORIZED.desc
         )
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse)
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse)
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)

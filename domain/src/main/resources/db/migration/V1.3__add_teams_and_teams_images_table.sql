@@ -37,7 +37,7 @@ create table scrimmers.team_images
   deleted    bit          not null,
   created_at datetime     not null,
   updated_at datetime null,
-  constraint teams_images_teams_id_fk
+  constraint team_images_teams_id_fk
     foreign key (team_id) references scrimmers.teams (id)
 ) comment '팀 이미지 테이블';
 
@@ -52,7 +52,7 @@ create table scrimmers.team_images_histories
   url           varchar(255) not null,
   deleted       bit          not null,
   created_at    datetime     not null,
-  updated_at    datetime null,
+  updated_at datetime null,
   primary key (id, revision_id)
 ) comment '팀 이미지 내역 테이블';
 
