@@ -118,11 +118,11 @@ class TeamJoinRequestService(
     @Transactional
     fun delete(userId: String, teamJoinRequestId: String): Boolean {
         val teamJoinRequest = finder.findById(teamJoinRequestId)
+        validateStatus(teamJoinRequest)
         validateRequester(
             userId = userId,
             teamJoinRequest = teamJoinRequest
         )
-        validateStatus(teamJoinRequest)
         teamJoinRequest.delete()
         return true
     }

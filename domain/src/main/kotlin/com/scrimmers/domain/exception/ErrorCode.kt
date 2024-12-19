@@ -39,7 +39,12 @@ enum class ErrorCode(val desc: String) {
     TEAM_IMAGE_IS_NOT_FOUND("팀 이미지를 찾을 수 없습니다."),
 
     // TEAM JOIN REQUEST
-    TEAM_JOIN_REQUEST_IS_NOT_FOUND("팀 합류 요청을 찾을 수 없습니다."),
     NO_ACCESS_EXCEPT_FOR_REQUESTER("요청자 외 접근 불가"),
-    TEAM_JOIN_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 팀 합류 요청입니다.")
+    TEAM_JOIN_REQUEST_IS_NOT_FOUND("팀 합류 요청을 찾을 수 없습니다."),
+    TEAM_JOIN_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 팀 합류 요청입니다."),
+
+    // TEAM LEAVE REQUEST
+    TEAM_LEAVE_REQUEST_IS_ONLY_FOR_TEAM_MEMBER("팀 탈퇴 요청은 팀원만 가능합니다."),
+    TEAM_LEAVE_REQUEST_IS_NOT_FOUND("팀 탈퇴 요청을 찾을 수 없습니다."),
+    TEAM_LEAVE_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 팀 탈퇴 요청입니다."),
 }
