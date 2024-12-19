@@ -10,6 +10,8 @@ import com.scrimmers.domain.entity.user.UserRoleType
 import io.hypersistence.tsid.TSID
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
+import java.time.LocalDate
+import java.time.Period
 
 @Component
 class UserConverter(
@@ -30,6 +32,8 @@ class UserConverter(
                     loginType = request.loginType,
                     nickname = request.nickname,
                     phone = request.phone,
+                    birth = request.birth,
+                    gender = request.gender,
                     role = UserRoleType.ROLE_USER,
                 )
             }
@@ -43,6 +47,8 @@ class UserConverter(
                     loginType = request.loginType,
                     nickname = request.nickname,
                     phone = request.phone,
+                    birth = request.birth,
+                    gender = request.gender,
                     role = UserRoleType.ROLE_USER,
                 )
             }
@@ -56,6 +62,11 @@ class UserConverter(
             loginType = entity.loginType,
             nickname = entity.nickname,
             phone = entity.phone,
+            age = Period.between(entity.birth, LocalDate.now()).years,
+            birth = entity.birth,
+            gender = entity.gender,
+            mainPosition = entity.mainPosition,
+            subPosition = entity.subPosition,
             role = entity.role,
             profileImage = userImageConverter.convert(entity.userImage),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
@@ -71,6 +82,11 @@ class UserConverter(
             loginType = entity.loginType,
             nickname = entity.nickname,
             phone = entity.phone,
+            age = Period.between(entity.birth, LocalDate.now()).years,
+            birth = entity.birth,
+            gender = entity.gender,
+            mainPosition = entity.mainPosition,
+            subPosition = entity.subPosition,
             role = entity.role,
             profileImage = userImageConverter.convert(entity.userImage),
             summoners = entity.summoners.map { userSummonerConverter.convert(it) },

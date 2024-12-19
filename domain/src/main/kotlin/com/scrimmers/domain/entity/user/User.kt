@@ -17,6 +17,7 @@ import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
+import java.time.LocalDate
 
 @Entity
 @Table(name = "users")
@@ -38,6 +39,11 @@ class User(
     var nickname: String,
     @Column(nullable = false)
     var phone: String,
+    @Column(nullable = false)
+    var birth: LocalDate,
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    var gender: UserGenderType,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     var role: UserRoleType
@@ -46,6 +52,14 @@ class User(
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     var team: Team? = null
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    var mainPosition: UserPositionType = UserPositionType.NONE
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    var subPosition: UserPositionType = UserPositionType.NONE
 
     @Column(nullable = false)
     var resigned: Boolean = false
@@ -83,6 +97,20 @@ enum class UserLoginType {
     }
 }
 
+enum class UserGenderType {
+    MALE,
+    FEMALE
+}
+
+enum class UserPositionType {
+    NONE,
+    TOP,
+    JUNGLE,
+    MID,
+    BOTTOM,
+    SUPPORT
+}
+
 enum class UserRoleType {
     ROLE_USER,
     ROLE_ADMIN
@@ -95,5 +123,9 @@ enum class UserOrderType {
 
 enum class UserUpdateMask {
     NICKNAME,
-    PHONE
+    PHONE,
+    BIRTH,
+    GENDER,
+    MAIN_POSITION,
+    SUB_POSITION
 }

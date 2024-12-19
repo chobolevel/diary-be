@@ -72,6 +72,46 @@ class UserValidator(
                     }
                     validatePhone(request.phone)
                 }
+
+                UserUpdateMask.BIRTH -> {
+                    if (request.birth == null) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            status = HttpStatus.BAD_REQUEST,
+                            message = "변경할 생년월일이 유효하지 않습니다."
+                        )
+                    }
+                }
+
+                UserUpdateMask.GENDER -> {
+                    if (request.gender == null) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            status = HttpStatus.BAD_REQUEST,
+                            message = "변경할 성별이 유효하지 않습니다."
+                        )
+                    }
+                }
+
+                UserUpdateMask.MAIN_POSITION -> {
+                    if (request.mainPosition == null) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            status = HttpStatus.BAD_REQUEST,
+                            message = "변경할 주포지션이 유효하지 않습니다."
+                        )
+                    }
+                }
+
+                UserUpdateMask.SUB_POSITION -> {
+                    if (request.subPosition == null) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            status = HttpStatus.BAD_REQUEST,
+                            message = "변경할 보조포지션이 유효하지 않습니다."
+                        )
+                    }
+                }
             }
         }
     }

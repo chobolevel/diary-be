@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.scrimmers.api.dto.team.TeamResponseDto
 import com.scrimmers.api.dto.user.image.UserImageResponseDto
 import com.scrimmers.api.dto.user.summoner.UserSummonerResponseDto
+import com.scrimmers.domain.entity.user.UserGenderType
 import com.scrimmers.domain.entity.user.UserLoginType
+import com.scrimmers.domain.entity.user.UserPositionType
 import com.scrimmers.domain.entity.user.UserRoleType
+import java.time.LocalDate
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UserResponseDto(
@@ -15,6 +18,11 @@ data class UserResponseDto(
     val loginType: UserLoginType,
     val nickname: String,
     val phone: String,
+    val age: Int,
+    val birth: LocalDate,
+    val gender: UserGenderType,
+    val mainPosition: UserPositionType,
+    val subPosition: UserPositionType,
     val role: UserRoleType,
     val profileImage: UserImageResponseDto?,
     val createdAt: Long,
@@ -29,6 +37,11 @@ data class UserDetailResponseDto(
     val loginType: UserLoginType,
     val nickname: String,
     val phone: String,
+    val age: Int,
+    val birth: LocalDate,
+    val gender: UserGenderType,
+    val mainPosition: UserPositionType,
+    val subPosition: UserPositionType,
     val role: UserRoleType,
     val profileImage: UserImageResponseDto?,
     val summoners: List<UserSummonerResponseDto>,
