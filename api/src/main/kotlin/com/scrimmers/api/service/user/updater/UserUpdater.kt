@@ -15,6 +15,8 @@ class UserUpdater {
                 UserUpdateMask.PHONE -> entity.phone = request.phone!!
                 UserUpdateMask.BIRTH -> entity.birth = request.birth!!
                 UserUpdateMask.GENDER -> entity.gender = request.gender!!
+                UserUpdateMask.MAIN_POSITION -> entity.mainPosition = request.mainPosition!!
+                UserUpdateMask.SUB_POSITION -> entity.subPosition = request.subPosition!!
             }
         }
         return entity

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.scrimmers.domain.entity.user.UserGenderType
 import com.scrimmers.domain.entity.user.UserLoginType
+import com.scrimmers.domain.entity.user.UserPositionType
 import com.scrimmers.domain.entity.user.UserUpdateMask
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
@@ -36,6 +37,8 @@ data class UpdateUserRequestDto(
     val phone: String?,
     val birth: LocalDate?,
     val gender: UserGenderType?,
+    val mainPosition: UserPositionType?,
+    val subPosition: UserPositionType?,
     @field:Size(min = 1, message = "update_mask는 필수 값입니다.")
     val updateMask: List<UserUpdateMask>
 )

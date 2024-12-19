@@ -53,6 +53,14 @@ class User(
     @JoinColumn(name = "team_id")
     var team: Team? = null
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    var mainPosition: UserPositionType = UserPositionType.NONE
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    var subPosition: UserPositionType = UserPositionType.NONE
+
     @Column(nullable = false)
     var resigned: Boolean = false
 
@@ -94,6 +102,15 @@ enum class UserGenderType {
     FEMALE
 }
 
+enum class UserPositionType {
+    NONE,
+    TOP,
+    JUNGLE,
+    MID,
+    BOTTOM,
+    SUPPORT
+}
+
 enum class UserRoleType {
     ROLE_USER,
     ROLE_ADMIN
@@ -108,5 +125,7 @@ enum class UserUpdateMask {
     NICKNAME,
     PHONE,
     BIRTH,
-    GENDER
+    GENDER,
+    MAIN_POSITION,
+    SUB_POSITION
 }
