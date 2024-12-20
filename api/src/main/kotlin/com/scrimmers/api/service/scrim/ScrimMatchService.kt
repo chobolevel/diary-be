@@ -97,6 +97,14 @@ class ScrimMatchService(
                         message = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT.desc
                     )
                 }
+                scrim.scrimMatches.groupBy { it.winnerSide }.values.forEach {
+                    if (it.size >= 2) {
+                        throw PolicyException(
+                            errorCode = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT,
+                            message = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT.desc
+                        )
+                    }
+                }
             }
 
             ScrimType.BO_5 -> {
@@ -105,6 +113,14 @@ class ScrimMatchService(
                         errorCode = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT,
                         message = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT.desc
                     )
+                }
+                scrim.scrimMatches.groupBy { it.winnerSide }.values.forEach {
+                    if (it.size >= 3) {
+                        throw PolicyException(
+                            errorCode = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT,
+                            message = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT.desc
+                        )
+                    }
                 }
             }
         }
