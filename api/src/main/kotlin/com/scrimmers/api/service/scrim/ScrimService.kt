@@ -8,13 +8,14 @@ import com.scrimmers.api.service.scrim.converter.ScrimConverter
 import com.scrimmers.api.service.scrim.updater.ScrimUpdater
 import com.scrimmers.api.service.scrim.validator.ScrimValidator
 import com.scrimmers.domain.dto.common.Pagination
+import com.scrimmers.domain.entity.scrim.ScrimFinder
+import com.scrimmers.domain.entity.scrim.ScrimOrderType
+import com.scrimmers.domain.entity.scrim.ScrimQueryFilter
+import com.scrimmers.domain.entity.scrim.ScrimRepository
+import com.scrimmers.domain.entity.scrim.request.ScrimRequest
+import com.scrimmers.domain.entity.scrim.request.ScrimRequestFinder
 import com.scrimmers.domain.entity.team.Team
 import com.scrimmers.domain.entity.team.TeamFinder
-import com.scrimmers.domain.entity.team.scrim.ScrimFinder
-import com.scrimmers.domain.entity.team.scrim.ScrimOrderType
-import com.scrimmers.domain.entity.team.scrim.ScrimQueryFilter
-import com.scrimmers.domain.entity.team.scrim.ScrimRepository
-import com.scrimmers.domain.entity.team.scrim.request.ScrimRequestFinder
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.PolicyException
 import org.springframework.stereotype.Service
@@ -36,6 +37,11 @@ class ScrimService(
     fun create(userId: String, request: CreateScrimRequestDto): String {
         validator.validate(request)
         val scrimRequest = scrimRequestFinder.findById(request.scrimRequestId)
+        validateFromTeamOrToTeam(
+            homeTeamId = request.homeTeamId,
+            awayTeamId = request.awayTeamId,
+            scrimRequest = scrimRequest
+        )
         val homeTeam = teamFinder.findById(request.homeTeamId)
         val awayTeam = teamFinder.findById(request.awayTeamId)
         validateHomeOrAwayTeamOwner(
@@ -105,7 +111,24 @@ class ScrimService(
         return true
     }
 
-    @Throws
+    @Throws(PolicyException::class)
+    private fun validateFromTeamOrToTeam(homeTeamId: String, awayTeamId: String, scrimRequest: ScrimRequest) {
+        val fromTeamAndToTeamIds = listOf(scrimRequest.fromTeam!!.id, scrimRequest.toTeam!!.id)
+        if (homeTeamId !in fromTeamAndToTeamIds) {
+            throw PolicyException(
+                errorCode = ErrorCode.NO_ACCESS_EXCEPT_FOR_FORM_TEAM_AND_TO_TEAM,
+                message = ErrorCode.NO_ACCESS_EXCEPT_FOR_FORM_TEAM_AND_TO_TEAM.desc
+            )
+        }
+        if (awayTeamId !in fromTeamAndToTeamIds) {
+            throw PolicyException(
+                errorCode = ErrorCode.NO_ACCESS_EXCEPT_FOR_FORM_TEAM_AND_TO_TEAM,
+                message = ErrorCode.NO_ACCESS_EXCEPT_FOR_FORM_TEAM_AND_TO_TEAM.desc
+            )
+        }
+    }
+
+    @Throws(PolicyException::class)
     private fun validateHomeOrAwayTeamOwner(userId: String, homeTeam: Team, awayTeam: Team) {
         if (homeTeam.owner!!.id != userId && awayTeam.owner!!.id != userId) {
             throw PolicyException(

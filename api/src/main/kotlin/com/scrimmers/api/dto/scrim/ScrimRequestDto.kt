@@ -2,8 +2,8 @@ package com.scrimmers.api.dto.scrim
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
-import com.scrimmers.domain.entity.team.scrim.ScrimType
-import com.scrimmers.domain.entity.team.scrim.ScrimUpdateMask
+import com.scrimmers.domain.entity.scrim.ScrimType
+import com.scrimmers.domain.entity.scrim.ScrimUpdateMask
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size

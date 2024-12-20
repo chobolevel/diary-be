@@ -1,7 +1,7 @@
 package com.scrimmers.api.service.scrim.query
 
 import com.scrimmers.domain.dto.common.Pagination
-import com.scrimmers.domain.entity.team.scrim.request.ScrimRequestQueryFilter
+import com.scrimmers.domain.entity.scrim.request.ScrimRequestQueryFilter
 import org.springframework.stereotype.Component
 
 @Component

@@ -3,7 +3,7 @@ package com.scrimmers.api.service.scrim.converter
 import com.scrimmers.api.dto.scrim.request.CreateScrimRequestRequestDto
 import com.scrimmers.api.dto.scrim.request.ScrimRequestResponseDto
 import com.scrimmers.api.service.team.converter.TeamConverter
-import com.scrimmers.domain.entity.team.scrim.request.ScrimRequest
+import com.scrimmers.domain.entity.scrim.request.ScrimRequest
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
 

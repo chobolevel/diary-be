@@ -2,7 +2,7 @@ package com.scrimmers.api.service.scrim.validator
 
 import com.scrimmers.api.dto.scrim.CreateScrimRequestDto
 import com.scrimmers.api.dto.scrim.UpdateScrimRequestDto
-import com.scrimmers.domain.entity.team.scrim.ScrimUpdateMask
+import com.scrimmers.domain.entity.scrim.ScrimUpdateMask
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.ParameterInvalidException
 import org.springframework.stereotype.Component

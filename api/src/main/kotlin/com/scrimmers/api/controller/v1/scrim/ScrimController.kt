@@ -7,7 +7,7 @@ import com.scrimmers.api.dto.scrim.UpdateScrimRequestDto
 import com.scrimmers.api.getUserId
 import com.scrimmers.api.service.scrim.ScrimService
 import com.scrimmers.api.service.scrim.query.ScrimQueryCreator
-import com.scrimmers.domain.entity.team.scrim.ScrimOrderType
+import com.scrimmers.domain.entity.scrim.ScrimOrderType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
