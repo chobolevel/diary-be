@@ -50,6 +50,7 @@ enum class ErrorCode(val desc: String) {
 
     // SCRIM
     SCRIM_IS_NOT_FOUND("스크림 정보를 찾을 수 없습니다."),
+    NO_ACCESS_EXCEPT_FOR_FORM_TEAM_AND_TO_TEAM("스크림 요청 및 요청 받은 팀의 스크림 생성만 가능합니다."),
 
     // SCRIM REQUEST
     SCRIM_REQUEST_IS_NOT_FOUND("스크림 요청을 찾을 수 없습니다."),
