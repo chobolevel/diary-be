@@ -2,7 +2,7 @@ package com.scrimmers.domain.entity.scrim
 
 import com.querydsl.core.types.OrderSpecifier
 import com.scrimmers.domain.dto.common.Pagination
-import com.scrimmers.domain.entity.team.scrim.QScrim.scrim
+import com.scrimmers.domain.entity.scrim.QScrim.scrim
 import com.scrimmers.domain.exception.DataNotFoundException
 import com.scrimmers.domain.exception.ErrorCode
 import org.springframework.stereotype.Component

@@ -16,6 +16,7 @@ class ScrimMatchConverter(
         return ScrimMatch(
             id = TSID.fast().toString(),
             winnerSide = request.winnerSide,
+            order = request.order
         )
     }
 

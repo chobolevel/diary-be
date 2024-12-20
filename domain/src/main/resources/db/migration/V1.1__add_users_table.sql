@@ -16,9 +16,7 @@ create table scrimmers.users
   role          varchar(100) not null,
   resigned      bit          not null,
   created_at    datetime     not null,
-  updated_at    datetime     not null,
-  constraint users_teams_id_fk
-    foreign key (team_id) references scrimmers.teams (id)
+  updated_at    datetime    not null
 ) comment '회원 테이블';
 
 create index users_email_login_type_index
@@ -26,6 +24,9 @@ create index users_email_login_type_index
 
 create index users_social_id_login_type_index
   on scrimmers.users (social_id, login_type);
+
+create index users_teams_id_fk
+  on scrimmers.users (team_id);
 
 create table scrimmers.users_histories
 (

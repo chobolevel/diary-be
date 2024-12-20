@@ -6,7 +6,9 @@ import com.scrimmers.api.service.scrim.converter.ScrimMatchConverter
 import com.scrimmers.api.service.scrim.converter.ScrimMatchSideConverter
 import com.scrimmers.api.service.scrim.updater.ScrimMatchUpdater
 import com.scrimmers.api.service.scrim.validator.ScrimMatchValidator
+import com.scrimmers.domain.entity.scrim.Scrim
 import com.scrimmers.domain.entity.scrim.ScrimFinder
+import com.scrimmers.domain.entity.scrim.ScrimType
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchFinder
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchRepository
 import com.scrimmers.domain.entity.team.Team
@@ -21,7 +23,6 @@ class ScrimMatchService(
     private val repository: ScrimMatchRepository,
     private val finder: ScrimMatchFinder,
     private val scrimFinder: ScrimFinder,
-    private val teamFinder: TeamFinder,
     private val converter: ScrimMatchConverter,
     private val scrimMatchSideConverter: ScrimMatchSideConverter,
     private val validator: ScrimMatchValidator,
@@ -31,8 +32,7 @@ class ScrimMatchService(
     @Transactional
     fun create(userId: String, request: CreateScrimMatchRequestDto): String {
         val scrim = scrimFinder.findById(request.scrimId)
-        val blueTeam = teamFinder.findById(request.blueTeam.teamId)
-        val redTeam = teamFinder.findById(request.redTeam.teamId)
+        validateScrimMatchesMaxCount(scrim)
         validateHomeTeamOrAwayTeamOwner(
             userId = userId,
             homeTeam = scrim.homeTeam!!,
@@ -44,11 +44,9 @@ class ScrimMatchService(
         val savedScrimMatch = repository.save(scrimMatch)
         scrimMatchSideConverter.convertBlueTeam(request.blueTeam).also {
             it.setBy(savedScrimMatch)
-            it.setBy(blueTeam)
         }
         scrimMatchSideConverter.convertRedTeam(request.redTeam).also {
             it.setBy(savedScrimMatch)
-            it.setBy(redTeam)
         }
         return savedScrimMatch.id
     }
@@ -81,6 +79,39 @@ class ScrimMatchService(
         return true
     }
 
+    @Throws(PolicyException::class)
+    private fun validateScrimMatchesMaxCount(scrim: Scrim) {
+        when (scrim.type) {
+            ScrimType.BO_1 -> {
+                if (scrim.scrimMatches.size >= 1) {
+                    throw PolicyException(
+                        errorCode = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT,
+                        message = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT.desc
+                    )
+                }
+            }
+
+            ScrimType.BO_3 -> {
+                if (scrim.scrimMatches.size >= 3) {
+                    throw PolicyException(
+                        errorCode = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT,
+                        message = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT.desc
+                    )
+                }
+            }
+
+            ScrimType.BO_5 -> {
+                if (scrim.scrimMatches.size >= 5) {
+                    throw PolicyException(
+                        errorCode = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT,
+                        message = ErrorCode.CAN_NOT_OVER_BEST_OF_COUNT.desc
+                    )
+                }
+            }
+        }
+    }
+
+    @Throws(PolicyException::class)
     private fun validateHomeTeamOrAwayTeamOwner(userId: String, homeTeam: Team, awayTeam: Team) {
         if (awayTeam.owner!!.id != userId && homeTeam.owner!!.id != userId) {
             throw PolicyException(

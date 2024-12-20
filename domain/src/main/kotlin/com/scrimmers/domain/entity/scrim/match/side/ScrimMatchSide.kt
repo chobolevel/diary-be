@@ -23,6 +23,9 @@ class ScrimMatchSide(
     var id: String,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    var teamType: ScrimMatchSideTeamType,
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     var side: ScrimMatchSideType,
     @Column(nullable = false)
     var killScore: Int,
@@ -34,10 +37,6 @@ class ScrimMatchSide(
     @JoinColumn(name = "scrim_match_id")
     var scrimMatch: ScrimMatch? = null
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
-    var team: Team? = null
-
     @Column(nullable = false)
     var deleted: Boolean = false
 
@@ -48,15 +47,14 @@ class ScrimMatchSide(
         }
     }
 
-    fun setBy(team: Team) {
-        if (this.team != team) {
-            this.team = team
-        }
-    }
-
     fun delete() {
         this.deleted = true
     }
+}
+
+enum class ScrimMatchSideTeamType {
+    HOME,
+    AWAY
 }
 
 enum class ScrimMatchSideType {

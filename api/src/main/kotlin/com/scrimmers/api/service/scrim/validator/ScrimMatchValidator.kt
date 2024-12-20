@@ -1,6 +1,7 @@
 package com.scrimmers.api.service.scrim.validator
 
 import com.scrimmers.api.dto.scrim.match.UpdateScrimMatchRequestDto
+import com.scrimmers.api.service.scrim.converter.ScrimMatchConverter
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchUpdateMask
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.ParameterInvalidException
@@ -19,6 +20,15 @@ class ScrimMatchValidator(
                         throw ParameterInvalidException(
                             errorCode = ErrorCode.PARAMETER_INVALID,
                             message = "변경할 승리 사이드가 유효하지 않습니다."
+                        )
+                    }
+                }
+
+                ScrimMatchUpdateMask.ORDER -> {
+                    if (request.order == null) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            message = "변경할 매치 순서가 유효하지 않습니다."
                         )
                     }
                 }

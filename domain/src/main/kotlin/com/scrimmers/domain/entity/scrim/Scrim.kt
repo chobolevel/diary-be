@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import org.hibernate.annotations.OrderBy
 import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 import java.time.LocalDateTime
@@ -52,6 +53,7 @@ class Scrim(
 
     @OneToMany(mappedBy = "scrim", cascade = [CascadeType.ALL], orphanRemoval = true)
     @Where(clause = "deleted = false")
+    @OrderBy(clause = "order asc")
     val scrimMatches = mutableListOf<ScrimMatch>()
 
     fun setBy(scrimRequest: ScrimRequest) {

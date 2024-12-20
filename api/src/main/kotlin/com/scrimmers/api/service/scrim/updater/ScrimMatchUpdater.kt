@@ -15,6 +15,7 @@ class ScrimMatchUpdater(
         request.updateMask.forEach {
             when (it) {
                 ScrimMatchUpdateMask.WINNER_SIDE -> entity.winnerSide = request.winnerSide!!
+                ScrimMatchUpdateMask.ORDER -> entity.order = request.order!!
                 ScrimMatchUpdateMask.BLUE_TEAM -> {
                     scrimMatchSideUpdater.markAsUpdate(
                         request.blueTeam!!,

@@ -26,7 +26,9 @@ class ScrimMatch(
     var id: String,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    var winnerSide: ScrimMatchWinnerSide
+    var winnerSide: ScrimMatchWinnerSide,
+    @Column(nullable = false)
+    var order: Int,
 ) : BaseEntity() {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -64,6 +66,7 @@ enum class ScrimMatchWinnerSide {
 
 enum class ScrimMatchUpdateMask {
     WINNER_SIDE,
+    ORDER,
     BLUE_TEAM,
     RED_TEAM,
 }

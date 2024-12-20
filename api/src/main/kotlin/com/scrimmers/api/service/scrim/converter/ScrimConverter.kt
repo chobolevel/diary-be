@@ -5,6 +5,7 @@ import com.scrimmers.api.dto.scrim.ScrimResponseDto
 import com.scrimmers.api.service.team.converter.TeamConverter
 import com.scrimmers.domain.entity.scrim.Scrim
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchWinnerSide
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideTeamType
 import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideType
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
@@ -36,9 +37,9 @@ class ScrimConverter(
             id = entity.id,
             scrimRequest = scrimRequestConverter.convert(entity.scrimRequest!!),
             homeTeam = teamConverter.convert(entity.homeTeam!!),
-            homeTeamScore = winnerSides.filter { it!!.team!!.id == entity.homeTeam!!.id }.size,
+            homeTeamScore = winnerSides.filter { it!!.teamType == ScrimMatchSideTeamType.HOME }.size,
             awayTeam = teamConverter.convert(entity.awayTeam!!),
-            awayTeamScore = winnerSides.filter { it!!.team!!.id == entity.awayTeam!!.id }.size,
+            awayTeamScore = winnerSides.filter { it!!.teamType == ScrimMatchSideTeamType.AWAY }.size,
             type = entity.type,
             name = entity.name,
             startedAt = entity.startedAt,

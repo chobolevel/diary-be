@@ -16,16 +16,19 @@ data class CreateScrimMatchRequestDto(
     val scrimId: String,
     @field:NotNull(message = "매치 승리 사이드는 필수 값입니다.")
     val winnerSide: ScrimMatchWinnerSide,
+    @field:NotNull(message = "매치 순서는 필수 값입니다.")
+    val order: Int,
     @field:NotNull(message = "매치 블루팀 정보는 필수 값입니다.")
     val blueTeam: CreateScrimMatchSideRequestDto,
     @field:NotNull(message = "매치 레드팀 정보는 필수 값입니다.")
-    val redTeam: CreateScrimMatchSideRequestDto
+    val redTeam: CreateScrimMatchSideRequestDto,
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UpdateScrimMatchRequestDto(
     val scrimId: String?,
     val winnerSide: ScrimMatchWinnerSide?,
+    val order: Int?,
     val blueTeam: UpdateScrimMatchSideRequestDto?,
     val redTeam: UpdateScrimMatchSideRequestDto?,
     @field:Size(min = 1, message = "update_mask는 필수 값입니다.")

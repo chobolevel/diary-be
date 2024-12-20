@@ -56,5 +56,6 @@ enum class ErrorCode(val desc: String) {
     SCRIM_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 스크림 요청입니다."),
 
     // SCRIM MATCH
-    SCRIM_MATCH_IS_NOT_FOUND("스크림 매치 정보를 찾을 수 없습니다.")
+    SCRIM_MATCH_IS_NOT_FOUND("스크림 매치 정보를 찾을 수 없습니다."),
+    CAN_NOT_OVER_BEST_OF_COUNT("다전제 횟수를 초과하여 매치를 등록할 수 없습니다.")
 }
