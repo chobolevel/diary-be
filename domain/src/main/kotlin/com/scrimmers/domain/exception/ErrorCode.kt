@@ -53,5 +53,8 @@ enum class ErrorCode(val desc: String) {
 
     // SCRIM REQUEST
     SCRIM_REQUEST_IS_NOT_FOUND("스크림 요청을 찾을 수 없습니다."),
-    SCRIM_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 스크림 요청입니다.")
+    SCRIM_REQUEST_IS_ALREADY_PROCESSED("이미 처리된 스크림 요청입니다."),
+
+    // SCRIM MATCH
+    SCRIM_MATCH_IS_NOT_FOUND("스크림 매치 정보를 찾을 수 없습니다.")
 }

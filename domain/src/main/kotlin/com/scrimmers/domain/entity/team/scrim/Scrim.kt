@@ -2,7 +2,9 @@ package com.scrimmers.domain.entity.team.scrim
 
 import com.scrimmers.domain.entity.BaseEntity
 import com.scrimmers.domain.entity.team.Team
+import com.scrimmers.domain.entity.team.scrim.match.ScrimMatch
 import com.scrimmers.domain.entity.team.scrim.request.ScrimRequest
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -10,8 +12,10 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 import java.time.LocalDateTime
 
@@ -45,6 +49,10 @@ class Scrim(
 
     @Column(nullable = false)
     var deleted: Boolean = false
+
+    @OneToMany(mappedBy = "scrim", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @Where(clause = "deleted = false")
+    val scrimMatches = mutableListOf<ScrimMatch>()
 
     fun setBy(scrimRequest: ScrimRequest) {
         if (this.scrimRequest != scrimRequest) {
