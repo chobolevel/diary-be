@@ -15,4 +15,6 @@ interface UserRepository : JpaRepository<User, String> {
     fun findByEmailAndLoginTypeAndResignedFalse(email: String, loginType: UserLoginType): User?
 
     fun findBySocialIdAndLoginTypeAndResignedFalse(socialId: String, loginType: UserLoginType): User?
+
+    fun findByTeamIdAndResignedFalse(teamId: String): List<User>
 }

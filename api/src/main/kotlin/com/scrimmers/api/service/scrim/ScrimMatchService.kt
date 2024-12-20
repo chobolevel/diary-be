@@ -12,6 +12,7 @@ import com.scrimmers.domain.entity.scrim.ScrimType
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchFinder
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchRepository
 import com.scrimmers.domain.entity.team.Team
+import com.scrimmers.domain.entity.user.UserFinder
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.PolicyException
 import org.springframework.stereotype.Service
@@ -22,6 +23,7 @@ class ScrimMatchService(
     private val repository: ScrimMatchRepository,
     private val finder: ScrimMatchFinder,
     private val scrimFinder: ScrimFinder,
+    private val userFinder: UserFinder,
     private val converter: ScrimMatchConverter,
     private val scrimMatchSideConverter: ScrimMatchSideConverter,
     private val validator: ScrimMatchValidator,
@@ -37,8 +39,20 @@ class ScrimMatchService(
             homeTeam = scrim.homeTeam!!,
             awayTeam = scrim.awayTeam!!,
         )
-        val scrimMatch = converter.convert(request).also {
-            it.setBy(scrim)
+        val scrimMatch = converter.convert(request).also { scrimMatch ->
+            scrimMatch.setBy(scrim)
+            request.pogUserId?.let { pogUserId ->
+                val homeTeamUserIds = userFinder.findByTeamId(scrim.homeTeam!!.id).map { it.id }
+                val awayTeamUserIds = userFinder.findByTeamId(scrim.awayTeam!!.id).map { it.id }
+                val scrimUserIds = homeTeamUserIds.union(awayTeamUserIds)
+                if (pogUserId !in scrimUserIds) {
+                    throw PolicyException(
+                        errorCode = ErrorCode.USER_IS_NOT_FOUND,
+                        message = "POG 플레이어를 찾을 수 없습니다.(양팀 소속 플레이어 중에서 설정할 수 있습니다.)"
+                    )
+                }
+                scrimMatch.setBy(userFinder.findById(pogUserId))
+            }
         }
         val savedScrimMatch = repository.save(scrimMatch)
         scrimMatchSideConverter.convertBlueTeam(request.blueTeam).also {

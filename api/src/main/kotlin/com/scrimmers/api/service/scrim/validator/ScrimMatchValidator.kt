@@ -32,6 +32,15 @@ class ScrimMatchValidator(
                     }
                 }
 
+                ScrimMatchUpdateMask.POG_USER -> {
+                    if (request.pogUserId.isNullOrEmpty()) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            message = " 변경할 POG 정보가 유효하지 않습니다."
+                        )
+                    }
+                }
+
                 ScrimMatchUpdateMask.BLUE_TEAM -> {
                     if (request.blueTeam == null) {
                         throw ParameterInvalidException(
