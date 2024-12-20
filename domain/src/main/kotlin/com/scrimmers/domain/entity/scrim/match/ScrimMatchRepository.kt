@@ -1,4 +1,4 @@
-package com.scrimmers.domain.entity.team.scrim.match
+package com.scrimmers.domain.entity.scrim.match
 
 import org.springframework.data.jpa.repository.JpaRepository
 

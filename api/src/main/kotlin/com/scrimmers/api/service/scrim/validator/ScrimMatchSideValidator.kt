@@ -1,7 +1,7 @@
 package com.scrimmers.api.service.scrim.validator
 
 import com.scrimmers.api.dto.scrim.match.side.UpdateScrimMatchSideRequestDto
-import com.scrimmers.domain.entity.team.scrim.match.side.ScrimMatchSideUpdateMask
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideUpdateMask
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.ParameterInvalidException
 import org.springframework.stereotype.Component

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.scrimmers.api.dto.scrim.match.ScrimMatchResponseDto
 import com.scrimmers.api.dto.scrim.request.ScrimRequestResponseDto
 import com.scrimmers.api.dto.team.TeamResponseDto
-import com.scrimmers.domain.entity.team.scrim.ScrimType
+import com.scrimmers.domain.entity.scrim.ScrimType
 import java.time.LocalDateTime
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)

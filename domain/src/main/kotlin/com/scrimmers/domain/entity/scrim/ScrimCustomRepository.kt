@@ -1,4 +1,4 @@
-package com.scrimmers.domain.entity.team.scrim
+package com.scrimmers.domain.entity.scrim
 
 import com.querydsl.core.types.OrderSpecifier
 import com.querydsl.core.types.dsl.BooleanExpression

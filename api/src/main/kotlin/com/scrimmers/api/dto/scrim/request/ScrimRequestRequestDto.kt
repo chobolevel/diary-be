@@ -2,7 +2,7 @@ package com.scrimmers.api.dto.scrim.request
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
-import com.scrimmers.domain.entity.team.scrim.request.ScrimRequestUpdateMask
+import com.scrimmers.domain.entity.scrim.request.ScrimRequestUpdateMask
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
 

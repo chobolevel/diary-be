@@ -3,9 +3,9 @@ package com.scrimmers.api.service.scrim.converter
 import com.scrimmers.api.dto.scrim.match.side.CreateScrimMatchSideRequestDto
 import com.scrimmers.api.dto.scrim.match.side.ScrimMatchSideResponseDto
 import com.scrimmers.api.service.team.converter.TeamConverter
-import com.scrimmers.domain.entity.team.scrim.match.ScrimMatchWinnerSide
-import com.scrimmers.domain.entity.team.scrim.match.side.ScrimMatchSide
-import com.scrimmers.domain.entity.team.scrim.match.side.ScrimMatchSideType
+import com.scrimmers.domain.entity.scrim.match.ScrimMatchWinnerSide
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSide
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideType
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
 

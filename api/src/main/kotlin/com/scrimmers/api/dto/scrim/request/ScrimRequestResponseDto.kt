@@ -3,7 +3,7 @@ package com.scrimmers.api.dto.scrim.request
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.scrimmers.api.dto.team.TeamResponseDto
-import com.scrimmers.domain.entity.team.scrim.request.ScrimRequestStatus
+import com.scrimmers.domain.entity.scrim.request.ScrimRequestStatus
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class ScrimRequestResponseDto(

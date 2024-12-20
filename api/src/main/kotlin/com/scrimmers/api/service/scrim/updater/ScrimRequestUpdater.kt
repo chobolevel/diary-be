@@ -1,8 +1,8 @@
 package com.scrimmers.api.service.scrim.updater
 
 import com.scrimmers.api.dto.scrim.request.UpdateScrimRequestRequestDto
-import com.scrimmers.domain.entity.team.scrim.request.ScrimRequest
-import com.scrimmers.domain.entity.team.scrim.request.ScrimRequestUpdateMask
+import com.scrimmers.domain.entity.scrim.request.ScrimRequest
+import com.scrimmers.domain.entity.scrim.request.ScrimRequestUpdateMask
 import org.springframework.stereotype.Component
 
 @Component

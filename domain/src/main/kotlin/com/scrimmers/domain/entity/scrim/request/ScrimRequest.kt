@@ -1,4 +1,4 @@
-package com.scrimmers.domain.entity.team.scrim.request
+package com.scrimmers.domain.entity.scrim.request
 
 import com.scrimmers.domain.entity.BaseEntity
 import com.scrimmers.domain.entity.team.Team

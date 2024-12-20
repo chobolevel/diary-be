@@ -2,8 +2,8 @@ package com.scrimmers.api.service.scrim.converter
 
 import com.scrimmers.api.dto.scrim.match.CreateScrimMatchRequestDto
 import com.scrimmers.api.dto.scrim.match.ScrimMatchResponseDto
-import com.scrimmers.domain.entity.team.scrim.match.ScrimMatch
-import com.scrimmers.domain.entity.team.scrim.match.side.ScrimMatchSideType
+import com.scrimmers.domain.entity.scrim.match.ScrimMatch
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideType
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
 

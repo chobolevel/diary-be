@@ -1,8 +1,8 @@
-package com.scrimmers.domain.entity.team.scrim.match
+package com.scrimmers.domain.entity.scrim.match
 
 import com.scrimmers.domain.entity.BaseEntity
-import com.scrimmers.domain.entity.team.scrim.Scrim
-import com.scrimmers.domain.entity.team.scrim.match.side.ScrimMatchSide
+import com.scrimmers.domain.entity.scrim.Scrim
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSide
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

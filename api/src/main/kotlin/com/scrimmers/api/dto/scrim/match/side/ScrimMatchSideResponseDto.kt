@@ -3,7 +3,7 @@ package com.scrimmers.api.dto.scrim.match.side
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.scrimmers.api.dto.team.TeamResponseDto
-import com.scrimmers.domain.entity.team.scrim.match.side.ScrimMatchSideType
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideType
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class ScrimMatchSideResponseDto(

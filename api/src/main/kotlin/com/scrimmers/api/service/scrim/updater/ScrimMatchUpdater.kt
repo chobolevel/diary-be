@@ -1,9 +1,9 @@
 package com.scrimmers.api.service.scrim.updater
 
 import com.scrimmers.api.dto.scrim.match.UpdateScrimMatchRequestDto
-import com.scrimmers.domain.entity.team.scrim.match.ScrimMatch
-import com.scrimmers.domain.entity.team.scrim.match.ScrimMatchUpdateMask
-import com.scrimmers.domain.entity.team.scrim.match.side.ScrimMatchSideType
+import com.scrimmers.domain.entity.scrim.match.ScrimMatch
+import com.scrimmers.domain.entity.scrim.match.ScrimMatchUpdateMask
+import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideType
 import org.springframework.stereotype.Component
 
 @Component

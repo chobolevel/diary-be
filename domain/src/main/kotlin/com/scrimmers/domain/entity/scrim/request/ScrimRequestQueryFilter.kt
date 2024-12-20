@@ -1,4 +1,4 @@
-package com.scrimmers.domain.entity.team.scrim.request
+package com.scrimmers.domain.entity.scrim.request
 
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.scrimmers.domain.entity.team.scrim.request.QScrimRequest.scrimRequest

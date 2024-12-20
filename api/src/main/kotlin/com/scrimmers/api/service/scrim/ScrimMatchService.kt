@@ -6,11 +6,11 @@ import com.scrimmers.api.service.scrim.converter.ScrimMatchConverter
 import com.scrimmers.api.service.scrim.converter.ScrimMatchSideConverter
 import com.scrimmers.api.service.scrim.updater.ScrimMatchUpdater
 import com.scrimmers.api.service.scrim.validator.ScrimMatchValidator
+import com.scrimmers.domain.entity.scrim.ScrimFinder
+import com.scrimmers.domain.entity.scrim.match.ScrimMatchFinder
+import com.scrimmers.domain.entity.scrim.match.ScrimMatchRepository
 import com.scrimmers.domain.entity.team.Team
 import com.scrimmers.domain.entity.team.TeamFinder
-import com.scrimmers.domain.entity.team.scrim.ScrimFinder
-import com.scrimmers.domain.entity.team.scrim.match.ScrimMatchFinder
-import com.scrimmers.domain.entity.team.scrim.match.ScrimMatchRepository
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.PolicyException
 import org.springframework.stereotype.Service

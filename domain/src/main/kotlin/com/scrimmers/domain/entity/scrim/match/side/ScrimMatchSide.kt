@@ -1,8 +1,8 @@
-package com.scrimmers.domain.entity.team.scrim.match.side
+package com.scrimmers.domain.entity.scrim.match.side
 
 import com.scrimmers.domain.entity.BaseEntity
+import com.scrimmers.domain.entity.scrim.match.ScrimMatch
 import com.scrimmers.domain.entity.team.Team
-import com.scrimmers.domain.entity.team.scrim.match.ScrimMatch
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
