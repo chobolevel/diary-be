@@ -12,7 +12,6 @@ import com.scrimmers.domain.entity.scrim.ScrimType
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchFinder
 import com.scrimmers.domain.entity.scrim.match.ScrimMatchRepository
 import com.scrimmers.domain.entity.team.Team
-import com.scrimmers.domain.entity.team.TeamFinder
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.PolicyException
 import org.springframework.stereotype.Service

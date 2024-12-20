@@ -71,6 +71,10 @@ enum class SummonerRank {
 }
 
 enum class UserSummonerUpdateMask {
+    SUMMONER_NAME,
+    SUMMONER_TAG,
+    SUMMONER_LEVEL,
+    SUMMONER_ICON_URL,
     SUMMONER_SOLO_RANK,
     SUMMONER_FLEX_RANK
 }

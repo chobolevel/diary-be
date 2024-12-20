@@ -26,6 +26,10 @@ data class CreateUserSummonerRequestDto(
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UpdateUserSummonerRequestDto(
+    val summonerName: String?,
+    val summonerTag: String?,
+    val summonerLevel: Int?,
+    val summonerIconUrl: String?,
     val summonerSoloRank: SummonerRank?,
     val summonerFlexRank: SummonerRank?,
     @field:Size(min = 1, message = "update_mask는 필수 값입니다.")

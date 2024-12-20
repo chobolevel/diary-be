@@ -14,6 +14,41 @@ class UserSummonerValidator {
     fun validate(request: UpdateUserSummonerRequestDto) {
         request.updateMask.forEach {
             when (it) {
+                UserSummonerUpdateMask.SUMMONER_NAME -> {
+                    if (request.summonerName.isNullOrEmpty()) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            message = "변경할 소환사명이 유효하지 않습니다."
+                        )
+                    }
+                }
+
+                UserSummonerUpdateMask.SUMMONER_TAG -> {
+                    if (request.summonerTag.isNullOrEmpty()) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            message = "변경할 소환사 태그가 유효하지 않습니다."
+                        )
+                    }
+                }
+
+                UserSummonerUpdateMask.SUMMONER_LEVEL -> {
+                    if (request.summonerLevel == null) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            message = "변경할 소환사 레벨이 유효하지 않습니다."
+                        )
+                    }
+                }
+
+                UserSummonerUpdateMask.SUMMONER_ICON_URL -> {
+                    if (request.summonerIconUrl.isNullOrEmpty()) {
+                        throw ParameterInvalidException(
+                            errorCode = ErrorCode.PARAMETER_INVALID,
+                            message = "변경할 소환사 아이콘 경로가 유효하지 않습니다."
+                        )
+                    }
+                }
                 UserSummonerUpdateMask.SUMMONER_SOLO_RANK -> {
                     if (request.summonerSoloRank == null) {
                         throw ParameterInvalidException(

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideTeamType
 import com.scrimmers.domain.entity.scrim.match.side.ScrimMatchSideUpdateMask
-import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
