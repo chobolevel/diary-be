@@ -26,7 +26,7 @@ class WebConfiguration(
             config.configurationSource(
                 UrlBasedCorsConfigurationSource().also { cors ->
                     CorsConfiguration().apply {
-                        allowedOrigins = listOf("*")
+                        allowedOrigins = listOf("http://localhost:3000")
                         allowedMethods = listOf("POST", "PUT", "DELETE", "GET", "OPTIONS", "HEAD")
                         allowedHeaders = listOf(
                             "Authorization",
