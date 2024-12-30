@@ -57,7 +57,6 @@ class AuthService(
             status = HttpStatus.UNAUTHORIZED,
             message = "토큰이 만료되었습니다. 재로그인 해주세요."
         )
-        val name = authentication.name
         val user = userFinder.findById(authentication.name)
         val cachedRefreshToken = opsForHash.get("refresh-token:v1", user.id)
         if (cachedRefreshToken == null || cachedRefreshToken != refreshToken) {
