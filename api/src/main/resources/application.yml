@@ -50,8 +50,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: rodaka218@gmail.com
-    password: utyt vqsh pewa sxnq
+    username: ENC(afuyzGXhnKBYtjx1EmjQmILr5lo9ICWje8sV5m4tm68infKYLk5DNRmR7U7pzwyLg0IHJDLiNo87KfHUOGDEUA==)
+    password: ENC(vZCgRTAurP3pSj+t6JZmrh64mSkScpEqRKjL3T2WCRhubj3unukfUoYK4pGMpGt0MPBKeY5Wnq7aWXj6TtC0FA==)
     properties:
       mail:
         smtp:
