@@ -2,6 +2,7 @@ package com.scrimmers.api.controller.v1.user
 
 import com.scrimmers.api.annotation.HasAuthorityUser
 import com.scrimmers.api.dto.common.ResultResponse
+import com.scrimmers.api.dto.user.ChangePasswordRequestDto
 import com.scrimmers.api.dto.user.CreateUserRequestDto
 import com.scrimmers.api.dto.user.UpdateUserRequestDto
 import com.scrimmers.api.getUserId
@@ -98,6 +99,21 @@ class UserController(
     ): ResponseEntity<ResultResponse> {
         val result = service.update(
             requesterId = principal.getUserId(),
+            request = request
+        )
+        return ResponseEntity.ok(ResultResponse(result))
+    }
+
+    @Operation(summary = "회원 비밀번호 변경 API")
+    @PutMapping("/users/change-password")
+    @HasAuthorityUser
+    fun changePassword(
+        principal: Principal,
+        @Valid @RequestBody
+        request: ChangePasswordRequestDto
+    ): ResponseEntity<ResultResponse> {
+        val result = service.changePassword(
+            userId = principal.getUserId(),
             request = request
         )
         return ResponseEntity.ok(ResultResponse(result))

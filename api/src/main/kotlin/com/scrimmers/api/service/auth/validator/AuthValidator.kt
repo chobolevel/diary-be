@@ -1,6 +1,6 @@
 package com.scrimmers.api.service.auth.validator
 
-import com.scrimmers.api.dto.auth.LoginRequestDto
+import com.scrimmers.api.dto.auth.AuthRequestDto
 import com.scrimmers.domain.entity.user.UserLoginType
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.ParameterInvalidException
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 @Component
 class AuthValidator {
 
-    fun validate(request: LoginRequestDto) {
+    fun validate(request: AuthRequestDto) {
         when (request.loginType) {
             UserLoginType.GENERAL -> {
                 if (request.password.isNullOrEmpty()) {

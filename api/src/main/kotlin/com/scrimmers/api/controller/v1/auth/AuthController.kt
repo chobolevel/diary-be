@@ -1,6 +1,7 @@
 package com.scrimmers.api.controller.v1.auth
 
-import com.scrimmers.api.dto.auth.LoginRequestDto
+import com.scrimmers.api.dto.auth.AuthRequestDto
+import com.scrimmers.api.dto.auth.ResetPasswordRequestDto
 import com.scrimmers.api.dto.common.ResultResponse
 import com.scrimmers.api.service.auth.AuthService
 import com.scrimmers.domain.exception.ErrorCode
@@ -32,7 +33,7 @@ class AuthController(
     fun generalLogin(
         res: HttpServletResponse,
         @Valid @RequestBody
-        request: LoginRequestDto
+        request: AuthRequestDto
     ): ResponseEntity<ResultResponse> {
         val result = service.login(request)
         val accessTokenCookie = generateCookie("_sat", result.accessToken)
@@ -71,6 +72,16 @@ class AuthController(
         val accessTokenCookie = generateCookie("_sat", result.accessToken)
         res.addCookie(accessTokenCookie)
         return ResponseEntity.ok(ResultResponse(true))
+    }
+
+    @Operation(summary = "비밀번호 초기화")
+    @PostMapping("/auth/reset-password")
+    fun resetPassword(
+        @Valid @RequestBody
+        request: ResetPasswordRequestDto
+    ): ResponseEntity<ResultResponse> {
+        val result = service.resetPassword(request)
+        return ResponseEntity.ok(ResultResponse(result))
     }
 
     private fun generateCookie(

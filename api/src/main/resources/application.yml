@@ -47,6 +47,18 @@ spring:
     enabled: true
     baseline-version: 0
     out-of-order: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(afuyzGXhnKBYtjx1EmjQmILr5lo9ICWje8sV5m4tm68infKYLk5DNRmR7U7pzwyLg0IHJDLiNo87KfHUOGDEUA==)
+    password: ENC(vZCgRTAurP3pSj+t6JZmrh64mSkScpEqRKjL3T2WCRhubj3unukfUoYK4pGMpGt0MPBKeY5Wnq7aWXj6TtC0FA==)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
 
 jwt:
   issuer: ENC(e1Aco7xX3BcNC142nLMG5Mi9qBkR2chRK7Pj6AMmdEft+ZpeavpsUNz1H5CE0VuO)
