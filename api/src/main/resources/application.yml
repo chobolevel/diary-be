@@ -47,6 +47,18 @@ spring:
     enabled: true
     baseline-version: 0
     out-of-order: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rodaka218@gmail.com
+    password: utyt vqsh pewa sxnq
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
 
 jwt:
   issuer: ENC(e1Aco7xX3BcNC142nLMG5Mi9qBkR2chRK7Pj6AMmdEft+ZpeavpsUNz1H5CE0VuO)

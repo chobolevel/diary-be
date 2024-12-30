@@ -21,6 +21,9 @@ dependencies {
     // web
     implementation("org.springframework.boot:spring-boot-starter-web")
 
+    // email
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+
     // jpa
     api("org.springframework.boot:spring-boot-starter-data-jpa")
 
