@@ -45,7 +45,6 @@ class UserValidator(
         }
         validateEmail(request.email)
         validateNickname(request.nickname)
-        validatePhone(request.phone)
     }
 
     fun validate(request: UpdateUserRequestDto) {
@@ -60,17 +59,6 @@ class UserValidator(
                         )
                     }
                     validateNickname(request.nickname)
-                }
-
-                UserUpdateMask.PHONE -> {
-                    if (request.phone.isNullOrEmpty()) {
-                        throw ParameterInvalidException(
-                            errorCode = ErrorCode.PARAMETER_INVALID,
-                            status = HttpStatus.BAD_REQUEST,
-                            message = "변경할 전화번호가 유효하지 않습니다."
-                        )
-                    }
-                    validatePhone(request.phone)
                 }
 
                 UserUpdateMask.BIRTH -> {
@@ -146,23 +134,6 @@ class UserValidator(
                 errorCode = ErrorCode.USER_NICKNAME_IS_ALREADY_EXISTS,
                 status = HttpStatus.BAD_REQUEST,
                 message = ErrorCode.USER_NICKNAME_IS_ALREADY_EXISTS.desc
-            )
-        }
-    }
-
-    private fun validatePhone(phone: String) {
-        if (!phone.matches(phoneRegexp.toRegex())) {
-            throw PolicyException(
-                errorCode = ErrorCode.USER_PHONE_IS_INCORRECT_FORMAT,
-                status = HttpStatus.BAD_REQUEST,
-                message = ErrorCode.USER_PHONE_IS_INCORRECT_FORMAT.desc
-            )
-        }
-        if (userFinder.existsByPhone(phone)) {
-            throw PolicyException(
-                errorCode = ErrorCode.USER_PHONE_IS_ALREADY_EXISTS,
-                status = HttpStatus.BAD_REQUEST,
-                message = ErrorCode.USER_PHONE_IS_ALREADY_EXISTS.desc
             )
         }
     }

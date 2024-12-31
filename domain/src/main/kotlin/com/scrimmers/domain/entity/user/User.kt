@@ -38,8 +38,6 @@ class User(
     @Column(nullable = false)
     var nickname: String,
     @Column(nullable = false)
-    var phone: String,
-    @Column(nullable = false)
     var birth: LocalDate,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -127,7 +125,6 @@ enum class UserOrderType {
 
 enum class UserUpdateMask {
     NICKNAME,
-    PHONE,
     BIRTH,
     GENDER,
     MAIN_POSITION,

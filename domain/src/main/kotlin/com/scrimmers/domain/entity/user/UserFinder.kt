@@ -22,10 +22,6 @@ class UserFinder(
         return repository.existsByNickname(nickname)
     }
 
-    fun existsByPhone(phone: String): Boolean {
-        return repository.existsByPhone(phone)
-    }
-
     @Throws(DataNotFoundException::class)
     fun findById(id: String): User {
         return repository.findByIdAndResignedFalse(id) ?: throw DataNotFoundException(
