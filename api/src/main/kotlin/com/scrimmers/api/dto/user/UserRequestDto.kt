@@ -22,8 +22,6 @@ data class CreateUserRequestDto(
     val loginType: UserLoginType,
     @field:NotEmpty(message = "닉네임은 필수 값입니다.")
     val nickname: String,
-    @field:NotEmpty(message = "전화번호는 필수 값입니다.")
-    val phone: String,
     @field:NotNull(message = "생년월일은 필수 값입니다.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     val birth: LocalDate,
@@ -34,7 +32,6 @@ data class CreateUserRequestDto(
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UpdateUserRequestDto(
     val nickname: String?,
-    val phone: String?,
     val birth: LocalDate?,
     val gender: UserGenderType?,
     val mainPosition: UserPositionType?,

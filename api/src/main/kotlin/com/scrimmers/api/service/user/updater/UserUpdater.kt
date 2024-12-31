@@ -12,7 +12,6 @@ class UserUpdater {
         request.updateMask.forEach {
             when (it) {
                 UserUpdateMask.NICKNAME -> entity.nickname = request.nickname!!
-                UserUpdateMask.PHONE -> entity.phone = request.phone!!
                 UserUpdateMask.BIRTH -> entity.birth = request.birth!!
                 UserUpdateMask.GENDER -> entity.gender = request.gender!!
                 UserUpdateMask.MAIN_POSITION -> entity.mainPosition = request.mainPosition!!
