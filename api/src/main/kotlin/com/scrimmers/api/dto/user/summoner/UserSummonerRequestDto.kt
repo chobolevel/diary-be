@@ -18,8 +18,8 @@ data class CreateUserSummonerRequestDto(
     val summonerTag: String,
     @field:NotNull(message = "소환사 레벨은 필수 값입니다.")
     val summonerLevel: Int,
-    @field:NotEmpty(message = "소환사 아이콘 경로는 필수 값입니다.")
-    val summonerIconUrl: String,
+    @field:NotNull(message = "소환사 아이콘 경로는 필수 값입니다.")
+    val summonerIconId: Int,
     val summonerSoloRank: SummonerRank?,
     val summonerFlexRank: SummonerRank?,
 )
@@ -29,7 +29,7 @@ data class UpdateUserSummonerRequestDto(
     val summonerName: String?,
     val summonerTag: String?,
     val summonerLevel: Int?,
-    val summonerIconUrl: String?,
+    val summonerIconId: Int?,
     val summonerSoloRank: SummonerRank?,
     val summonerFlexRank: SummonerRank?,
     @field:Size(min = 1, message = "update_mask는 필수 값입니다.")

@@ -17,7 +17,7 @@ class UserSummonerConverter {
             summonerName = request.summonerName,
             summonerTag = request.summonerTag,
             summonerLevel = request.summonerLevel,
-            summonerIconUrl = request.summonerIconUrl,
+            summonerIconId = request.summonerIconId,
             summonerSoloRank = request.summonerSoloRank ?: SummonerRank.NONE,
             summonerFlexRank = request.summonerFlexRank ?: SummonerRank.NONE,
         )
@@ -31,7 +31,7 @@ class UserSummonerConverter {
             summonerTag = entity.summonerTag,
             summonerFullName = "${entity.summonerName}#${entity.summonerTag}",
             summonerLevel = entity.summonerLevel,
-            summonerIconUrl = entity.summonerIconUrl,
+            summonerIconId = entity.summonerIconId,
             isUnRanked = entity.summonerSoloRank == SummonerRank.NONE && entity.summonerFlexRank == SummonerRank.NONE,
             summonerSoloRank = entity.summonerSoloRank,
             summonerFlexRank = entity.summonerFlexRank,

@@ -41,11 +41,11 @@ class UserSummonerValidator {
                     }
                 }
 
-                UserSummonerUpdateMask.SUMMONER_ICON_URL -> {
-                    if (request.summonerIconUrl.isNullOrEmpty()) {
+                UserSummonerUpdateMask.SUMMONER_ICON_ID -> {
+                    if (request.summonerIconId == null) {
                         throw ParameterInvalidException(
                             errorCode = ErrorCode.PARAMETER_INVALID,
-                            message = "변경할 소환사 아이콘 경로가 유효하지 않습니다."
+                            message = "변경할 소환사 아이콘 아이디가 유효하지 않습니다."
                         )
                     }
                 }

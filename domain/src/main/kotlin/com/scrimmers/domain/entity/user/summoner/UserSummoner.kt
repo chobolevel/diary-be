@@ -29,7 +29,7 @@ class UserSummoner(
     @Column(nullable = false, updatable = false)
     var summonerLevel: Int,
     @Column(nullable = false, updatable = false)
-    var summonerIconUrl: String,
+    var summonerIconId: Int,
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     var summonerSoloRank: SummonerRank,
@@ -74,7 +74,7 @@ enum class UserSummonerUpdateMask {
     SUMMONER_NAME,
     SUMMONER_TAG,
     SUMMONER_LEVEL,
-    SUMMONER_ICON_URL,
+    SUMMONER_ICON_ID,
     SUMMONER_SOLO_RANK,
     SUMMONER_FLEX_RANK
 }
