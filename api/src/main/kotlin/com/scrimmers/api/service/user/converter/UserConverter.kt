@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.time.Period
+import kotlin.math.floor
 
 @Component
 class UserConverter(
@@ -59,7 +60,7 @@ class UserConverter(
             email = entity.email,
             loginType = entity.loginType,
             nickname = entity.nickname,
-            age = Period.between(entity.birth, LocalDate.now()).years,
+            ageRange = (floor(Period.between(entity.birth, LocalDate.now()).years / 10.0) * 10).toInt(),
             birth = entity.birth,
             gender = entity.gender,
             mainPosition = entity.mainPosition,
@@ -78,7 +79,7 @@ class UserConverter(
             email = entity.email,
             loginType = entity.loginType,
             nickname = entity.nickname,
-            age = Period.between(entity.birth, LocalDate.now()).years,
+            ageRange = (floor(Period.between(entity.birth, LocalDate.now()).years / 10.0) * 10).toInt(),
             birth = entity.birth,
             gender = entity.gender,
             mainPosition = entity.mainPosition,
