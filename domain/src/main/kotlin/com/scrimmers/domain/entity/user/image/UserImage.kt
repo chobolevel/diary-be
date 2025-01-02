@@ -11,11 +11,13 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 
 @Entity
 @Table(name = "user_images")
 @Audited
+@Where(clause = "deleted = false")
 class UserImage(
     @Id
     @Column(nullable = false, updatable = false)
