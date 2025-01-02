@@ -9,6 +9,7 @@ import com.scrimmers.domain.entity.user.UserGenderType
 import com.scrimmers.domain.entity.user.UserLoginType
 import com.scrimmers.domain.entity.user.UserPositionType
 import com.scrimmers.domain.entity.user.UserRoleType
+import java.time.LocalDate
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UserResponseDto(
@@ -17,6 +18,7 @@ data class UserResponseDto(
     val loginType: UserLoginType,
     val nickname: String,
     val ageRange: Int,
+    val birth: LocalDate,
     val gender: UserGenderType,
     val mainPosition: UserPositionType,
     val subPosition: UserPositionType,
@@ -34,6 +36,7 @@ data class UserDetailResponseDto(
     val loginType: UserLoginType,
     val nickname: String,
     val ageRange: Int,
+    val birth: LocalDate,
     val gender: UserGenderType,
     val mainPosition: UserPositionType,
     val subPosition: UserPositionType,
