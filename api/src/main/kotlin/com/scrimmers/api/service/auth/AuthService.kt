@@ -55,7 +55,6 @@ class AuthService(
         val authentication = customAuthenticationManager.authenticate(authenticationToken)
         return tokenProvider.generateToken(authentication).also {
             setRefreshToken(
-                userId = authentication.name,
                 refreshToken = it.refreshToken
             )
         }
@@ -67,8 +66,7 @@ class AuthService(
             status = HttpStatus.UNAUTHORIZED,
             message = "토큰이 만료되었습니다. 재로그인 해주세요."
         )
-        val user = userFinder.findById(authentication.name)
-        val cachedRefreshToken = opsForHash.get("refresh-token:v1", user.id)
+        val cachedRefreshToken = opsForHash.get("refresh-token:v1", refreshToken)
         if (cachedRefreshToken == null || cachedRefreshToken != refreshToken) {
             throw PolicyException(
                 errorCode = ErrorCode.INVALID_TOKEN,
@@ -100,7 +98,7 @@ class AuthService(
         return user.id
     }
 
-    private fun setRefreshToken(userId: String, refreshToken: String) {
-        opsForHash.put("refresh-token:v1", userId, refreshToken)
+    private fun setRefreshToken(refreshToken: String) {
+        opsForHash.put("refresh-token:v1", refreshToken, refreshToken)
     }
 }
