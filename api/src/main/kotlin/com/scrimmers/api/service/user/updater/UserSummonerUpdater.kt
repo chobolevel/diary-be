@@ -14,7 +14,7 @@ class UserSummonerUpdater {
                 UserSummonerUpdateMask.SUMMONER_NAME -> entity.summonerName = request.summonerName!!
                 UserSummonerUpdateMask.SUMMONER_TAG -> entity.summonerTag = request.summonerTag!!
                 UserSummonerUpdateMask.SUMMONER_LEVEL -> entity.summonerLevel = request.summonerLevel!!
-                UserSummonerUpdateMask.SUMMONER_ICON_URL -> entity.summonerIconUrl = request.summonerIconUrl!!
+                UserSummonerUpdateMask.SUMMONER_ICON_ID -> entity.summonerIconId = request.summonerIconId!!
                 UserSummonerUpdateMask.SUMMONER_SOLO_RANK -> entity.summonerSoloRank = request.summonerSoloRank!!
                 UserSummonerUpdateMask.SUMMONER_FLEX_RANK -> entity.summonerFlexRank = request.summonerFlexRank!!
             }

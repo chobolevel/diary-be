@@ -63,7 +63,6 @@ class User(
     var resigned: Boolean = false
 
     @OneToOne(mappedBy = "user", cascade = [(CascadeType.ALL)], orphanRemoval = true)
-    @Where(clause = "deleted = false")
     var userImage: UserImage? = null
 
     @OneToMany(mappedBy = "user", cascade = [(CascadeType.ALL)], orphanRemoval = true)

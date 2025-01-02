@@ -12,7 +12,7 @@ data class UserSummonerResponseDto(
     val summonerTag: String,
     val summonerFullName: String,
     val summonerLevel: Int,
-    val summonerIconUrl: String,
+    val summonerIconId: Int,
     val isUnRanked: Boolean,
     val summonerSoloRank: SummonerRank,
     val summonerFlexRank: SummonerRank,
