@@ -13,12 +13,14 @@ import com.scrimmers.domain.entity.team.TeamFinder
 import com.scrimmers.domain.entity.team.TeamOrderType
 import com.scrimmers.domain.entity.team.TeamQueryFilter
 import com.scrimmers.domain.entity.team.TeamRepository
+import com.scrimmers.domain.entity.user.User
 import com.scrimmers.domain.entity.user.UserFinder
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.PolicyException
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import kotlin.jvm.Throws
 
 @Service
 class TeamService(
@@ -34,13 +36,8 @@ class TeamService(
     fun create(userId: String, request: CreateTeamRequestDto): String {
         validator.validate(request)
         val user = userFinder.findById(userId)
-        val isExists = finder.existsByName(request.name.lowercase())
-        if (isExists) {
-            throw PolicyException(
-                errorCode = ErrorCode.PARAMETER_INVALID,
-                message = "이미 존재하는 팀명입니다."
-            )
-        }
+        validateUserTeam(user)
+        validateTeamNameDuplicated(request.name)
         val team = converter.convert(request).also {
             it.setBy(user)
         }
@@ -107,12 +104,33 @@ class TeamService(
         return true
     }
 
+    @Throws(PolicyException::class)
     private fun validateOwner(userId: String, team: Team) {
         if (team.owner!!.id != userId) {
             throw PolicyException(
                 errorCode = ErrorCode.NO_ACCESS_EXCEPT_FOR_OWNER,
                 status = HttpStatus.BAD_REQUEST,
                 message = ErrorCode.NO_ACCESS_EXCEPT_FOR_OWNER.desc
+            )
+        }
+    }
+
+    @Throws(PolicyException::class)
+    private fun validateUserTeam(user: User) {
+        if (user.team != null) {
+            throw PolicyException(
+                errorCode = ErrorCode.USER_ALREADY_HAVE_TEAM,
+                message = ErrorCode.USER_ALREADY_HAVE_TEAM.desc
+            )
+        }
+    }
+
+    private fun validateTeamNameDuplicated(teamName: String) {
+        val isExists = finder.existsByName(teamName.lowercase())
+        if (isExists) {
+            throw PolicyException(
+                errorCode = ErrorCode.PARAMETER_INVALID,
+                message = "이미 존재하는 팀명입니다."
             )
         }
     }
