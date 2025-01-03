@@ -83,6 +83,7 @@ class TeamService(
             userId = userId,
             team = team
         )
+        validateTeamNameDuplicated(request.name!!)
         updater.markAsUpdate(
             request = request,
             entity = team
