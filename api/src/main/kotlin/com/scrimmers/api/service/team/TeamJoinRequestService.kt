@@ -16,6 +16,7 @@ import com.scrimmers.domain.entity.team.join.TeamJoinRequestOrderType
 import com.scrimmers.domain.entity.team.join.TeamJoinRequestQueryFilter
 import com.scrimmers.domain.entity.team.join.TeamJoinRequestRepository
 import com.scrimmers.domain.entity.team.join.TeamJoinRequestStatus
+import com.scrimmers.domain.entity.user.User
 import com.scrimmers.domain.entity.user.UserFinder
 import com.scrimmers.domain.exception.ErrorCode
 import com.scrimmers.domain.exception.PolicyException
@@ -38,6 +39,7 @@ class TeamJoinRequestService(
         validator.validate(request)
         val team = teamFinder.findById(request.teamId)
         val user = userFinder.findById(userId)
+        validateUserTeam(user)
         val teamJoinRequest = converter.convert(request).also {
             it.setBy(team)
             it.setBy(user)
@@ -153,6 +155,16 @@ class TeamJoinRequestService(
             throw PolicyException(
                 errorCode = ErrorCode.NO_ACCESS_EXCEPT_FOR_OWNER,
                 message = ErrorCode.NO_ACCESS_EXCEPT_FOR_OWNER.desc
+            )
+        }
+    }
+
+    @Throws(PolicyException::class)
+    private fun validateUserTeam(user: User) {
+        if (user.team != null) {
+            throw PolicyException(
+                errorCode = ErrorCode.USER_ALREADY_HAVE_TEAM,
+                message = ErrorCode.USER_ALREADY_HAVE_TEAM.desc
             )
         }
     }
