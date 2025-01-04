@@ -6,7 +6,7 @@ enum class ErrorCode(val desc: String) {
 
     // AUTH
     BAD_CREDENTIALS("사용자 인증에 실패하였습니다."),
-    UNAUTHORIZED("인증되지 않은 사용자입니다."),
+    UNAUTHORIZED("요청에 대한 권한이 없습니다."),
     FORBIDDEN("엑세스 권한 없음"),
 
     // JWT
@@ -62,5 +62,10 @@ enum class ErrorCode(val desc: String) {
 
     // SCRIM MATCH
     SCRIM_MATCH_IS_NOT_FOUND("스크림 매치 정보를 찾을 수 없습니다."),
-    CAN_NOT_OVER_BEST_OF_COUNT("다전제 횟수를 초과하여 매치를 등록할 수 없습니다.")
+    CAN_NOT_OVER_BEST_OF_COUNT("다전제 횟수를 초과하여 매치를 등록할 수 없습니다."),
+
+    // BOARD
+
+    // BOARD CATEGORY
+    BOARD_CATEGORY_IS_NOT_FOUND("게시판 카테고리 정보를 찾을 수 없습니다.")
 }
