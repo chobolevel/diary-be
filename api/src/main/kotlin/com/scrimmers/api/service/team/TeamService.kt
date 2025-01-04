@@ -20,7 +20,7 @@ import com.scrimmers.domain.exception.PolicyException
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import kotlin.jvm.Throws
+import kotlin.Throws
 
 @Service
 class TeamService(
@@ -75,10 +75,7 @@ class TeamService(
     @Transactional
     fun update(userId: String, teamId: String, request: UpdateTeamRequestDto): String {
         validator.validate(request)
-        val team = finder.findByIdAndOwnerId(
-            id = teamId,
-            ownerId = userId
-        )
+        val team = finder.findById(id = teamId)
         validateOwner(
             userId = userId,
             team = team
@@ -93,14 +90,14 @@ class TeamService(
 
     @Transactional
     fun delete(userId: String, teamId: String): Boolean {
-        val team = finder.findByIdAndOwnerId(
-            id = teamId,
-            ownerId = userId
-        )
+        val team = finder.findById(id = teamId)
         validateOwner(
             userId = userId,
             team = team
         )
+        userFinder.findByTeamId(team.id).forEach {
+            it.leaveTeam()
+        }
         team.delete()
         return true
     }
@@ -126,6 +123,7 @@ class TeamService(
         }
     }
 
+    @Throws(PolicyException::class)
     private fun validateTeamNameDuplicated(teamName: String) {
         val isExists = finder.existsByName(teamName.lowercase())
         if (isExists) {
