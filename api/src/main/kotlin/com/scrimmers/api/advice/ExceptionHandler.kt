@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.security.authentication.BadCredentialsException
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
@@ -26,6 +27,15 @@ class ExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun httpMessageNotReadableExceptionHandler(e: HttpMessageNotReadableException): ResponseEntity<ErrorResponse> {
+        val errorResponse = ErrorResponse(
+            errorCode = ErrorCode.PARAMETER_INVALID,
+            errorMessage = e.localizedMessage
+        )
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun methodArgumentNotValidExceptionHandler(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         val errorResponse = ErrorResponse(
             errorCode = ErrorCode.PARAMETER_INVALID,
             errorMessage = e.localizedMessage
