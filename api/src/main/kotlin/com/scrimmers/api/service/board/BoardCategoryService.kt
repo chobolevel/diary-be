@@ -8,10 +8,13 @@ import com.scrimmers.api.service.board.converter.BoardCategoryConverter
 import com.scrimmers.api.service.board.updater.BoardCategoryUpdater
 import com.scrimmers.api.service.board.validator.BoardCategoryValidator
 import com.scrimmers.domain.dto.common.Pagination
+import com.scrimmers.domain.entity.borad.BoardFinder
 import com.scrimmers.domain.entity.borad.category.BoardCategoryFinder
 import com.scrimmers.domain.entity.borad.category.BoardCategoryOrderType
 import com.scrimmers.domain.entity.borad.category.BoardCategoryQueryFilter
 import com.scrimmers.domain.entity.borad.category.BoardCategoryRepository
+import com.scrimmers.domain.exception.ErrorCode
+import com.scrimmers.domain.exception.PolicyException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 class BoardCategoryService(
     private val repository: BoardCategoryRepository,
     private val finder: BoardCategoryFinder,
+    private val boardFinder: BoardFinder,
     private val validator: BoardCategoryValidator,
     private val converter: BoardCategoryConverter,
     private val updater: BoardCategoryUpdater
@@ -69,7 +73,13 @@ class BoardCategoryService(
     @Transactional
     fun delete(boardCategoryId: String): Boolean {
         val boardCategory = finder.findById(boardCategoryId)
-        // TODO 해당 카테고리 게시글이 있을 경우 카테고리 삭제 불가능
+        val boards = boardFinder.findByBoardCategoryId(boardCategory.id)
+        if (boards.isNotEmpty()) {
+            throw PolicyException(
+                errorCode = ErrorCode.BOARD_EXISTS_IN_CATEGORY,
+                message = ErrorCode.BOARD_EXISTS_IN_CATEGORY.desc
+            )
+        }
         boardCategory.delete()
         return true
     }

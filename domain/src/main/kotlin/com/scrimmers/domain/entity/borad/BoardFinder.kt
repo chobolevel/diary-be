@@ -22,6 +22,10 @@ class BoardFinder(
         )
     }
 
+    fun findByBoardCategoryId(boardCategoryId: String): List<Board> {
+        return repository.findByBoardCategoryIdAndDeletedFalse(boardCategoryId)
+    }
+
     fun search(queryFilter: BoardQueryFilter, pagination: Pagination, orderTypes: List<BoardOrderType>?): List<Board> {
         return customRepository.searchByPredicates(
             booleanExpressions = queryFilter.toBooleanExpressions(),
