@@ -65,6 +65,9 @@ enum class ErrorCode(val desc: String) {
     CAN_NOT_OVER_BEST_OF_COUNT("다전제 횟수를 초과하여 매치를 등록할 수 없습니다."),
 
     // BOARD
+    BOARD_IS_NOT_FOUND("게시글을 찾을 수 없습니다."),
+    NO_ACCESS_EXCEPT_FOR_WRITER("작성자 외 접근 불가"),
+    BOARD_EXISTS_IN_CATEGORY("카테고리 게시글이 존재합니다."),
 
     // BOARD CATEGORY
     BOARD_CATEGORY_IS_NOT_FOUND("게시판 카테고리 정보를 찾을 수 없습니다.")
