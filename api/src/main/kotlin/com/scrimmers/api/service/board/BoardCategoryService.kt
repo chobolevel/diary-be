@@ -73,8 +73,8 @@ class BoardCategoryService(
     @Transactional
     fun delete(boardCategoryId: String): Boolean {
         val boardCategory = finder.findById(boardCategoryId)
-        val boards = boardFinder.findByBoardCategoryId(boardCategory.id)
-        if (boards.isNotEmpty()) {
+        val isCategoryBoardExists = boardFinder.existsByBoardCategoryId(boardCategory.id)
+        if (isCategoryBoardExists) {
             throw PolicyException(
                 errorCode = ErrorCode.BOARD_EXISTS_IN_CATEGORY,
                 message = ErrorCode.BOARD_EXISTS_IN_CATEGORY.desc

@@ -6,5 +6,5 @@ interface BoardRepository : JpaRepository<Board, String> {
 
     fun findByIdAndDeletedFalse(id: String): Board?
 
-    fun findByBoardCategoryIdAndDeletedFalse(boardCategoryId: String): List<Board>
+    fun existsByBoardCategoryIdAndDeletedFalse(boardCategoryId: String): Boolean
 }
