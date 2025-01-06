@@ -44,7 +44,6 @@ class TeamJoinRequestService(
             it.setBy(team)
             it.setBy(user)
         }
-        user.setBy(team)
         return repository.save(teamJoinRequest).id
     }
 
