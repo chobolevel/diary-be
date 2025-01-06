@@ -49,7 +49,7 @@ class BoardController(
     @Operation(summary = "게시글 목록 조회 API")
     @GetMapping("/boards")
     fun getBoards(
-        @RequestParam(required = false) writerId: String,
+        @RequestParam(required = false) writerId: String?,
         @RequestParam(required = false) boardCategoryId: String?,
         @RequestParam(required = false) title: String?,
         @RequestParam(required = false) skipCount: Long?,
