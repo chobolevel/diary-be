@@ -37,7 +37,6 @@ class TeamService(
         validator.validate(request)
         val user = userFinder.findById(userId)
         validateUserTeam(user)
-        validateTeamNameDuplicated(request.name)
         val team = converter.convert(request).also {
             it.setBy(user)
         }
@@ -80,7 +79,6 @@ class TeamService(
             userId = userId,
             team = team
         )
-        validateTeamNameDuplicated(request.name!!)
         updater.markAsUpdate(
             request = request,
             entity = team
@@ -119,17 +117,6 @@ class TeamService(
             throw PolicyException(
                 errorCode = ErrorCode.USER_ALREADY_HAVE_TEAM,
                 message = ErrorCode.USER_ALREADY_HAVE_TEAM.desc
-            )
-        }
-    }
-
-    @Throws(PolicyException::class)
-    private fun validateTeamNameDuplicated(teamName: String) {
-        val isExists = finder.existsByName(teamName.lowercase())
-        if (isExists) {
-            throw PolicyException(
-                errorCode = ErrorCode.PARAMETER_INVALID,
-                message = "이미 존재하는 팀명입니다."
             )
         }
     }

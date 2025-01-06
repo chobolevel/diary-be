@@ -10,7 +10,7 @@ import com.scrimmers.domain.entity.team.join.TeamJoinRequestStatus
 data class TeamJoinRequestResponseDto(
     val id: String,
     val team: TeamResponseDto,
-    val user: UserResponseDto,
+    val requester: UserResponseDto,
     val status: TeamJoinRequestStatus,
     val comment: String,
     val rejectReason: String?,

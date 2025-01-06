@@ -7,10 +7,16 @@ import org.springframework.stereotype.Component
 @Component
 class BoardQueryCreator {
 
-    fun createQueryFilter(writerId: String?, boardCategoryId: String?, title: String?): BoardQueryFilter {
+    fun createQueryFilter(
+        writerId: String?,
+        boardCategoryId: String?,
+        boardCategoryCode: String?,
+        title: String?
+    ): BoardQueryFilter {
         return BoardQueryFilter(
             writerId = writerId,
             boardCategoryId = boardCategoryId,
+            boardCategoryCode = boardCategoryCode,
             title = title
         )
     }

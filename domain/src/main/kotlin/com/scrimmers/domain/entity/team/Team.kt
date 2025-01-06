@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
-import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 
 @Entity
@@ -40,7 +39,6 @@ class Team(
     var deleted: Boolean = false
 
     @OneToOne(mappedBy = "team", cascade = [CascadeType.ALL], orphanRemoval = true)
-    @Where(clause = "deleted = false")
     var teamImage: TeamImage? = null
 
     fun increaseHeadCount() {

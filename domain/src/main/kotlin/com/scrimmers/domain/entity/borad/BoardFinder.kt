@@ -22,8 +22,8 @@ class BoardFinder(
         )
     }
 
-    fun findByBoardCategoryId(boardCategoryId: String): List<Board> {
-        return repository.findByBoardCategoryIdAndDeletedFalse(boardCategoryId)
+    fun existsByBoardCategoryId(boardCategoryId: String): Boolean {
+        return repository.existsByBoardCategoryIdAndDeletedFalse(boardCategoryId)
     }
 
     fun search(queryFilter: BoardQueryFilter, pagination: Pagination, orderTypes: List<BoardOrderType>?): List<Board> {
