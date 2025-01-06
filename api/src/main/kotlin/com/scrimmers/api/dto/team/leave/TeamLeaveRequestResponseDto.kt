@@ -10,7 +10,7 @@ import com.scrimmers.domain.entity.team.leave.TeamLeaveRequestStatus
 data class TeamLeaveRequestResponseDto(
     val id: String,
     val team: TeamResponseDto,
-    val user: UserResponseDto,
+    val requester: UserResponseDto,
     val status: TeamLeaveRequestStatus,
     val comment: String,
     val rejectReason: String?,

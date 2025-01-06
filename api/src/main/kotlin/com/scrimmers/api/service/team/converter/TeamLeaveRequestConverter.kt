@@ -24,7 +24,7 @@ class TeamLeaveRequestConverter(
         return TeamLeaveRequestResponseDto(
             id = entity.id,
             team = teamConverter.convert(entity.team!!),
-            user = userConverter.convert(entity.user!!),
+            requester = userConverter.convert(entity.user!!),
             status = entity.status,
             comment = entity.comment,
             rejectReason = entity.rejectReason,
