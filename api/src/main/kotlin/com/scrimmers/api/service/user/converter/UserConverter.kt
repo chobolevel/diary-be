@@ -76,6 +76,7 @@ class UserConverter(
         return UserDetailResponseDto(
             id = entity.id,
             team = entity.team?.let { teamConverter.convert(it) },
+            teamJoinedAt = entity.teamJoinedAt?.toInstant()?.toEpochMilli(),
             email = entity.email,
             loginType = entity.loginType,
             nickname = entity.nickname,
@@ -87,6 +88,7 @@ class UserConverter(
             role = entity.role,
             profileImage = userImageConverter.convert(entity.userImage),
             summoners = entity.summoners.map { userSummonerConverter.convert(it) },
+            isTeamOwner = entity.team?.let { it.owner!!.id == entity.id } ?: false,
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli()
         )

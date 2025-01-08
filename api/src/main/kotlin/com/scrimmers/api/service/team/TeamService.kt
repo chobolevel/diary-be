@@ -1,6 +1,7 @@
 package com.scrimmers.api.service.team
 
 import com.scrimmers.api.dto.common.PaginationResponseDto
+import com.scrimmers.api.dto.team.BanishTeamRequestDto
 import com.scrimmers.api.dto.team.CreateTeamRequestDto
 import com.scrimmers.api.dto.team.TeamResponseDto
 import com.scrimmers.api.dto.team.UpdateTeamRequestDto
@@ -87,14 +88,42 @@ class TeamService(
     }
 
     @Transactional
+    fun banish(userId: String, teamId: String, request: BanishTeamRequestDto): String {
+        val team = finder.findById(teamId)
+        validateOwner(
+            userId = userId,
+            team = team
+        )
+        if (request.userIds.contains(userId)) {
+            throw PolicyException(
+                errorCode = ErrorCode.CAN_NOT_BANISH_TEAM_OWNER,
+                message = ErrorCode.CAN_NOT_BANISH_TEAM_OWNER.desc
+            )
+        }
+        val teamUsers = userFinder.findByIdsAndTeamId(
+            ids = request.userIds,
+            teamId = team.id
+        )
+        teamUsers.forEach {
+            it.leaveTeam()
+        }
+        team.decreaseHeadCount(teamUsers.size)
+        return team.id
+    }
+
+    @Transactional
     fun delete(userId: String, teamId: String): Boolean {
         val team = finder.findById(id = teamId)
         validateOwner(
             userId = userId,
             team = team
         )
-        userFinder.findByTeamId(team.id).forEach {
-            it.leaveTeam()
+        val isTeamUsersExists = userFinder.existsByTeamId(team.id)
+        if (isTeamUsersExists) {
+            throw PolicyException(
+                errorCode = ErrorCode.TEAM_USERS_EXISTS,
+                message = ErrorCode.TEAM_USERS_EXISTS.desc
+            )
         }
         team.delete()
         return true

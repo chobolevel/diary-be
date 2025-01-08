@@ -2,6 +2,7 @@ package com.scrimmers.api.controller.v1.team
 
 import com.scrimmers.api.annotation.HasAuthorityUser
 import com.scrimmers.api.dto.common.ResultResponse
+import com.scrimmers.api.dto.team.BanishTeamRequestDto
 import com.scrimmers.api.dto.team.CreateTeamRequestDto
 import com.scrimmers.api.dto.team.UpdateTeamRequestDto
 import com.scrimmers.api.getUserId
@@ -88,6 +89,23 @@ class TeamController(
         request: UpdateTeamRequestDto
     ): ResponseEntity<ResultResponse> {
         val result = service.update(
+            userId = principal.getUserId(),
+            teamId = teamId,
+            request = request
+        )
+        return ResponseEntity.ok(ResultResponse(result))
+    }
+
+    @Operation(summary = "팀원 추방 API")
+    @HasAuthorityUser
+    @PutMapping("/teams/{id}/banish")
+    fun banishTeam(
+        principal: Principal,
+        @PathVariable("id") teamId: String,
+        @Valid @RequestBody
+        request: BanishTeamRequestDto
+    ): ResponseEntity<ResultResponse> {
+        val result = service.banish(
             userId = principal.getUserId(),
             teamId = teamId,
             request = request

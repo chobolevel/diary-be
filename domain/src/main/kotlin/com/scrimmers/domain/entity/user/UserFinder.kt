@@ -56,6 +56,17 @@ class UserFinder(
         return repository.findByTeamIdAndResignedFalse(teamId)
     }
 
+    fun existsByTeamId(teamId: String): Boolean {
+        return repository.existsByTeamIdAndResignedFalse(teamId)
+    }
+
+    fun findByIdsAndTeamId(ids: List<String>, teamId: String): List<User> {
+        return repository.findByIdInAndTeamIdAndResignedFalse(
+            ids = ids,
+            teamId = teamId
+        )
+    }
+
     fun search(queryFilter: UserQueryFilter, pagination: Pagination, orderTypes: List<UserOrderType>?): List<User> {
         val orderSpecifiers = getOrderSpecifiers(orderTypes ?: emptyList())
         return customRepository.searchByPredicates(
@@ -76,6 +87,8 @@ class UserFinder(
             when (it) {
                 UserOrderType.CREATED_AT_ASC -> user.createdAt.asc()
                 UserOrderType.CREATED_AT_DESC -> user.createdAt.desc()
+                UserOrderType.TEAM_JOINED_AT_ASC -> user.teamJoinedAt.asc()
+                UserOrderType.TEAM_JOINED_AT_DESC -> user.teamJoinedAt.desc()
             }
         }.toTypedArray()
     }
