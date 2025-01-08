@@ -56,6 +56,10 @@ class UserFinder(
         return repository.findByTeamIdAndResignedFalse(teamId)
     }
 
+    fun existsByTeamId(teamId: String): Boolean {
+        return repository.existsByTeamIdAndResignedFalse(teamId)
+    }
+
     fun findByIdsAndTeamId(ids: List<String>, teamId: String): List<User> {
         return repository.findByIdInAndTeamIdAndResignedFalse(
             ids = ids,

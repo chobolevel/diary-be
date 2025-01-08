@@ -1,6 +1,5 @@
 package com.scrimmers.api.service.team
 
-import com.amazonaws.auth.policy.Policy
 import com.scrimmers.api.dto.common.PaginationResponseDto
 import com.scrimmers.api.dto.team.BanishTeamRequestDto
 import com.scrimmers.api.dto.team.CreateTeamRequestDto
@@ -119,8 +118,12 @@ class TeamService(
             userId = userId,
             team = team
         )
-        userFinder.findByTeamId(team.id).forEach {
-            it.leaveTeam()
+        val isTeamUsersExists = userFinder.existsByTeamId(team.id)
+        if (isTeamUsersExists) {
+            throw PolicyException(
+                errorCode = ErrorCode.TEAM_USERS_EXISTS,
+                message = ErrorCode.TEAM_USERS_EXISTS.desc
+            )
         }
         team.delete()
         return true

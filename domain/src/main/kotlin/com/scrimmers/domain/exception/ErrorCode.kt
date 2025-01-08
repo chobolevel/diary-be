@@ -39,6 +39,7 @@ enum class ErrorCode(val desc: String) {
     NO_ACCESS_EXCEPT_FOR_OWNER("팁장 외 접근 불가"),
     TEAM_MAX_HEAD_COUNT_IS_OVER("팀 최대 인원이 찼습니다."),
     CAN_NOT_BANISH_TEAM_OWNER("팀장은 추방할 수 없습니다."),
+    TEAM_USERS_EXISTS("소속된 팀원이 있습니다."),
 
     // TEAM IMAGE
     TEAM_IMAGE_IS_NOT_FOUND("팀 이미지를 찾을 수 없습니다."),
