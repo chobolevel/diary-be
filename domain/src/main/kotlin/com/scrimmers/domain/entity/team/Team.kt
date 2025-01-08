@@ -41,12 +41,12 @@ class Team(
     @OneToOne(mappedBy = "team", cascade = [CascadeType.ALL], orphanRemoval = true)
     var teamImage: TeamImage? = null
 
-    fun increaseHeadCount() {
-        this.headCount += 1
+    fun increaseHeadCount(amount: Int = 1) {
+        this.headCount += amount
     }
 
-    fun decreaseHeadCount() {
-        this.headCount -= 1
+    fun decreaseHeadCount(amount: Int = 1) {
+        this.headCount -= amount
     }
 
     fun setBy(owner: User) {

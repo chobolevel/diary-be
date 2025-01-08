@@ -1,6 +1,7 @@
 package com.scrimmers.api.service.team
 
 import com.scrimmers.api.dto.common.PaginationResponseDto
+import com.scrimmers.api.dto.team.BanishTeamRequestDto
 import com.scrimmers.api.dto.team.CreateTeamRequestDto
 import com.scrimmers.api.dto.team.TeamResponseDto
 import com.scrimmers.api.dto.team.UpdateTeamRequestDto
@@ -83,6 +84,24 @@ class TeamService(
             request = request,
             entity = team
         )
+        return team.id
+    }
+
+    @Transactional
+    fun banish(userId: String, teamId: String, request: BanishTeamRequestDto): String {
+        val team = finder.findById(teamId)
+        validateOwner(
+            userId = userId,
+            team = team
+        )
+        val teamUsers = userFinder.findByIdsAndTeamId(
+            ids = request.userIds,
+            teamId = team.id
+        )
+        teamUsers.forEach {
+            it.leaveTeam()
+        }
+        team.decreaseHeadCount(teamUsers.size)
         return team.id
     }
 

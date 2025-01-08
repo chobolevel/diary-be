@@ -56,6 +56,13 @@ class UserFinder(
         return repository.findByTeamIdAndResignedFalse(teamId)
     }
 
+    fun findByIdsAndTeamId(ids: List<String>, teamId: String): List<User> {
+        return repository.findByIdInAndTeamIdAndResignedFalse(
+            ids = ids,
+            teamId = teamId
+        )
+    }
+
     fun search(queryFilter: UserQueryFilter, pagination: Pagination, orderTypes: List<UserOrderType>?): List<User> {
         val orderSpecifiers = getOrderSpecifiers(orderTypes ?: emptyList())
         return customRepository.searchByPredicates(

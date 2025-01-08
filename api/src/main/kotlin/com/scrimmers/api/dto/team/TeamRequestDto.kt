@@ -25,3 +25,9 @@ data class UpdateTeamRequestDto(
     @field:Size(min = 1, message = "update_mask는 필수 값입니다.")
     val updateMask: List<TeamUpdateMask>
 )
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+data class BanishTeamRequestDto(
+    @field:Size(min = 1, message = "추방할 팀원 정보는 필수 값입니다.")
+    val userIds: List<String>
+)
