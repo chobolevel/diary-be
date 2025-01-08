@@ -83,6 +83,8 @@ class UserFinder(
             when (it) {
                 UserOrderType.CREATED_AT_ASC -> user.createdAt.asc()
                 UserOrderType.CREATED_AT_DESC -> user.createdAt.desc()
+                UserOrderType.TEAM_JOINED_AT_ASC -> user.teamJoinedAt.asc()
+                UserOrderType.TEAM_JOINED_AT_DESC -> user.teamJoinedAt.desc()
             }
         }.toTypedArray()
     }

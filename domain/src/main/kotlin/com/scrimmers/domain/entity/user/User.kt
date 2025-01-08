@@ -18,6 +18,7 @@ import jakarta.persistence.Table
 import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 import java.time.LocalDate
+import java.time.OffsetDateTime
 
 @Entity
 @Table(name = "users")
@@ -51,6 +52,9 @@ class User(
     @JoinColumn(name = "team_id")
     var team: Team? = null
 
+    @Column(nullable = false)
+    var teamJoinedAt: OffsetDateTime? = null
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     var mainPosition: UserPositionType = UserPositionType.NONE
@@ -72,11 +76,13 @@ class User(
     fun setBy(team: Team) {
         if (this.team != team) {
             this.team = team
+            this.teamJoinedAt = OffsetDateTime.now()
         }
     }
 
     fun leaveTeam() {
         this.team = null
+        this.teamJoinedAt = null
     }
 
     fun resign() {
@@ -120,6 +126,8 @@ enum class UserRoleType {
 enum class UserOrderType {
     CREATED_AT_ASC,
     CREATED_AT_DESC,
+    TEAM_JOINED_AT_ASC,
+    TEAM_JOINED_AT_DESC
 }
 
 enum class UserUpdateMask {

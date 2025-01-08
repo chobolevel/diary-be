@@ -32,6 +32,7 @@ data class UserResponseDto(
 data class UserDetailResponseDto(
     val id: String,
     val team: TeamResponseDto?,
+    val teamJoinedAt: Long?,
     val email: String,
     val loginType: UserLoginType,
     val nickname: String,
@@ -43,6 +44,7 @@ data class UserDetailResponseDto(
     val role: UserRoleType,
     val profileImage: UserImageResponseDto?,
     val summoners: List<UserSummonerResponseDto>,
+    val isTeamOwner: Boolean,
     val createdAt: Long,
     val updatedAt: Long
 )
