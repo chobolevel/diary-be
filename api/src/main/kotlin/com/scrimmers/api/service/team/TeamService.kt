@@ -1,5 +1,6 @@
 package com.scrimmers.api.service.team
 
+import com.amazonaws.auth.policy.Policy
 import com.scrimmers.api.dto.common.PaginationResponseDto
 import com.scrimmers.api.dto.team.BanishTeamRequestDto
 import com.scrimmers.api.dto.team.CreateTeamRequestDto
@@ -94,6 +95,12 @@ class TeamService(
             userId = userId,
             team = team
         )
+        if (request.userIds.contains(userId)) {
+            throw PolicyException(
+                errorCode = ErrorCode.CAN_NOT_BANISH_TEAM_OWNER,
+                message = ErrorCode.CAN_NOT_BANISH_TEAM_OWNER.desc
+            )
+        }
         val teamUsers = userFinder.findByIdsAndTeamId(
             ids = request.userIds,
             teamId = team.id
