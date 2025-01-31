@@ -4,9 +4,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     val kotlinVersion = "1.8.21"
     val ktlintVersion = "11.3.1"
-    val springBootVersion = "3.4.2"
-    val springDependencyManagementVersion = "1.1.7"
-    val flywayVersion = "11.3.0"
+    val springBootVersion = "3.1.0"
+    val springDependencyManagementVersion = "1.1.0"
+    val flywayVersion = "7.13.0"
     val jibVersion = "3.4.4"
 
     // kotlin jvm 플러그인을 사용하여 kotlin 코드를 컴파일
@@ -34,6 +34,10 @@ allprojects {
     group = "com.daangn"
     version = "0.0.1-SNAPSHOT"
 
+    apply {
+        plugin("kotlin")
+    }
+
     repositories {
         mavenCentral()
     }
@@ -43,7 +47,6 @@ allprojects {
 subprojects {
     apply {
         // plugins 블록에서 설정한 플러그인 적용
-        plugin("kotlin")
         plugin("org.jlleitschuh.gradle.ktlint")
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")

@@ -15,7 +15,9 @@ allOpen {
 flyway {
     url = "jdbc:mysql://localhost:3306/daangn"
     user = "root"
-    password = "password"
+    password = "1234"
+    baselineVersion = "0"
+    outOfOrder = true
     locations = arrayOf("classpath:migration")
 }
 
@@ -24,8 +26,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     // querydsl
-    implementation("com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta")
-    kapt("com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
+    implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
+    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
 
     // envers
     implementation("org.springframework.data:spring-data-envers")
