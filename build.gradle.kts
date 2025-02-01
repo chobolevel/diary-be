@@ -9,6 +9,10 @@ plugins {
     val flywayVersion = "7.13.0"
     val jibVersion = "3.4.4"
 
+    // kotlin("plugin") 형식을 사용하면 kotlin 플러그인의 하위 플러그인을 사용하는 방식
+    // 즉 코틀린 관련 플러그인을 사용할 때의 방식
+    // 반면에 id("plugin") 형식을 사욜하면 식별자를 통해 해당 플러그인을 적용
+
     // kotlin jvm 플러그인을 사용하여 kotlin 코드를 컴파일
     kotlin("jvm") version kotlinVersion
     // kotlin annotation processing 플러그인을 사용하여 컴파일 시점에 어노테이션을 처리
@@ -59,13 +63,16 @@ subprojects {
         // compileOnly = 컴파일 시에만 필요한 경우 선언
         // runtimeOnly = 런타임 시에만 필요한 경우 선언
         // testImplementation = 테스트 코드에만 사용하는 의존성 선언
-        // testCompileOnly = 테스트 코드에서만 컴파일 시에 사용되는 의존성 선언
-        // testRuntimeOnly = 테스트 코드에서만 런타임 시에 사용되는 의존성 선언
+        // testCompileOnly = 테스트 코드에서 컴파일 시에만 사용되는 의존성 선언
+        // testRuntimeOnly = 테스트 코드에서 런타임 시에만 사용되는 의존성 선언
         // annotationProcessor = 어노테이션 프로세서에서 사용하는 의존성
+
+        // spring-boot-starter
         implementation("org.springframework.boot:spring-boot-starter-web")
 
-        // jackson 라이브러리와 kotlin 호환성을 위해 사용(data 클래스, null, @JsonProperty 등)
+        // jackson 라이브러리와 kotlin 호환성을 위해 사용(data 클래스, nullish, @JsonProperty 등)
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
         // 애플리케이션 실행 중에 객체의 클래스 정보를 동적으로 조회하거나 조작할 수 있는 기능(User::class)
         implementation("org.jetbrains.kotlin:kotlin-reflect")
 
