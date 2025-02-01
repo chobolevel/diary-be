@@ -9,7 +9,6 @@ plugins {
 allOpen {
     annotation("javax.persistence.Entity")
     annotation("jakarta.persistence.MappedSuperclass")
-    annotation("jakarta.persistence.Embeddable")
 }
 
 flyway {
@@ -18,7 +17,6 @@ flyway {
     password = "1234"
     baselineVersion = "0"
     outOfOrder = true
-    locations = arrayOf("classpath:migration")
 }
 
 dependencies {
