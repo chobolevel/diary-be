@@ -5,14 +5,14 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.auditing.DateTimeProvider
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import java.time.OffsetDateTime
-import java.util.Optional
+import java.util.*
 
 @Configuration
 @EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")
 class AuditConfiguration {
 
     @Bean
-    fun auditDateTimeProvider(): DateTimeProvider {
+    fun auditingDateTimeProvider(): DateTimeProvider {
         return DateTimeProvider { Optional.of(OffsetDateTime.now()) }
     }
 }
