@@ -77,7 +77,7 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
 
         // junit
-        testImplementation("org.junit.jupiter:junit-jupiter")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
     tasks {
