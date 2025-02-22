@@ -26,4 +26,7 @@ dependencies {
 
     // aws s3
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+
+    // tsid
+    implementation("io.hypersistence:hypersistence-utils-hibernate-60:3.7.3")
 }
