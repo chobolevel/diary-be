@@ -1,34 +1,43 @@
 server:
   port: 9280
 
+logging:
+  level:
+    root: info
+    org.hibernate.envers.boot: OFF
+  config: classpath:logback-spring.xml
+
 spring:
+  application:
+    name: daangn
+  jpa:
+    database: mysql
+    open-in-view: false
+    databse-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate.id.new_generator_mappings: false
+      hibernate.implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+      hibernate.physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+      hibernate.globally_quoted_identifiers: true
+      hibernate.globally_quoted_identifiers_skip_column_definitions: true
+      hibernate.default_batch_fetch_size: 1000
+      org:
+        hibernate:
+          envers:
+            revision_field_name: revision_id
+            revision_type_field_name: revision_type
+            audit_table_suffix: _histories
+            store_data_at_delete: true
+      hibernate:
+        show_sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
   datasource:
     url: jdbc:mysql://localhost:3306/daangn
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
-  jpa:
-    database: mysql
-    open-in-view: false
-    database-platform: org.hibernate.dialect.MySQLDialect
-    generate-ddl: false
-    hibernate.ddl-auto: validate
-    properties:
-      hibernate:
-        id.new_generator_mappings: false
-        implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-        physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-        globally_quoted_identifiers: true
-        globally_quoted_identifiers+skip_column_definitions: true
-        default_batch_fetch_size: 1000
-        show_sql: true
-        org:
-          hibernate:
-            envers:
-              revision_field_name: revision_id
-              revision_type_field_name: revision_type
-              audit_table_suffix: _histories
-              store_data_at_delete: true
   flyway:
     enabled: true
     baseline-version: 0

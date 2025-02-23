@@ -50,3 +50,8 @@ enum class UserRoleType {
     ROLE_ADMIN,
     ROLE_USER
 }
+
+enum class UserOrderType {
+    CREATED_AT_ASC,
+    CREATED_AT_DESC,
+}
