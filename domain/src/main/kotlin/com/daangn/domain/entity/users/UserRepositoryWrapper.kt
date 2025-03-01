@@ -18,7 +18,7 @@ class UserRepositoryWrapper(
         return repository.save(user)
     }
 
-    fun search(queryFilter: UserQueryFilter, pagination: Pagination, orderTypes: List<UserOrderType>?): List<User> {
+    fun search(queryFilter: UserQueryFilter, pagination: Pagination, orderTypes: List<UserOrderType>): List<User> {
         return customRepository.searchByPredicates(
             booleanExpressions = queryFilter.toBooleanExpressions(),
             pagination = pagination,
@@ -52,12 +52,12 @@ class UserRepositoryWrapper(
         return repository.existsByEmailAndResignedFalse(email)
     }
 
-    private fun List<UserOrderType>?.toOrderSpecifiers(): Array<OrderSpecifier<*>> {
-        return this?.map {
+    private fun List<UserOrderType>.toOrderSpecifiers(): Array<OrderSpecifier<*>> {
+        return this.map {
             when (it) {
                 UserOrderType.CREATED_AT_ASC -> user.createdAt.asc()
                 UserOrderType.CREATED_AT_DESC -> user.createdAt.desc()
             }
-        }?.toTypedArray() ?: emptyArray()
+        }.toTypedArray()
     }
 }
