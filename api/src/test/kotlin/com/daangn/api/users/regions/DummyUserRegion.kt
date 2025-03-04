@@ -1,6 +1,10 @@
 package com.daangn.api.users.regions
 
+import com.daangn.api.dto.users.regions.CreateUserRegionRequestDto
+import com.daangn.api.dto.users.regions.UpdateUserRegionRequestDto
+import com.daangn.api.dto.users.regions.UserRegionResponseDto
 import com.daangn.domain.entity.users.regions.UserRegion
+import com.daangn.domain.entity.users.regions.UserRegionUpdateMask
 import io.hypersistence.tsid.TSID
 
 object DummyUserRegion {
@@ -13,10 +17,28 @@ object DummyUserRegion {
     private val createdAt: Long = 0L
     private val updatedAt: Long = 0L
 
+    fun toCreateRequestDto(): CreateUserRegionRequestDto {
+        return createRequest
+    }
     fun toEntity(): UserRegion {
         return userRegion
     }
+    fun toResponseDto(): UserRegionResponseDto {
+        return userRegionResponse
+    }
+    fun toUpdateRequestDto(): UpdateUserRegionRequestDto {
+        return updateRequest
+    }
 
+    private val createRequest: CreateUserRegionRequestDto by lazy {
+        CreateUserRegionRequestDto(
+            latitude = latitude,
+            longitude = longitude,
+            region1depthName = region1depthName,
+            region2depthName = region2depthName,
+            region3depthName = region3depthName,
+        )
+    }
     private val userRegion: UserRegion by lazy {
         UserRegion(
             id = id,
@@ -25,6 +47,30 @@ object DummyUserRegion {
             region1depthName = region1depthName,
             region2depthName = region2depthName,
             region3depthName = region3depthName,
+        )
+    }
+    private val userRegionResponse: UserRegionResponseDto by lazy {
+        UserRegionResponseDto(
+            id = id,
+            latitude = latitude,
+            longitude = longitude,
+            region1depthName = region1depthName,
+            region2depthName = region2depthName,
+            region3depthName = region3depthName,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
+        )
+    }
+    private val updateRequest: UpdateUserRegionRequestDto by lazy {
+        UpdateUserRegionRequestDto(
+            latitude = 10.0,
+            longitude = null,
+            region1depthName = null,
+            region2depthName = null,
+            region3depthName = null,
+            updateMask = listOf(
+                UserRegionUpdateMask.LATITUDE
+            )
         )
     }
 }
