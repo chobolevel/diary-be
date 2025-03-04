@@ -8,14 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails
 
 data class UserDetailsImpl(
     val user: User
-): UserDetails {
+) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return AuthorityUtils.createAuthorityList(user.role.name)
     }
 
     override fun getPassword(): String {
-        return when(user.signUpType) {
+        return when (user.signUpType) {
             UserSignUpType.GENERAL -> user.password!!
             else -> user.socialId!!
         }

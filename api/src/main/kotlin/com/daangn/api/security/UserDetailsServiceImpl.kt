@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class UserDetailsServiceImpl(
     private val userRepositoryWrapper: UserRepositoryWrapper
-): UserDetailsService {
+) : UserDetailsService {
 
     override fun loadUserByUsername(id: String): UserDetails {
         val user = userRepositoryWrapper.findById(id)
