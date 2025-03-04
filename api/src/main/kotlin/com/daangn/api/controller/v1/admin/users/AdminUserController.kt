@@ -2,6 +2,7 @@ package com.daangn.api.controller.v1.admin.users
 
 import com.daangn.api.annotation.HasAuthorityAdmin
 import com.daangn.api.dto.common.ResultResponseDto
+import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.service.users.UserService
 import com.daangn.api.service.users.query.UserQueryCreator
 import com.daangn.domain.entity.users.UserOrderType
@@ -9,9 +10,13 @@ import com.daangn.domain.entity.users.UserRoleType
 import com.daangn.domain.entity.users.UserSignUpType
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -57,6 +62,31 @@ class AdminUserController(
     @GetMapping("/users/{id}")
     fun getUser(@PathVariable("id") userId: String): ResponseEntity<ResultResponseDto> {
         val result = service.getUser(
+            userId = userId
+        )
+        return ResponseEntity.ok(ResultResponseDto(result))
+    }
+
+    @Operation(summary = "관리자 회원 정보 수정 API")
+    @HasAuthorityAdmin
+    @PutMapping("/users/{id}")
+    fun update(
+        @PathVariable("id") userId: String,
+        @Valid @RequestBody
+        request: UpdateUserRequestDto
+    ): ResponseEntity<ResultResponseDto> {
+        val result = service.update(
+            userId = userId,
+            request = request
+        )
+        return ResponseEntity.ok(ResultResponseDto(result))
+    }
+
+    @Operation(summary = "관리자 회원 탈퇴 처리 API")
+    @HasAuthorityAdmin
+    @DeleteMapping("/users/{id}")
+    fun resign(@PathVariable("id") userId: String): ResponseEntity<ResultResponseDto> {
+        val result = service.resign(
             userId = userId
         )
         return ResponseEntity.ok(ResultResponseDto(result))

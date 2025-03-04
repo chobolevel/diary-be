@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.security.Principal
 
-@Tag(name = "Users(회원)", description = "회원 관리 API")
+@Tag(name = "User(회원)", description = "회원 관리 API")
 @RestController
 @RequestMapping("/api/v1")
 class UserController(

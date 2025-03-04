@@ -3,6 +3,7 @@ package com.daangn.api.users
 import com.daangn.api.controller.v1.admin.users.AdminUserController
 import com.daangn.api.dto.common.PaginationResponseDto
 import com.daangn.api.dto.common.ResultResponseDto
+import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.dto.users.UserResponseDto
 import com.daangn.api.service.users.UserService
 import com.daangn.api.service.users.query.UserQueryCreator
@@ -119,5 +120,50 @@ class AdminUserControllerTest {
         assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(result.body?.data).isEqualTo(dummyUserResponse)
+    }
+
+    @Test
+    fun `관리자 회원 정보 수정`() {
+        // given
+        val dummyUserId: String = dummyUserResponse.id
+        val request: UpdateUserRequestDto = DummyUser.toUpdateRequestDto()
+        `when`(
+            service.update(
+                userId = dummyUserId,
+                request = request
+            )
+        ).thenReturn(dummyUserId)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.update(
+            userId = dummyUserId,
+            request = request
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body?.data).isEqualTo(dummyUserId)
+    }
+
+    @Test
+    fun `관리자 회원 탈퇴 처리`() {
+        // given
+        val dummyUserId: String = dummyUserResponse.id
+        `when`(
+            service.resign(
+                userId = dummyUserId,
+            )
+        ).thenReturn(true)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.resign(
+            userId = dummyUserId
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body?.data).isEqualTo(true)
     }
 }
