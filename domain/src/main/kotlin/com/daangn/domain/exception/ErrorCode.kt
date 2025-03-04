@@ -9,5 +9,8 @@ enum class ErrorCode(val message: String) {
     METHOD_NOT_ALLOWED("지원하지 않은 메서드입니다."),
 
     // USER
-    USER_NOT_FOUND("회원을 찾을 수 없습니다.")
+    USER_NOT_FOUND("회원을 찾을 수 없습니다."),
+
+    // USER REGION
+    USER_REGION_NOT_FOUND("회원 지역을 찾을 수 없습니다.")
 }
