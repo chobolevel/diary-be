@@ -7,6 +7,7 @@ import com.daangn.api.dto.users.UserResponseDto
 import com.daangn.api.service.users.UserService
 import com.daangn.api.service.users.converter.UserConverter
 import com.daangn.api.service.users.updater.UserUpdater
+import com.daangn.api.service.users.validator.UserValidator
 import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.users.User
 import com.daangn.domain.entity.users.UserOrderType
@@ -37,6 +38,9 @@ class UserServiceTest {
 
     @Mock
     private lateinit var updater: UserUpdater
+
+    @Mock
+    private lateinit var validator: UserValidator
 
     @InjectMocks
     private lateinit var service: UserService

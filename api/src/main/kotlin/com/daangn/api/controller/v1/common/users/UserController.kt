@@ -4,8 +4,8 @@ import com.daangn.api.annotation.HasAuthorityUser
 import com.daangn.api.dto.common.ResultResponseDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
-import com.daangn.api.getUserId
 import com.daangn.api.service.users.UserService
+import com.daangn.api.util.getUserId
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid

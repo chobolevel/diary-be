@@ -23,7 +23,7 @@ data class DataNotFoundException(
     override val throwable: Throwable? = null
 ) : DaangnException(errorCode, status, message, throwable)
 
-data class ParameterInvalidException(
+data class InvalidParameterException(
     override val errorCode: ErrorCode,
     override val status: HttpStatus = HttpStatus.BAD_REQUEST,
     override val message: String,

@@ -6,6 +6,7 @@ import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.dto.users.UserResponseDto
 import com.daangn.api.service.users.converter.UserConverter
 import com.daangn.api.service.users.updater.UserUpdater
+import com.daangn.api.service.users.validator.UserValidator
 import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.users.UserOrderType
 import com.daangn.domain.entity.users.UserQueryFilter
@@ -17,12 +18,15 @@ import org.springframework.transaction.annotation.Transactional
 class UserService(
     private val repositoryWrapper: UserRepositoryWrapper,
     private val converter: UserConverter,
-    private val updater: UserUpdater
+    private val updater: UserUpdater,
+    private val validator: UserValidator
 ) {
 
     @Transactional
     fun create(request: CreateUserRequestDto): String {
-        // validate
+        validator.validate(
+            request = request
+        )
         val user = converter.convert(request)
         return repositoryWrapper.save(user).id
     }
@@ -55,6 +59,9 @@ class UserService(
 
     @Transactional
     fun update(userId: String, request: UpdateUserRequestDto): String {
+        validator.validate(
+            request = request
+        )
         val user = repositoryWrapper.findById(userId)
         updater.markAsUpdate(
             request = request,
