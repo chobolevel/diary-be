@@ -2,7 +2,7 @@ package com.daangn.domain.entity.users
 
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface UserRepository : JpaRepository<User, Long> {
+interface UserRepository : JpaRepository<User, String> {
 
     fun findByIdAndResignedFalse(id: String): User?
 
