@@ -22,7 +22,7 @@ plugins {
     // kotlin 파일 lint 도구
     id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
     // spring boot 애플리케이션 빌드 및 실행에 필요한 여러 기능 제공
-    id("org.springframework.boot") version springBootVersion
+    id("org.springframework.boot") version springBootVersion apply false
     // spring boot 의존성 관리를 쉽게 하기 위한 스크립트를 제공
     id("io.spring.dependency-management") version springDependencyManagementVersion
     // local db migration 도구
