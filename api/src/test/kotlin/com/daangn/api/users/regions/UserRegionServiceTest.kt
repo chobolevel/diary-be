@@ -7,6 +7,7 @@ import com.daangn.api.dto.users.regions.UserRegionResponseDto
 import com.daangn.api.service.users.UserRegionService
 import com.daangn.api.service.users.converter.UserRegionConverter
 import com.daangn.api.service.users.updater.UserRegionUpdater
+import com.daangn.api.service.users.validator.UserRegionValidator
 import com.daangn.api.users.DummyUser
 import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.users.User
@@ -44,6 +45,9 @@ class UserRegionServiceTest {
 
     @Mock
     private lateinit var updater: UserRegionUpdater
+
+    @Mock
+    private lateinit var validator: UserRegionValidator
 
     @InjectMocks
     private lateinit var service: UserRegionService

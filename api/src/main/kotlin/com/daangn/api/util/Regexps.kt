@@ -8,6 +8,6 @@ object Regexps {
         "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#\$%^&*(),.?\":{}|<>]).{8,}\$".toRegex()
     }
     val nameRegexp: Regex by lazy {
-        "^[a-zA-Z0-9가-힣]+\$".toRegex()
+        "^[a-zA-Z0-9가-힣\\s]+\$".toRegex()
     }
 }

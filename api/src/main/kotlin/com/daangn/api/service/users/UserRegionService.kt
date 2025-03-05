@@ -6,6 +6,7 @@ import com.daangn.api.dto.users.regions.UpdateUserRegionRequestDto
 import com.daangn.api.dto.users.regions.UserRegionResponseDto
 import com.daangn.api.service.users.converter.UserRegionConverter
 import com.daangn.api.service.users.updater.UserRegionUpdater
+import com.daangn.api.service.users.validator.UserRegionValidator
 import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.users.UserRepositoryWrapper
 import com.daangn.domain.entity.users.regions.UserRegionOrderType
@@ -19,11 +20,13 @@ class UserRegionService(
     private val repositoryWrapper: UserRegionRepositoryWrapper,
     private val userRepositoryWrapper: UserRepositoryWrapper,
     private val converter: UserRegionConverter,
-    private val updater: UserRegionUpdater
+    private val updater: UserRegionUpdater,
+    private val validator: UserRegionValidator
 ) {
 
     @Transactional
     fun create(userId: String, request: CreateUserRegionRequestDto): String {
+        validator.validate(request)
         val userRegion = converter.convert(request = request).also {
             val user = userRepositoryWrapper.findById(userId)
             it.set(user)
@@ -59,6 +62,7 @@ class UserRegionService(
 
     @Transactional
     fun update(userId: String, userRegionId: String, request: UpdateUserRegionRequestDto): String {
+        validator.validate(request)
         val userRegion = repositoryWrapper.findById(userRegionId)
         updater.markAsUpdate(
             request = request,

@@ -128,7 +128,7 @@ class UserValidatorTest {
             password = "rkddlswo218@",
             socialId = null,
             signUpType = UserSignUpType.GENERAL,
-            nickname = "강인 재"
+            nickname = "강인재@"
         )
 
         // when
@@ -171,7 +171,7 @@ class UserValidatorTest {
     fun `회원 닉네임 수정 시 닉네임 올바르지 않은 케이스`() {
         // given
         val request = UpdateUserRequestDto(
-            nickname = "알감 자",
+            nickname = "알감자@",
             updateMask = listOf(
                 UserUpdateMask.NICKNAME
             )
