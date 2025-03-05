@@ -8,6 +8,8 @@ import com.daangn.domain.entity.users.UserRoleType
 import com.daangn.domain.entity.users.UserSignUpType
 import com.daangn.domain.entity.users.UserUpdateMask
 import io.hypersistence.tsid.TSID
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.AuthorityUtils
 
 object DummyUser {
     private val id: String = TSID.fast().toString()
@@ -31,6 +33,9 @@ object DummyUser {
     }
     fun toUpdateRequestDto(): UpdateUserRequestDto {
         return updateRequest
+    }
+    fun toToken(): UsernamePasswordAuthenticationToken {
+        return token
     }
 
     private val createRequest: CreateUserRequestDto by lazy {
@@ -69,6 +74,13 @@ object DummyUser {
             updateMask = listOf(
                 UserUpdateMask.NICKNAME
             )
+        )
+    }
+    private val token: UsernamePasswordAuthenticationToken by lazy {
+        UsernamePasswordAuthenticationToken(
+            id,
+            password,
+            AuthorityUtils.createAuthorityList(role.name)
         )
     }
 }
