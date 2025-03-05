@@ -54,7 +54,7 @@ enum class UserRegionOrderType {
 enum class UserRegionUpdateMask {
     LATITUDE,
     LONGITUDE,
-    REGION_1DEPTH_NAME,
-    REGION_2DEPTH_NAME,
-    REGION_3DEPTH_NAME
+    FIRST_DEPTH_NAME,
+    SECOND_DEPTH_NAME,
+    THIRD_DEPTH_NAME,
 }

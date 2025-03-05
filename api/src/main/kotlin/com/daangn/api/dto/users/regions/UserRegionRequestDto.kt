@@ -14,20 +14,20 @@ data class CreateUserRegionRequestDto(
     @field:NotNull
     val longitude: Double,
     @field:NotEmpty
-    val region1depthName: String,
+    val firstDepthName: String,
     @field:NotEmpty
-    val region2depthName: String,
+    val secondDepthName: String,
     @field:NotEmpty
-    val region3depthName: String
+    val thirdDepthName: String
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UpdateUserRegionRequestDto(
     val latitude: Double?,
     val longitude: Double?,
-    val region1depthName: String?,
-    val region2depthName: String?,
-    val region3depthName: String?,
+    val firstDepthName: String?,
+    val secondDepthName: String?,
+    val thirdDepthName: String?,
     @field:Size(min = 1)
     val updateMask: List<UserRegionUpdateMask>
 )

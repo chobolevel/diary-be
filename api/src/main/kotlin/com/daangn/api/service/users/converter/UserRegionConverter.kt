@@ -14,9 +14,9 @@ class UserRegionConverter {
             id = TSID.fast().toString(),
             latitude = request.latitude,
             longitude = request.longitude,
-            region1depthName = request.region1depthName,
-            region2depthName = request.region2depthName,
-            region3depthName = request.region3depthName,
+            region1depthName = request.firstDepthName,
+            region2depthName = request.secondDepthName,
+            region3depthName = request.thirdDepthName,
         )
     }
 
@@ -25,9 +25,9 @@ class UserRegionConverter {
             id = entity.id,
             latitude = entity.latitude,
             longitude = entity.longitude,
-            region1depthName = entity.region1depthName,
-            region2depthName = entity.region2depthName,
-            region3depthName = entity.region3depthName,
+            firstDepthName = entity.region1depthName,
+            secondDepthName = entity.region2depthName,
+            thirdDepthName = entity.region3depthName,
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli(),
         )

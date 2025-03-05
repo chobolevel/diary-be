@@ -13,9 +13,9 @@ class UserRegionUpdater {
             when (it) {
                 UserRegionUpdateMask.LATITUDE -> entity.latitude = request.latitude!!
                 UserRegionUpdateMask.LONGITUDE -> entity.longitude = request.longitude!!
-                UserRegionUpdateMask.REGION_1DEPTH_NAME -> entity.region1depthName = request.region1depthName!!
-                UserRegionUpdateMask.REGION_2DEPTH_NAME -> entity.region2depthName = request.region2depthName!!
-                UserRegionUpdateMask.REGION_3DEPTH_NAME -> entity.region3depthName = request.region3depthName!!
+                UserRegionUpdateMask.FIRST_DEPTH_NAME -> entity.region1depthName = request.firstDepthName!!
+                UserRegionUpdateMask.SECOND_DEPTH_NAME -> entity.region2depthName = request.secondDepthName!!
+                UserRegionUpdateMask.THIRD_DEPTH_NAME -> entity.region3depthName = request.thirdDepthName!!
             }
         }
         return entity

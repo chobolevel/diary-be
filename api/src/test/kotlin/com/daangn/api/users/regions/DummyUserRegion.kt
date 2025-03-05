@@ -34,9 +34,9 @@ object DummyUserRegion {
         CreateUserRegionRequestDto(
             latitude = latitude,
             longitude = longitude,
-            region1depthName = region1depthName,
-            region2depthName = region2depthName,
-            region3depthName = region3depthName,
+            firstDepthName = region1depthName,
+            secondDepthName = region2depthName,
+            thirdDepthName = region3depthName,
         )
     }
     private val userRegion: UserRegion by lazy {
@@ -54,9 +54,9 @@ object DummyUserRegion {
             id = id,
             latitude = latitude,
             longitude = longitude,
-            region1depthName = region1depthName,
-            region2depthName = region2depthName,
-            region3depthName = region3depthName,
+            firstDepthName = region1depthName,
+            secondDepthName = region2depthName,
+            thirdDepthName = region3depthName,
             createdAt = createdAt,
             updatedAt = updatedAt,
         )
@@ -65,9 +65,9 @@ object DummyUserRegion {
         UpdateUserRegionRequestDto(
             latitude = 10.0,
             longitude = null,
-            region1depthName = null,
-            region2depthName = null,
-            region3depthName = null,
+            firstDepthName = null,
+            secondDepthName = null,
+            thirdDepthName = null,
             updateMask = listOf(
                 UserRegionUpdateMask.LATITUDE
             )

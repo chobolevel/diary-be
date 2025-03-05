@@ -8,9 +8,9 @@ data class UserRegionResponseDto(
     val id: String,
     val latitude: Double,
     val longitude: Double,
-    val region1depthName: String,
-    val region2depthName: String,
-    val region3depthName: String,
+    val firstDepthName: String,
+    val secondDepthName: String,
+    val thirdDepthName: String,
     val createdAt: Long,
     val updatedAt: Long
 )
