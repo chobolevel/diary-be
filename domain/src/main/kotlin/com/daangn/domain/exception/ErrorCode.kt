@@ -10,6 +10,7 @@ enum class ErrorCode(val message: String) {
 
     // USER
     USER_NOT_FOUND("회원을 찾을 수 없습니다."),
+    USER_EMAIL_IS_DUPLICATED("이미 사용중인 이메일입니다."),
 
     // USER REGION
     USER_REGION_NOT_FOUND("회원 지역을 찾을 수 없습니다.")

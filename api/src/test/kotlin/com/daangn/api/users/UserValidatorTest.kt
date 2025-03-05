@@ -3,26 +3,30 @@ package com.daangn.api.users
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.service.users.validator.UserValidator
+import com.daangn.domain.entity.users.UserRepositoryWrapper
 import com.daangn.domain.entity.users.UserSignUpType
 import com.daangn.domain.entity.users.UserUpdateMask
 import com.daangn.domain.exception.ErrorCode
 import com.daangn.domain.exception.InvalidParameterException
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.http.HttpStatus
 
+@ExtendWith(MockitoExtension::class)
 @DisplayName("회원 검증기 단위 테스트")
 class UserValidatorTest {
 
-    private lateinit var validator: UserValidator
+    @Mock
+    private lateinit var repositoryWrapper: UserRepositoryWrapper
 
-    @BeforeEach
-    fun setup() {
-        validator = UserValidator()
-    }
+    @InjectMocks
+    private lateinit var validator: UserValidator
 
     @Test
     fun `회원 가입 시 이메일 형식 올바르지 않은 케이스`() {

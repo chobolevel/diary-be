@@ -3,20 +3,30 @@ package com.daangn.api.service.users.validator
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.util.Regexps
+import com.daangn.domain.entity.users.UserRepositoryWrapper
 import com.daangn.domain.entity.users.UserSignUpType
 import com.daangn.domain.entity.users.UserUpdateMask
 import com.daangn.domain.exception.ErrorCode
 import com.daangn.domain.exception.InvalidParameterException
+import com.daangn.domain.exception.PolicyException
 import org.springframework.stereotype.Component
 
 @Component
-class UserValidator {
+class UserValidator(
+    private val repositoryWrapper: UserRepositoryWrapper
+) {
 
     fun validate(request: CreateUserRequestDto) {
         validateEmail(
             input = request.email,
             parameterName = "email"
         )
+        if (repositoryWrapper.existsByEmail(request.email)) {
+            throw PolicyException(
+                errorCode = ErrorCode.USER_EMAIL_IS_DUPLICATED,
+                message = ErrorCode.USER_EMAIL_IS_DUPLICATED.message
+            )
+        }
         when (request.signUpType) {
             UserSignUpType.GENERAL -> {
                 validatePassword(
