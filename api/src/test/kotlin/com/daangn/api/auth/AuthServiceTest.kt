@@ -34,9 +34,6 @@ class AuthServiceTest {
     private lateinit var dummyUser: User
     private lateinit var dummyUserToken: UsernamePasswordAuthenticationToken
 
-    private lateinit var dummyLoginRequest: LoginRequestDto
-    private lateinit var dummyReissueRequest: ReissueRequestDto
-
     @Mock
     private lateinit var userRepositoryWrapper: UserRepositoryWrapper
 
@@ -59,8 +56,6 @@ class AuthServiceTest {
     fun setup() {
         this.dummyUser = DummyUser.toEntity()
         this.dummyUserToken = DummyUser.toToken()
-        this.dummyLoginRequest = DummyAuth.toLoginRequestDto()
-        this.dummyReissueRequest = DummyAuth.toReissueRequestDto()
         `when`(redisTemplate.opsForHash<String, String>()).thenReturn(mock(RedisTemplate<String, String>().opsForHash<String, String>()::class.java))
         `when`(jwtProperties.refreshTokenCacheKey).thenReturn("refresh-token:v1")
     }
@@ -68,6 +63,7 @@ class AuthServiceTest {
     @Test
     fun `로그인`() {
         // given
+        val loginRequest: LoginRequestDto = DummyAuth.toLoginRequestDto()
         val jwtResponse = JwtResponseDto(
             tokenType = "Bearer",
             accessToken = "access-token",
@@ -75,13 +71,13 @@ class AuthServiceTest {
             refreshToken = "refresh-token",
             refreshTokenExpiredAt = 0L,
         )
-        `when`(userRepositoryWrapper.findByEmail(dummyLoginRequest.email)).thenReturn(dummyUser)
+        `when`(userRepositoryWrapper.findByEmail(loginRequest.email)).thenReturn(dummyUser)
         `when`(passwordEncoder.matches(anyString(), anyString())).thenReturn(true)
         `when`(tokenProvider.generateTokens(dummyUserToken)).thenReturn(jwtResponse)
 
         // when
         val result: LoginResponseDto = service.login(
-            request = dummyLoginRequest
+            request = loginRequest
         )
 
         // then
@@ -95,6 +91,7 @@ class AuthServiceTest {
     @Test
     fun `토큰 재발급`() {
         // given
+        val reissueRequest: ReissueRequestDto = DummyAuth.toReissueRequestDto()
         val jwtResponse = JwtResponseDto(
             tokenType = "Bearer",
             accessToken = "access-token",
@@ -102,14 +99,14 @@ class AuthServiceTest {
             refreshToken = "refresh-token",
             refreshTokenExpiredAt = 0L,
         )
-        doNothing().`when`(tokenProvider).validateToken(dummyReissueRequest.refreshToken)
-        `when`(tokenProvider.getAuthentication(dummyReissueRequest.refreshToken)).thenReturn(dummyUserToken)
-        `when`(redisTemplate.opsForHash<String, String>().get(anyString(), anyString())).thenReturn(dummyReissueRequest.refreshToken)
+        doNothing().`when`(tokenProvider).validateToken(reissueRequest.refreshToken)
+        `when`(tokenProvider.getAuthentication(reissueRequest.refreshToken)).thenReturn(dummyUserToken)
+        `when`(redisTemplate.opsForHash<String, String>().get(anyString(), anyString())).thenReturn(reissueRequest.refreshToken)
         `when`(tokenProvider.generateTokens(dummyUserToken)).thenReturn(jwtResponse)
 
         // when
         val result: ReissueResponseDto = service.reissue(
-            request = dummyReissueRequest
+            request = reissueRequest
         )
 
         // then
