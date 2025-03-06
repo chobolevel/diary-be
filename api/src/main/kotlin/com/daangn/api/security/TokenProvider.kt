@@ -12,7 +12,6 @@ import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit
 @Component
 class TokenProvider(
     private val jwtProperties: JwtProperties,
-    private val userDetailsService: UserDetailsService
+    private val userDetailsService: UserDetailsServiceImpl
 ) {
 
     fun generateTokens(authentication: Authentication): JwtResponseDto {

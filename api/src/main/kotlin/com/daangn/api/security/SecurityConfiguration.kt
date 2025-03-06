@@ -1,5 +1,6 @@
 package com.daangn.api.security
 
+import com.daangn.api.properties.JwtProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -8,13 +9,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-class SecurityConfiguration {
+class SecurityConfiguration(
+    private val tokenProvider: TokenProvider,
+    private val jwtProperties: JwtProperties
+) {
 
     @Bean
     fun passwordEncoder(): BCryptPasswordEncoder {
@@ -64,6 +69,13 @@ class SecurityConfiguration {
             .authorizeHttpRequests { requests ->
                 requests.anyRequest().permitAll()
             }
+            .addFilterBefore(
+                OnceJwtAuthorizationFilter(
+                    tokenProvider = tokenProvider,
+                    jwtProperties = jwtProperties
+                ),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
             .build()
     }
 }
