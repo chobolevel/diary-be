@@ -7,6 +7,7 @@ import com.daangn.api.dto.common.PaginationResponseDto
 import com.daangn.api.service.categories.CategoryService
 import com.daangn.api.service.categories.converter.CategoryConverter
 import com.daangn.api.service.categories.updater.CategoryUpdater
+import com.daangn.api.service.categories.validator.CategoryValidator
 import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.categories.Category
 import com.daangn.domain.entity.categories.CategoryOrderType
@@ -37,6 +38,9 @@ class CategoryServiceTest {
 
     @Mock
     private lateinit var updater: CategoryUpdater
+
+    @Mock
+    private lateinit var validator: CategoryValidator
 
     @InjectMocks
     private lateinit var service: CategoryService
