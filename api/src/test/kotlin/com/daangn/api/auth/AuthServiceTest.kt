@@ -11,7 +11,6 @@ import com.daangn.api.service.auth.AuthService
 import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.users.User
 import com.daangn.domain.entity.users.UserRepositoryWrapper
-import com.daangn.domain.entity.users.UserSignUpType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -35,6 +34,9 @@ class AuthServiceTest {
     private lateinit var dummyUser: User
     private lateinit var dummyUserToken: UsernamePasswordAuthenticationToken
 
+    private lateinit var dummyLoginRequest: LoginRequestDto
+    private lateinit var dummyReissueRequest: ReissueRequestDto
+
     @Mock
     private lateinit var userRepositoryWrapper: UserRepositoryWrapper
 
@@ -57,18 +59,15 @@ class AuthServiceTest {
     fun setup() {
         this.dummyUser = DummyUser.toEntity()
         this.dummyUserToken = DummyUser.toToken()
+        this.dummyLoginRequest = DummyAuth.toLoginRequestDto()
+        this.dummyReissueRequest = DummyAuth.toReissueRequestDto()
+        `when`(redisTemplate.opsForHash<String, String>()).thenReturn(mock(RedisTemplate<String, String>().opsForHash<String, String>()::class.java))
         `when`(jwtProperties.refreshTokenCacheKey).thenReturn("refresh-token:v1")
     }
 
     @Test
     fun `로그인`() {
         // given
-        val request = LoginRequestDto(
-            email = dummyUser.email,
-            password = dummyUser.password,
-            socialId = null,
-            signUpType = UserSignUpType.GENERAL
-        )
         val jwtResponse = JwtResponseDto(
             tokenType = "Bearer",
             accessToken = "access-token",
@@ -76,14 +75,13 @@ class AuthServiceTest {
             refreshToken = "refresh-token",
             refreshTokenExpiredAt = 0L,
         )
-        `when`(userRepositoryWrapper.findByEmail(request.email)).thenReturn(dummyUser)
+        `when`(userRepositoryWrapper.findByEmail(dummyLoginRequest.email)).thenReturn(dummyUser)
         `when`(passwordEncoder.matches(anyString(), anyString())).thenReturn(true)
         `when`(tokenProvider.generateTokens(dummyUserToken)).thenReturn(jwtResponse)
-        `when`(redisTemplate.opsForHash<String, String>()).thenReturn(mock(RedisTemplate<String, String>().opsForHash<String, String>()::class.java))
 
         // when
         val result: LoginResponseDto = service.login(
-            request = request
+            request = dummyLoginRequest
         )
 
         // then
@@ -97,9 +95,6 @@ class AuthServiceTest {
     @Test
     fun `토큰 재발급`() {
         // given
-        val request = ReissueRequestDto(
-            refreshToken = "refresh-token"
-        )
         val jwtResponse = JwtResponseDto(
             tokenType = "Bearer",
             accessToken = "access-token",
@@ -107,15 +102,14 @@ class AuthServiceTest {
             refreshToken = "refresh-token",
             refreshTokenExpiredAt = 0L,
         )
-        doNothing().`when`(tokenProvider).validateToken(request.refreshToken)
-        `when`(tokenProvider.getAuthentication(request.refreshToken)).thenReturn(dummyUserToken)
-        `when`(redisTemplate.opsForHash<String, String>()).thenReturn(mock(RedisTemplate<String, String>().opsForHash<String, String>()::class.java))
-        `when`(redisTemplate.opsForHash<String, String>().get(anyString(), anyString())).thenReturn(request.refreshToken)
+        doNothing().`when`(tokenProvider).validateToken(dummyReissueRequest.refreshToken)
+        `when`(tokenProvider.getAuthentication(dummyReissueRequest.refreshToken)).thenReturn(dummyUserToken)
+        `when`(redisTemplate.opsForHash<String, String>().get(anyString(), anyString())).thenReturn(dummyReissueRequest.refreshToken)
         `when`(tokenProvider.generateTokens(dummyUserToken)).thenReturn(jwtResponse)
 
         // when
         val result: ReissueResponseDto = service.reissue(
-            request = request
+            request = dummyReissueRequest
         )
 
         // then
