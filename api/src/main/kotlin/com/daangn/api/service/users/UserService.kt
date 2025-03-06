@@ -1,6 +1,7 @@
 package com.daangn.api.service.users
 
 import com.daangn.api.dto.common.PaginationResponseDto
+import com.daangn.api.dto.users.ChangeUserPasswordRequestDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.dto.users.UserResponseDto
@@ -11,6 +12,9 @@ import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.users.UserOrderType
 import com.daangn.domain.entity.users.UserQueryFilter
 import com.daangn.domain.entity.users.UserRepositoryWrapper
+import com.daangn.domain.exception.ErrorCode
+import com.daangn.domain.exception.PolicyException
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -19,7 +23,8 @@ class UserService(
     private val repositoryWrapper: UserRepositoryWrapper,
     private val converter: UserConverter,
     private val updater: UserUpdater,
-    private val validator: UserValidator
+    private val validator: UserValidator,
+    private val passwordEncoder: BCryptPasswordEncoder
 ) {
 
     @Transactional
@@ -68,6 +73,20 @@ class UserService(
             entity = user
         )
         return user.id
+    }
+
+    @Transactional
+    fun changePassword(userId: String, request: ChangeUserPasswordRequestDto): String {
+        validator.validate(request)
+        val user = repositoryWrapper.findById(userId)
+        if (!passwordEncoder.matches(request.curPassword, user.password)) {
+            throw PolicyException(
+                errorCode = ErrorCode.CURRENT_PASSWORD_DOES_NOT_MATCH,
+                message = ErrorCode.CURRENT_PASSWORD_DOES_NOT_MATCH.message
+            )
+        }
+        user.password = passwordEncoder.encode(request.newPassword)
+        return userId
     }
 
     @Transactional

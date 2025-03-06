@@ -1,5 +1,6 @@
 package com.daangn.api.users
 
+import com.daangn.api.dto.users.ChangeUserPasswordRequestDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.dto.users.UserResponseDto
@@ -33,6 +34,9 @@ object DummyUser {
     }
     fun toUpdateRequestDto(): UpdateUserRequestDto {
         return updateRequest
+    }
+    fun toChangePasswordRequestDto(): ChangeUserPasswordRequestDto {
+        return changePasswordRequest
     }
     fun toToken(): UsernamePasswordAuthenticationToken {
         return token
@@ -74,6 +78,12 @@ object DummyUser {
             updateMask = listOf(
                 UserUpdateMask.NICKNAME
             )
+        )
+    }
+    private val changePasswordRequest: ChangeUserPasswordRequestDto by lazy {
+        ChangeUserPasswordRequestDto(
+            curPassword = "rkddlswo218@",
+            newPassword = "rkddlswo123@"
         )
     }
     private val token: UsernamePasswordAuthenticationToken by lazy {

@@ -1,5 +1,6 @@
 package com.daangn.api.service.users.validator
 
+import com.daangn.api.dto.users.ChangeUserPasswordRequestDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.util.Regexps
@@ -58,6 +59,13 @@ class UserValidator(
                 }
             }
         }
+    }
+
+    fun validate(request: ChangeUserPasswordRequestDto) {
+        validatePassword(
+            input = request.newPassword,
+            parameterName = "new_password"
+        )
     }
 
     private fun validateEmail(input: String?, parameterName: String) {

@@ -1,6 +1,7 @@
 package com.daangn.api.users
 
 import com.daangn.api.dto.common.PaginationResponseDto
+import com.daangn.api.dto.users.ChangeUserPasswordRequestDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.dto.users.UserResponseDto
@@ -20,8 +21,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito.anyString
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @ExtendWith(MockitoExtension::class)
 @DisplayName("회원 서비스 단위 테스트")
@@ -41,6 +44,9 @@ class UserServiceTest {
 
     @Mock
     private lateinit var validator: UserValidator
+
+    @Mock
+    private lateinit var passwordEncoder: BCryptPasswordEncoder
 
     @InjectMocks
     private lateinit var service: UserService
@@ -149,6 +155,25 @@ class UserServiceTest {
 
         // then
         assertThat(result).isEqualTo(dummyUser.id)
+    }
+
+    @Test
+    fun `비밀번호 변경`() {
+        // given
+        val dummyUserId: String = dummyUser.id
+        val request: ChangeUserPasswordRequestDto = DummyUser.toChangePasswordRequestDto()
+        `when`(repositoryWrapper.findById(dummyUserId)).thenReturn(dummyUser)
+        `when`(passwordEncoder.matches(anyString(), anyString())).thenReturn(true)
+        `when`(passwordEncoder.encode(request.newPassword)).thenReturn(request.newPassword)
+
+        // when
+        val result: String = service.changePassword(
+            userId = dummyUserId,
+            request = request
+        )
+
+        // then
+        assertThat(result).isEqualTo(dummyUserId)
     }
 
     @Test

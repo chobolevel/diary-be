@@ -2,6 +2,7 @@ package com.daangn.api.controller.v1.common.users
 
 import com.daangn.api.annotation.HasAuthorityUser
 import com.daangn.api.dto.common.ResultResponseDto
+import com.daangn.api.dto.users.ChangeUserPasswordRequestDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.service.users.UserService
@@ -58,6 +59,21 @@ class UserController(
         request: UpdateUserRequestDto
     ): ResponseEntity<ResultResponseDto> {
         val result = service.update(
+            userId = principal.getUserId(),
+            request = request
+        )
+        return ResponseEntity.ok(ResultResponseDto(result))
+    }
+
+    @Operation(summary = "회원 비밀번호 변경 API")
+    @HasAuthorityUser
+    @PostMapping("/user/change-password")
+    fun changePassword(
+        principal: Principal,
+        @Valid @RequestBody
+        request: ChangeUserPasswordRequestDto
+    ): ResponseEntity<ResultResponseDto> {
+        val result = service.changePassword(
             userId = principal.getUserId(),
             request = request
         )

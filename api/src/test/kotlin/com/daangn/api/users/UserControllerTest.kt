@@ -2,6 +2,7 @@ package com.daangn.api.users
 
 import com.daangn.api.controller.v1.common.users.UserController
 import com.daangn.api.dto.common.ResultResponseDto
+import com.daangn.api.dto.users.ChangeUserPasswordRequestDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.dto.users.UserResponseDto
@@ -107,6 +108,30 @@ class UserControllerTest {
 
         // when
         val result: ResponseEntity<ResultResponseDto> = controller.update(
+            principal = dummyUserToken,
+            request = request
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body?.data).isEqualTo(dummyUserId)
+    }
+
+    @Test
+    fun `회원 비밀번호 변경`() {
+        // given
+        val dummyUserId: String = dummyUser.id
+        val request: ChangeUserPasswordRequestDto = DummyUser.toChangePasswordRequestDto()
+        `when`(
+            service.changePassword(
+                userId = dummyUserId,
+                request = request
+            )
+        ).thenReturn(dummyUserId)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.changePassword(
             principal = dummyUserToken,
             request = request
         )

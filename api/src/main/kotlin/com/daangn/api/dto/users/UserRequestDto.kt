@@ -26,3 +26,11 @@ data class UpdateUserRequestDto(
     @field:Size(min = 1)
     val updateMask: List<UserUpdateMask>
 )
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+data class ChangeUserPasswordRequestDto(
+    @field:NotEmpty
+    val curPassword: String,
+    @field:NotEmpty
+    val newPassword: String
+)

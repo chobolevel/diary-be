@@ -1,5 +1,6 @@
 package com.daangn.api.users
 
+import com.daangn.api.dto.users.ChangeUserPasswordRequestDto
 import com.daangn.api.dto.users.CreateUserRequestDto
 import com.daangn.api.dto.users.UpdateUserRequestDto
 import com.daangn.api.service.users.validator.UserValidator
@@ -192,5 +193,24 @@ class UserValidatorTest {
         assertThat(exception.errorCode).isEqualTo(ErrorCode.INVALID_PARAMETER)
         assertThat(exception.status).isEqualTo(HttpStatus.BAD_REQUEST)
         assertThat(exception.message).isEqualTo("[nickname]은(는) 영어 또는 한글 또는 숫자만 사용 가능합니다.")
+    }
+
+    @Test
+    fun `회원 비밀번호 변경 시 변경할 비밀번호 올바르지 않은 케이스`() {
+        // given
+        val request = ChangeUserPasswordRequestDto(
+            curPassword = "rkddlswo218@",
+            newPassword = "rkddlswo"
+        )
+
+        // when
+        val exception: InvalidParameterException = assertThrows<InvalidParameterException> {
+            validator.validate(request)
+        }
+
+        // then
+        assertThat(exception.errorCode).isEqualTo(ErrorCode.INVALID_PARAMETER)
+        assertThat(exception.status).isEqualTo(HttpStatus.BAD_REQUEST)
+        assertThat(exception.message).isEqualTo("[new_password]은(는) 영문 + 숫자 + 특수문자 조합으로 8자리 이상이어야 합니다.")
     }
 }
