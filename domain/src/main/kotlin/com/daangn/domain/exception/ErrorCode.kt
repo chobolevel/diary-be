@@ -17,5 +17,8 @@ enum class ErrorCode(val message: String) {
     CURRENT_PASSWORD_DOES_NOT_MATCH("현재 비밀번호가 일치하지 않습니다."),
 
     // USER REGION
-    USER_REGION_NOT_FOUND("회원 지역을 찾을 수 없습니다.")
+    USER_REGION_NOT_FOUND("회원 지역을 찾을 수 없습니다."),
+
+    // CATEGORY
+    CATEGORY_NOT_FOUND("카테고리를 찾을 수 없습니다.")
 }
