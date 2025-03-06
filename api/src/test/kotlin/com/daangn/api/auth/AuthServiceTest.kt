@@ -8,6 +8,7 @@ import com.daangn.api.dto.auth.ReissueResponseDto
 import com.daangn.api.properties.JwtProperties
 import com.daangn.api.security.TokenProvider
 import com.daangn.api.service.auth.AuthService
+import com.daangn.api.service.auth.validator.AuthValidator
 import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.users.User
 import com.daangn.domain.entity.users.UserRepositoryWrapper
@@ -49,6 +50,9 @@ class AuthServiceTest {
     @Mock
     private lateinit var jwtProperties: JwtProperties
 
+    @Mock
+    private lateinit var validator: AuthValidator
+
     @InjectMocks
     private lateinit var service: AuthService
 
@@ -71,6 +75,7 @@ class AuthServiceTest {
             refreshToken = "refresh-token",
             refreshTokenExpiredAt = 0L,
         )
+        doNothing().`when`(validator).validate(loginRequest)
         `when`(userRepositoryWrapper.findByEmail(loginRequest.email)).thenReturn(dummyUser)
         `when`(passwordEncoder.matches(anyString(), anyString())).thenReturn(true)
         `when`(tokenProvider.generateTokens(dummyUserToken)).thenReturn(jwtResponse)

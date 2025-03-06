@@ -6,6 +6,7 @@ import com.daangn.api.dto.auth.ReissueRequestDto
 import com.daangn.api.dto.auth.ReissueResponseDto
 import com.daangn.api.properties.JwtProperties
 import com.daangn.api.security.TokenProvider
+import com.daangn.api.service.auth.validator.AuthValidator
 import com.daangn.domain.entity.users.UserRepositoryWrapper
 import com.daangn.domain.entity.users.UserSignUpType
 import com.daangn.domain.exception.ErrorCode
@@ -24,10 +25,12 @@ class AuthService(
     private val tokenProvider: TokenProvider,
     private val passwordEncoder: BCryptPasswordEncoder,
     private val redisTemplate: RedisTemplate<String, String>,
-    private val jwtProperties: JwtProperties
+    private val jwtProperties: JwtProperties,
+    private val validator: AuthValidator
 ) {
 
     fun login(request: LoginRequestDto): LoginResponseDto {
+        validator.validate(request = request)
         val user = userRepositoryWrapper.findByEmail(request.email)
         when (user.signUpType) {
             UserSignUpType.GENERAL -> {
