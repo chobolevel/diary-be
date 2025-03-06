@@ -7,6 +7,9 @@ enum class ErrorCode(val message: String) {
     BAD_CREDENTIALS("아이디 또는 비밀번호가 올바르지 않습니다."),
     ACCESS_DENIED("접근 권한이 없습니다."),
     METHOD_NOT_ALLOWED("지원하지 않은 메서드입니다."),
+    EXPIRED_TOKEN("토큰이 만료되었습니다."),
+    INVALID_TOKEN("토큰이 유효하지 않습니다."),
+    INVALID_REFRESH_TOKEN("리프래시 토큰이 유효하지 않습니다."),
 
     // USER
     USER_NOT_FOUND("회원을 찾을 수 없습니다."),
