@@ -1,6 +1,12 @@
 package com.daangn.api.posts
 
+import com.daangn.api.categories.DummyCategory
+import com.daangn.api.dto.posts.CreatePostRequestDto
+import com.daangn.api.dto.posts.PostResponseDto
+import com.daangn.api.dto.posts.UpdatePostRequestDto
+import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.posts.Post
+import com.daangn.domain.entity.posts.PostUpdateMask
 import io.hypersistence.tsid.TSID
 
 object DummyPost {
@@ -12,10 +18,28 @@ object DummyPost {
     private val createdAt: Long = 0L
     private val updatedAt: Long = 0L
 
+    fun toCreateRequestDto(): CreatePostRequestDto {
+        return createRequest
+    }
     fun toEntity(): Post {
         return post
     }
+    fun toResponseDto(): PostResponseDto {
+        return postResponse
+    }
+    fun toUpdateRequestDto(): UpdatePostRequestDto {
+        return updateRequest
+    }
 
+    private val createRequest: CreatePostRequestDto by lazy {
+        CreatePostRequestDto(
+            categoryId = "0K0ZMTNDZX7Q4",
+            title = title,
+            content = content,
+            salePrice = salePrice,
+            freeShared = freeShared,
+        )
+    }
     private val post: Post by lazy {
         Post(
             id = id,
@@ -23,6 +47,34 @@ object DummyPost {
             content = content,
             salePrice = salePrice,
             freeShared = freeShared,
+        ).also {
+            it.writer = DummyUser.toEntity()
+            it.category = DummyCategory.toEntity()
+        }
+    }
+    private val postResponse: PostResponseDto by lazy {
+        PostResponseDto(
+            id = id,
+            writer = DummyUser.toResponseDto(),
+            category = DummyCategory.toResponseDto(),
+            title = title,
+            content = content,
+            salePrice = salePrice,
+            isFreeShare = freeShared,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
+        )
+    }
+    private val updateRequest: UpdatePostRequestDto by lazy {
+        UpdatePostRequestDto(
+            categoryId = null,
+            title = null,
+            content = null,
+            salePrice = null,
+            freeShared = true,
+            updateMask = listOf(
+                PostUpdateMask.FREE_SHARED
+            )
         )
     }
 }

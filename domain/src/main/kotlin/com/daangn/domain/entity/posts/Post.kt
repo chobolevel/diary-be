@@ -58,3 +58,11 @@ enum class PostOrderType {
     CREATED_AT_ASC,
     CREATED_AT_DESC,
 }
+
+enum class PostUpdateMask {
+    CATEGORY,
+    TITLE,
+    CONTENT,
+    SALE_PRICE,
+    FREE_SHARED
+}

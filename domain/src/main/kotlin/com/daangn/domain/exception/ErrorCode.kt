@@ -23,5 +23,6 @@ enum class ErrorCode(val message: String) {
     CATEGORY_NOT_FOUND("카테고리를 찾을 수 없습니다."),
 
     // POST
-    POST_NOT_FOUND("게시글을 찾을 수 없습니다.")
+    POST_NOT_FOUND("게시글을 찾을 수 없습니다."),
+    ONLY_POST_WRITER_CAN_ACCESS("게시글 작성자만 접근할 수 있습니다.")
 }
