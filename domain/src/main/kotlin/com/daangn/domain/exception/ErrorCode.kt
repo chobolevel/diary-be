@@ -20,5 +20,8 @@ enum class ErrorCode(val message: String) {
     USER_REGION_NOT_FOUND("회원 지역을 찾을 수 없습니다."),
 
     // CATEGORY
-    CATEGORY_NOT_FOUND("카테고리를 찾을 수 없습니다.")
+    CATEGORY_NOT_FOUND("카테고리를 찾을 수 없습니다."),
+
+    // POST
+    POST_NOT_FOUND("게시글을 찾을 수 없습니다.")
 }
