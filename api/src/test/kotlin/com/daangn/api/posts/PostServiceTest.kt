@@ -8,6 +8,7 @@ import com.daangn.api.dto.posts.UpdatePostRequestDto
 import com.daangn.api.service.posts.PostService
 import com.daangn.api.service.posts.converter.PostConverter
 import com.daangn.api.service.posts.updater.PostUpdater
+import com.daangn.api.service.posts.validator.PostValidator
 import com.daangn.api.users.DummyUser
 import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.categories.Category
@@ -53,6 +54,9 @@ class PostServiceTest {
 
     @Mock
     private lateinit var updater: PostUpdater
+
+    @Mock
+    private lateinit var validator: PostValidator
 
     @InjectMocks
     private lateinit var service: PostService
