@@ -111,7 +111,7 @@ class AuthServiceTest {
 
         // when
         val result: ReissueResponseDto = service.reissue(
-            request = reissueRequest
+            refreshToken = "refresh-token"
         )
 
         // then

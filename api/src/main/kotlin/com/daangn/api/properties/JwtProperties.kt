@@ -7,5 +7,7 @@ data class JwtProperties(
     val issuer: String,
     val secret: String,
     val tokenPrefix: String,
+    val accessTokenKey: String,
+    val refreshTokenKey: String,
     val refreshTokenCacheKey: String
 )

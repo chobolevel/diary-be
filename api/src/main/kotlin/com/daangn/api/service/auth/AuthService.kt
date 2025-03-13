@@ -2,7 +2,6 @@ package com.daangn.api.service.auth
 
 import com.daangn.api.dto.auth.LoginRequestDto
 import com.daangn.api.dto.auth.LoginResponseDto
-import com.daangn.api.dto.auth.ReissueRequestDto
 import com.daangn.api.dto.auth.ReissueResponseDto
 import com.daangn.api.properties.JwtProperties
 import com.daangn.api.security.TokenProvider
@@ -64,9 +63,9 @@ class AuthService(
         )
     }
 
-    fun reissue(request: ReissueRequestDto): ReissueResponseDto {
-        tokenProvider.validateToken(request.refreshToken)
-        val authentication = tokenProvider.getAuthentication(request.refreshToken)
+    fun reissue(refreshToken: String): ReissueResponseDto {
+        tokenProvider.validateToken(refreshToken)
+        val authentication = tokenProvider.getAuthentication(refreshToken)
         val userId: String = authentication.name
         val cachedRefreshToken = getRefreshToken(
             userId = userId
@@ -75,7 +74,7 @@ class AuthService(
             status = HttpStatus.UNAUTHORIZED,
             message = ErrorCode.INVALID_REFRESH_TOKEN.message
         )
-        if (request.refreshToken != cachedRefreshToken) {
+        if (refreshToken != cachedRefreshToken) {
             throw PolicyException(
                 errorCode = ErrorCode.INVALID_REFRESH_TOKEN,
                 status = HttpStatus.UNAUTHORIZED,
