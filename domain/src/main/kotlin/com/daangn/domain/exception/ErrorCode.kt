@@ -10,6 +10,7 @@ enum class ErrorCode(val message: String) {
     EXPIRED_TOKEN("토큰이 만료되었습니다."),
     INVALID_TOKEN("토큰이 유효하지 않습니다."),
     INVALID_REFRESH_TOKEN("리프래시 토큰이 유효하지 않습니다."),
+    REFRESH_TOKEN_NOT_EXISTS("리프래시 토큰이 존재하지 않습니다."),
 
     // USER
     USER_NOT_FOUND("회원을 찾을 수 없습니다."),

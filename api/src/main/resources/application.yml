@@ -1,5 +1,14 @@
 server:
   port: 9280
+  reactive:
+    session:
+      cookie:
+        path: "/"
+        max-age: 31536000
+        domain: ENC(joTwjIfB6HGL2DXe7LB7w6e324BHnIf8fCGHoR3IKvK3ISv82QV4pcexq8u4qq8x)
+        secure: true
+        http-only: true
+        same-site: none
 
 logging:
   level:
@@ -63,4 +72,6 @@ jwt:
   issuer: ENC(Dyvi2Gv8C8vultqLAhzK7MzlRkzqShuZ9O/ayNZmLZ7f2t5+me4/mGUqs0GTK5Hb)
   secret: ENC(QZDgxtDYww1roMy6/DRlGpxazoqi93mM54U1vAboIxCtUtLupeR0XfVpgQROeKdd)
   token-prefix: ENC(hTj5hj241Ee5RxBsvZfP/4dmlYtrLv+DztGXcrXDWUzM2c/OpVY3Pmb0Eg91dqcS)
+  access-token-key: ENC(0xUSwwDpkBzO9/F9X8DIyGQB2XbNY7INRFQy5nSVj1R29TofUSvV85/yHXx4tXEb)
+  refresh-token-key: ENC(GnXawjFd58lia4WM9YaQwYZ2bD4JaOD08ltQ0sajlZxl63wbVI3XA/WHsCPwAGlx)
   refresh-token-cache-key: ENC(aChwn/tZM9XNJZDF/NJ0yrJakkC9XQBIIdp3Deb9KCociisXbVaFkCerTBkbDG8f2wxuX1WLDxNkuRN/PIhUpw==)
