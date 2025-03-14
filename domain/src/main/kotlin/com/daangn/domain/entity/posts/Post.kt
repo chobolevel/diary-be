@@ -2,14 +2,18 @@ package com.daangn.domain.entity.posts
 
 import com.daangn.domain.entity.Audit
 import com.daangn.domain.entity.categories.Category
+import com.daangn.domain.entity.posts.image.PostImage
 import com.daangn.domain.entity.users.User
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
+import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 
 @Entity
@@ -52,6 +56,10 @@ class Post(
     fun delete() {
         this.deleted = true
     }
+
+    @Where(clause = "deleted = false")
+    @OneToMany(mappedBy = "post", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val images = mutableListOf<PostImage>()
 }
 
 enum class PostOrderType {
