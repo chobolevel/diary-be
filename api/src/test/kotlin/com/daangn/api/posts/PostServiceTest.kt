@@ -5,8 +5,11 @@ import com.daangn.api.dto.common.PaginationResponseDto
 import com.daangn.api.dto.posts.CreatePostRequestDto
 import com.daangn.api.dto.posts.PostResponseDto
 import com.daangn.api.dto.posts.UpdatePostRequestDto
+import com.daangn.api.dto.posts.images.PostImageRequestDto
+import com.daangn.api.posts.image.DummyPostImage
 import com.daangn.api.service.posts.PostService
 import com.daangn.api.service.posts.converter.PostConverter
+import com.daangn.api.service.posts.converter.PostImageConverter
 import com.daangn.api.service.posts.updater.PostUpdater
 import com.daangn.api.service.posts.validator.PostValidator
 import com.daangn.api.users.DummyUser
@@ -17,6 +20,7 @@ import com.daangn.domain.entity.posts.Post
 import com.daangn.domain.entity.posts.PostOrderType
 import com.daangn.domain.entity.posts.PostQueryFilter
 import com.daangn.domain.entity.posts.PostRepositoryWrapper
+import com.daangn.domain.entity.posts.image.PostImage
 import com.daangn.domain.entity.users.User
 import com.daangn.domain.entity.users.UserRepositoryWrapper
 import org.assertj.core.api.Assertions.assertThat
@@ -53,6 +57,9 @@ class PostServiceTest {
     private lateinit var converter: PostConverter
 
     @Mock
+    private lateinit var postImageConverter: PostImageConverter
+
+    @Mock
     private lateinit var updater: PostUpdater
 
     @Mock
@@ -74,8 +81,11 @@ class PostServiceTest {
         // given
         val dummyUserId: String = dummyUser.id
         val dummyPostId: String = dummyPost.id
+        val dummyPostImageRequest: PostImageRequestDto = DummyPostImage.toRequestDto()
+        val dummyPostImage: PostImage = DummyPostImage.toEntity()
         val request: CreatePostRequestDto = DummyPost.toCreateRequestDto()
         `when`(converter.convert(request)).thenReturn(dummyPost)
+        `when`(postImageConverter.convert(dummyPostImageRequest)).thenReturn(dummyPostImage)
         `when`(userRepositoryWrapper.findById(dummyUserId)).thenReturn(dummyUser)
         `when`(categoryRepositoryWrapper.findById(request.categoryId)).thenReturn(dummyCategory)
         `when`(repositoryWrapper.save(dummyPost)).thenReturn(dummyPost)

@@ -3,6 +3,7 @@ package com.daangn.domain.entity.posts
 import com.daangn.domain.entity.Audit
 import com.daangn.domain.entity.categories.Category
 import com.daangn.domain.entity.posts.image.PostImage
+import com.daangn.domain.entity.posts.image.PostImageType
 import com.daangn.domain.entity.users.User
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -60,6 +61,19 @@ class Post(
     @Where(clause = "deleted = false")
     @OneToMany(mappedBy = "post", cascade = [CascadeType.ALL], orphanRemoval = true)
     val images = mutableListOf<PostImage>()
+    fun getTypeImages(type: PostImageType?): List<PostImage> {
+        return when (type) {
+            PostImageType.MAIN -> this.images.filter { it.type == PostImageType.MAIN }
+            else -> this.images
+        }
+    }
+    fun deleteImages(type: PostImageType?) {
+        val filteredImages = when (type) {
+            PostImageType.MAIN -> this.images.filter { it.type == PostImageType.MAIN }
+            else -> this.images
+        }
+        filteredImages.forEach { it.delete() }
+    }
 }
 
 enum class PostOrderType {
@@ -72,5 +86,6 @@ enum class PostUpdateMask {
     TITLE,
     CONTENT,
     SALE_PRICE,
-    FREE_SHARED
+    FREE_SHARED,
+    MAIN_IMAGES
 }

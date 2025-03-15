@@ -65,6 +65,14 @@ class PostValidator {
                         )
                     }
                 }
+                PostUpdateMask.MAIN_IMAGES -> {
+                    if (request.mainImages == null) {
+                        throw InvalidParameterException(
+                            errorCode = ErrorCode.INVALID_PARAMETER,
+                            message = "[main_images]은(는) 필수 값입니다."
+                        )
+                    }
+                }
             }
         }
     }

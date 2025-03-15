@@ -31,7 +31,8 @@ class PostValidatorTest {
             title = "제목@",
             content = "내용을 입력하고 있습니다.",
             salePrice = 10_000,
-            freeShared = false
+            freeShared = false,
+            mainImages = emptyList()
         )
 
         // when
@@ -53,7 +54,8 @@ class PostValidatorTest {
             title = "제목",
             content = "내용",
             salePrice = 10_000,
-            freeShared = false
+            freeShared = false,
+            mainImages = emptyList()
         )
 
         // when
@@ -75,7 +77,8 @@ class PostValidatorTest {
             title = "제목",
             content = "내용을 입력하고 있습니다.",
             salePrice = -10_000,
-            freeShared = false
+            freeShared = false,
+            mainImages = emptyList()
         )
 
         // when
@@ -98,6 +101,7 @@ class PostValidatorTest {
             content = null,
             salePrice = null,
             freeShared = null,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.CATEGORY
             )
@@ -123,6 +127,7 @@ class PostValidatorTest {
             content = null,
             salePrice = null,
             freeShared = null,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.TITLE
             )
@@ -148,6 +153,7 @@ class PostValidatorTest {
             content = null,
             salePrice = null,
             freeShared = null,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.TITLE
             )
@@ -173,6 +179,7 @@ class PostValidatorTest {
             content = null,
             salePrice = null,
             freeShared = null,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.CONTENT
             )
@@ -198,6 +205,7 @@ class PostValidatorTest {
             content = "내용",
             salePrice = null,
             freeShared = null,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.CONTENT
             )
@@ -223,6 +231,7 @@ class PostValidatorTest {
             content = null,
             salePrice = null,
             freeShared = null,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.SALE_PRICE
             )
@@ -248,6 +257,7 @@ class PostValidatorTest {
             content = null,
             salePrice = null,
             freeShared = null,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.FREE_SHARED
             )
@@ -262,5 +272,31 @@ class PostValidatorTest {
         assertThat(exception.errorCode).isEqualTo(ErrorCode.INVALID_PARAMETER)
         assertThat(exception.status).isEqualTo(HttpStatus.BAD_REQUEST)
         assertThat(exception.message).isEqualTo("[free_shared]은(는) 필수 값입니다.")
+    }
+
+    @Test
+    fun `게시글 메인 이미지 수정 시 NULL 케이스`() {
+        // given
+        val request = UpdatePostRequestDto(
+            categoryId = null,
+            title = null,
+            content = null,
+            salePrice = null,
+            freeShared = null,
+            mainImages = null,
+            updateMask = listOf(
+                PostUpdateMask.MAIN_IMAGES
+            )
+        )
+
+        // when
+        val exception: InvalidParameterException = assertThrows {
+            validator.validate(request)
+        }
+
+        // then
+        assertThat(exception.errorCode).isEqualTo(ErrorCode.INVALID_PARAMETER)
+        assertThat(exception.status).isEqualTo(HttpStatus.BAD_REQUEST)
+        assertThat(exception.message).isEqualTo("[main_images]은(는) 필수 값입니다.")
     }
 }

@@ -5,6 +5,7 @@ import com.daangn.api.dto.posts.CreatePostRequestDto
 import com.daangn.api.dto.posts.PostResponseDto
 import com.daangn.api.dto.posts.UpdatePostRequestDto
 import com.daangn.api.service.posts.converter.PostConverter
+import com.daangn.api.service.posts.converter.PostImageConverter
 import com.daangn.api.service.posts.updater.PostUpdater
 import com.daangn.api.service.posts.validator.PostValidator
 import com.daangn.domain.dto.Pagination
@@ -25,6 +26,7 @@ class PostService(
     private val userRepositoryWrapper: UserRepositoryWrapper,
     private val categoryRepositoryWrapper: CategoryRepositoryWrapper,
     private val converter: PostConverter,
+    private val postImageConverter: PostImageConverter,
     private val updater: PostUpdater,
     private val validator: PostValidator,
 ) {
@@ -32,11 +34,16 @@ class PostService(
     @Transactional
     fun create(userId: String, request: CreatePostRequestDto): String {
         validator.validate(request)
-        val post = converter.convert(request).also {
+        val post = converter.convert(request).also { post ->
             val user = userRepositoryWrapper.findById(userId)
             val category = categoryRepositoryWrapper.findById(request.categoryId)
-            it.set(user)
-            it.set(category)
+            post.set(user)
+            post.set(category)
+            request.mainImages.forEach { postMainImageRequest ->
+                postImageConverter.convert(postMainImageRequest).also { postMainImage ->
+                    postMainImage.set(post)
+                }
+            }
         }
         return repositoryWrapper.save(post).id
     }

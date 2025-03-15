@@ -4,6 +4,7 @@ import com.daangn.api.categories.DummyCategory
 import com.daangn.api.dto.posts.CreatePostRequestDto
 import com.daangn.api.dto.posts.PostResponseDto
 import com.daangn.api.dto.posts.UpdatePostRequestDto
+import com.daangn.api.posts.image.DummyPostImage
 import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.posts.Post
 import com.daangn.domain.entity.posts.PostUpdateMask
@@ -38,6 +39,9 @@ object DummyPost {
             content = content,
             salePrice = salePrice,
             freeShared = freeShared,
+            mainImages = listOf(
+                DummyPostImage.toRequestDto()
+            )
         )
     }
     private val post: Post by lazy {
@@ -61,6 +65,9 @@ object DummyPost {
             content = content,
             salePrice = salePrice,
             isFreeShare = freeShared,
+            mainImages = listOf(
+                DummyPostImage.toResponseDto()
+            ),
             createdAt = createdAt,
             updatedAt = updatedAt,
         )
@@ -72,6 +79,7 @@ object DummyPost {
             content = null,
             salePrice = null,
             freeShared = true,
+            mainImages = null,
             updateMask = listOf(
                 PostUpdateMask.FREE_SHARED
             )

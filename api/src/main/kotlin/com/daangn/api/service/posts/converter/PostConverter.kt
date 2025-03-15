@@ -5,6 +5,7 @@ import com.daangn.api.dto.posts.PostResponseDto
 import com.daangn.api.service.categories.converter.CategoryConverter
 import com.daangn.api.service.users.converter.UserConverter
 import com.daangn.domain.entity.posts.Post
+import com.daangn.domain.entity.posts.image.PostImageType
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component
 class PostConverter(
     private val userConverter: UserConverter,
     private val categoryConverter: CategoryConverter,
+    private val postImageConverter: PostImageConverter,
 ) {
 
     fun convert(request: CreatePostRequestDto): Post {
@@ -33,6 +35,7 @@ class PostConverter(
             content = entity.content,
             salePrice = entity.salePrice,
             isFreeShare = entity.freeShared,
+            mainImages = postImageConverter.convert(entity.getTypeImages(type = PostImageType.MAIN)),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli()
         )
