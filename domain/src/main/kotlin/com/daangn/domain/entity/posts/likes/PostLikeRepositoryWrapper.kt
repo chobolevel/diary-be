@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 import kotlin.jvm.Throws
 
 @Component
-class PostLIkeRepositoryWrapper(
+class PostLikeRepositoryWrapper(
     private val repository: PostLikeRepository,
     private val customRepository: PostLikeCustomRepository
 ) {
