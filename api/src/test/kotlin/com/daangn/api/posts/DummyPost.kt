@@ -70,6 +70,7 @@ object DummyPost {
             salePrice = salePrice,
             isFreeShare = freeShared,
             likeCount = likeCount,
+            isLiked = false,
             mainImages = listOf(
                 DummyPostImage.toResponseDto()
             ),
