@@ -1,5 +1,8 @@
 package com.daangn.api.posts.likes
 
+import com.daangn.api.dto.posts.likes.PostLikeResponseDto
+import com.daangn.api.posts.DummyPost
+import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.posts.likes.PostLike
 import io.hypersistence.tsid.TSID
 
@@ -11,10 +14,22 @@ object DummyPostLike {
     fun toEntity(): PostLike {
         return postLike
     }
+    fun toResponseDto(): PostLikeResponseDto {
+        return postLikeResponse
+    }
 
     private val postLike: PostLike by lazy {
         PostLike(
             id = id,
+        )
+    }
+    private val postLikeResponse: PostLikeResponseDto by lazy {
+        PostLikeResponseDto(
+            id = id,
+            post = DummyPost.toResponseDto(),
+            user = DummyUser.toResponseDto(),
+            createdAt = createdAt,
+            updatedAt = updatedAt,
         )
     }
 }

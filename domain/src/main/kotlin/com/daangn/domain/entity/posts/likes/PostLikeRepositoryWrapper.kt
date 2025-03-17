@@ -46,6 +46,13 @@ class PostLikeRepositoryWrapper(
         )
     }
 
+    fun findByPostIdAndUserId(postId: String, userId: String): PostLike? {
+        return repository.findByPostIdAndUserIdAndDeletedFalse(
+            postId = postId,
+            userId = userId
+        )
+    }
+
     private fun List<PostLikeOrderType>.toOrderSpecifiers(): Array<OrderSpecifier<*>> {
         return this.map {
             when (it) {
