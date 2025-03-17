@@ -18,6 +18,7 @@ object DummyPost {
     private val content: String = "내용"
     private val salePrice: Int = 10_000
     private val freeShared: Boolean = false
+    private val likeCount: Int = 0
     private val createdAt: Long = 0L
     private val updatedAt: Long = 0L
 
@@ -68,6 +69,7 @@ object DummyPost {
             content = content,
             salePrice = salePrice,
             isFreeShare = freeShared,
+            likeCount = likeCount,
             mainImages = listOf(
                 DummyPostImage.toResponseDto()
             ),

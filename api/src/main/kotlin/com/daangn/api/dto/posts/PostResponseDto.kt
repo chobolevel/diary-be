@@ -17,6 +17,7 @@ data class PostResponseDto(
     val content: String,
     val salePrice: Int,
     val isFreeShare: Boolean,
+    val likeCount: Int,
     val mainImages: List<PostImageResponseDto>,
     val createdAt: Long,
     val updatedAt: Long

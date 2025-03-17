@@ -40,6 +40,7 @@ class PostConverter(
             content = entity.content,
             salePrice = entity.salePrice,
             isFreeShare = entity.freeShared,
+            likeCount = entity.likeCount,
             mainImages = postImageConverter.convert(entity.getTypeImages(type = PostImageType.MAIN)),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli()
