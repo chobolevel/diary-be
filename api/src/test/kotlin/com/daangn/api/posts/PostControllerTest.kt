@@ -85,6 +85,7 @@ class PostControllerTest {
         val queryFilter = PostQueryFilter(
             writerId = null,
             categoryId = null,
+            status = null,
             title = null
         )
         val pagination = Pagination(
@@ -105,6 +106,7 @@ class PostControllerTest {
             queryCreator.createQueryFilter(
                 writerId = null,
                 categoryId = null,
+                status = null,
                 title = null
             )
         ).thenReturn(queryFilter)
@@ -126,6 +128,7 @@ class PostControllerTest {
         val result: ResponseEntity<ResultResponseDto> = controller.getPosts(
             writerId = null,
             categoryId = null,
+            status = null,
             title = null,
             page = null,
             size = null,

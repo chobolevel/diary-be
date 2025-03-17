@@ -7,11 +7,13 @@ import com.daangn.api.dto.posts.UpdatePostRequestDto
 import com.daangn.api.posts.image.DummyPostImage
 import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.posts.Post
+import com.daangn.domain.entity.posts.PostStatus
 import com.daangn.domain.entity.posts.PostUpdateMask
 import io.hypersistence.tsid.TSID
 
 object DummyPost {
     private val id: String = TSID.fast().toString()
+    private val status: PostStatus = PostStatus.ON_SALE
     private val title: String = "제목"
     private val content: String = "내용"
     private val salePrice: Int = 10_000
@@ -61,6 +63,7 @@ object DummyPost {
             id = id,
             writer = DummyUser.toResponseDto(),
             category = DummyCategory.toResponseDto(),
+            status = status,
             title = title,
             content = content,
             salePrice = salePrice,
@@ -75,6 +78,7 @@ object DummyPost {
     private val updateRequest: UpdatePostRequestDto by lazy {
         UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = null,
             salePrice = null,

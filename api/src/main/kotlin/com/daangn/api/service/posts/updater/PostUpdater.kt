@@ -24,6 +24,7 @@ class PostUpdater(
                     val category = categoryRepositoryWrapper.findById(request.categoryId!!)
                     entity.set(category)
                 }
+                PostUpdateMask.STATUS -> entity.status = request.status!!
                 PostUpdateMask.TITLE -> entity.title = request.title!!
                 PostUpdateMask.CONTENT -> entity.content = request.content!!
                 PostUpdateMask.SALE_PRICE -> entity.salePrice = request.salePrice!!

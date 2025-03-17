@@ -8,6 +8,7 @@ import com.daangn.api.service.posts.PostService
 import com.daangn.api.service.posts.query.PostQueryCreator
 import com.daangn.api.util.getUserId
 import com.daangn.domain.entity.posts.PostOrderType
+import com.daangn.domain.entity.posts.PostStatus
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
@@ -53,6 +54,7 @@ class PostController(
         @RequestParam(required = false) writerId: String?,
         @RequestParam(required = false) categoryId: String?,
         @RequestParam(required = false) title: String?,
+        @RequestParam(required = false) status: PostStatus?,
         @RequestParam(required = false) page: Long?,
         @RequestParam(required = false) size: Long?,
         @RequestParam(required = false) orderTypes: List<PostOrderType>?
@@ -60,6 +62,7 @@ class PostController(
         val queryFilter = queryCreator.createQueryFilter(
             writerId = writerId,
             categoryId = categoryId,
+            status = status,
             title = title,
         )
         val pagination = queryCreator.createPaginationFilter(

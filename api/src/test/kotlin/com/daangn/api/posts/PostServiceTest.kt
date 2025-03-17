@@ -106,6 +106,7 @@ class PostServiceTest {
         val queryFilter = PostQueryFilter(
             writerId = null,
             categoryId = null,
+            status = null,
             title = null
         )
         val pagination = Pagination(

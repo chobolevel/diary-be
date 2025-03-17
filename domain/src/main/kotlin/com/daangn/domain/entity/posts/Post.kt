@@ -8,6 +8,8 @@ import com.daangn.domain.entity.users.User
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
@@ -31,7 +33,7 @@ class Post(
     @Column(nullable = false)
     var salePrice: Int,
     @Column(nullable = false)
-    var freeShared: Boolean
+    var freeShared: Boolean,
 ) : Audit() {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -51,6 +53,10 @@ class Post(
             this.category = category
         }
     }
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    var status: PostStatus = PostStatus.ON_SALE
 
     @Column(nullable = false)
     var deleted: Boolean = false
@@ -76,6 +82,12 @@ class Post(
     }
 }
 
+enum class PostStatus {
+    ON_SALE,
+    RESERVED,
+    COMPLETED
+}
+
 enum class PostOrderType {
     CREATED_AT_ASC,
     CREATED_AT_DESC,
@@ -83,6 +95,7 @@ enum class PostOrderType {
 
 enum class PostUpdateMask {
     CATEGORY,
+    STATUS,
     TITLE,
     CONTENT,
     SALE_PRICE,

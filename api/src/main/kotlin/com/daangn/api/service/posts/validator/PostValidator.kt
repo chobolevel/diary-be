@@ -37,18 +37,30 @@ class PostValidator {
                         )
                     }
                 }
+
+                PostUpdateMask.STATUS -> {
+                    if (request.status == null) {
+                        throw InvalidParameterException(
+                            errorCode = ErrorCode.INVALID_PARAMETER,
+                            message = "[status]은(는) 필수 값입니다."
+                        )
+                    }
+                }
+
                 PostUpdateMask.TITLE -> {
                     validateTitle(
                         input = request.title,
                         parameterName = "title"
                     )
                 }
+
                 PostUpdateMask.CONTENT -> {
                     validateLength(
                         input = request.content,
                         parameterName = "content"
                     )
                 }
+
                 PostUpdateMask.SALE_PRICE -> {
                     if (request.salePrice == null) {
                         throw InvalidParameterException(
@@ -57,6 +69,7 @@ class PostValidator {
                         )
                     }
                 }
+
                 PostUpdateMask.FREE_SHARED -> {
                     if (request.freeShared == null) {
                         throw InvalidParameterException(
@@ -65,6 +78,7 @@ class PostValidator {
                         )
                     }
                 }
+
                 PostUpdateMask.MAIN_IMAGES -> {
                     if (request.mainImages == null) {
                         throw InvalidParameterException(

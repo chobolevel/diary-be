@@ -4,6 +4,7 @@ create table daangn.posts
     primary key,
   writer_id   varchar(13)  not null comment '작성자 아이디',
   category_id varchar(13)  not null comment '카테고리 아이디',
+  status      varchar(20)  not null comment '판매 상태',
   title       varchar(100) not null comment '게시글 제목',
   content     text         not null comment '게시글 내용',
   sale_price  int          null comment '판매 가격',
@@ -16,6 +17,9 @@ create table daangn.posts
 
 create index posts_category_id_index
   on daangn.posts (category_id);
+
+create index posts_status_index
+  on daangn.posts (status);
 
 create index posts_title_index
   on daangn.posts (title);
@@ -30,6 +34,7 @@ create table daangn.posts_histories
   revision_type tinyint      not null,
   writer_id     varchar(13)  not null,
   category_id   varchar(13)  not null,
+  status        varchar(20)  not null,
   title         varchar(100) not null,
   content       text         not null,
   sale_price    int          not null,

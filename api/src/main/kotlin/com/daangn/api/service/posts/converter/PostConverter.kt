@@ -17,11 +17,15 @@ class PostConverter(
 ) {
 
     fun convert(request: CreatePostRequestDto): Post {
+        val salePrice = when (request.freeShared) {
+            true -> 0
+            false -> request.salePrice
+        }
         return Post(
             id = TSID.fast().toString(),
             title = request.title,
             content = request.content,
-            salePrice = request.salePrice,
+            salePrice = salePrice,
             freeShared = request.freeShared,
         )
     }
@@ -31,6 +35,7 @@ class PostConverter(
             id = entity.id,
             writer = userConverter.convert(entity.writer!!),
             category = categoryConverter.convert(entity.category!!),
+            status = entity.status,
             title = entity.title,
             content = entity.content,
             salePrice = entity.salePrice,

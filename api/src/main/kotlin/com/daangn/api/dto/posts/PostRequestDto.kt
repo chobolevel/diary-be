@@ -1,6 +1,7 @@
 package com.daangn.api.dto.posts
 
 import com.daangn.api.dto.posts.images.PostImageRequestDto
+import com.daangn.domain.entity.posts.PostStatus
 import com.daangn.domain.entity.posts.PostUpdateMask
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
@@ -26,6 +27,7 @@ data class CreatePostRequestDto(
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class UpdatePostRequestDto(
     val categoryId: String?,
+    val status: PostStatus?,
     val title: String?,
     val content: String?,
     val salePrice: Int?,

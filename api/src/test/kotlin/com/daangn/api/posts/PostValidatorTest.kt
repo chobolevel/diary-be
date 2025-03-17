@@ -97,6 +97,7 @@ class PostValidatorTest {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = null,
             salePrice = null,
@@ -119,10 +120,38 @@ class PostValidatorTest {
     }
 
     @Test
+    fun `게시글 상태 수정 시 NULL 케이스`() {
+        // given
+        val request = UpdatePostRequestDto(
+            categoryId = null,
+            status = null,
+            title = null,
+            content = null,
+            salePrice = null,
+            freeShared = null,
+            mainImages = null,
+            updateMask = listOf(
+                PostUpdateMask.STATUS
+            )
+        )
+
+        // when
+        val exception: InvalidParameterException = assertThrows {
+            validator.validate(request)
+        }
+
+        // then
+        assertThat(exception.errorCode).isEqualTo(ErrorCode.INVALID_PARAMETER)
+        assertThat(exception.status).isEqualTo(HttpStatus.BAD_REQUEST)
+        assertThat(exception.message).isEqualTo("[status]은(는) 필수 값입니다.")
+    }
+
+    @Test
     fun `게시글 제목 수정 시 NULL 케이스`() {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = null,
             salePrice = null,
@@ -149,6 +178,7 @@ class PostValidatorTest {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = "제목@",
             content = null,
             salePrice = null,
@@ -175,6 +205,7 @@ class PostValidatorTest {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = null,
             salePrice = null,
@@ -201,6 +232,7 @@ class PostValidatorTest {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = "내용",
             salePrice = null,
@@ -227,6 +259,7 @@ class PostValidatorTest {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = null,
             salePrice = null,
@@ -253,6 +286,7 @@ class PostValidatorTest {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = null,
             salePrice = null,
@@ -279,6 +313,7 @@ class PostValidatorTest {
         // given
         val request = UpdatePostRequestDto(
             categoryId = null,
+            status = null,
             title = null,
             content = null,
             salePrice = null,
