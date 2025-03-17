@@ -9,6 +9,7 @@ data class PostImageResponseDto(
     val id: String,
     val type: PostImageType,
     val url: String,
+    val name: String,
     val order: Int,
     val createdAt: Long,
     val updatedAt: Long

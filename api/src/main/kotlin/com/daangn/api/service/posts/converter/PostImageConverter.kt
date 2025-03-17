@@ -14,6 +14,7 @@ class PostImageConverter {
             id = TSID.fast().toString(),
             type = request.type,
             url = request.url,
+            name = request.name,
             order = request.order,
         )
     }
@@ -23,6 +24,7 @@ class PostImageConverter {
             id = entity.id,
             type = entity.type,
             url = entity.url,
+            name = entity.name,
             order = entity.order,
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli()

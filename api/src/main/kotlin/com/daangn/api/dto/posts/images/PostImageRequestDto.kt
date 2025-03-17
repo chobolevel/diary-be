@@ -12,6 +12,8 @@ data class PostImageRequestDto(
     val type: PostImageType,
     @field:NotEmpty
     val url: String,
+    @field:NotEmpty
+    val name: String,
     @field:NotNull
     val order: Int,
 )

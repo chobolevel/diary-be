@@ -25,6 +25,8 @@ class PostImage(
     var type: PostImageType,
     @Column(nullable = false, length = 255)
     var url: String,
+    @Column(nullable = false, length = 100)
+    var name: String,
     @Column(nullable = false)
     var order: Int
 ) : Audit() {
