@@ -44,6 +44,30 @@ class PostEntityTest {
     }
 
     @Test
+    fun `게시글 엔티티 좋아요 개수 상숭 케이스`() {
+        // given
+        dummyPost.likeCount = 0
+
+        // when
+        dummyPost.increaseLikeCount()
+
+        // then
+        assertThat(dummyPost.likeCount).isEqualTo(1)
+    }
+
+    @Test
+    fun `게시글 엔티티 좋아요 개수 하강 케이스`() {
+        // given
+        dummyPost.likeCount = 0
+
+        // when
+        dummyPost.decreaseLikeCount()
+
+        // then
+        assertThat(dummyPost.likeCount).isEqualTo(-1)
+    }
+
+    @Test
     fun `게시글 엔티티 삭제 케이스`() {
         // given
 

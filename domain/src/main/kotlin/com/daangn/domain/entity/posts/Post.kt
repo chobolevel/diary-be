@@ -59,6 +59,15 @@ class Post(
     var status: PostStatus = PostStatus.ON_SALE
 
     @Column(nullable = false)
+    var likeCount: Int = 0
+    fun increaseLikeCount() {
+        this.likeCount++
+    }
+    fun decreaseLikeCount() {
+        this.likeCount--
+    }
+
+    @Column(nullable = false)
     var deleted: Boolean = false
     fun delete() {
         this.deleted = true

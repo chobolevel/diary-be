@@ -9,6 +9,7 @@ create table daangn.posts
   content     text         not null comment '게시글 내용',
   sale_price  int          null comment '판매 가격',
   free_shared bit          not null comment '무료 나눔 여부',
+  like_count  int          not null comment '좋아요 개수',
   deleted     bit          not null comment '삭제 여부',
   created_at  datetime     not null comment '생성 일자',
   updated_at  datetime     not null comment '수정 일자'
@@ -39,6 +40,7 @@ create table daangn.posts_histories
   content       text         not null,
   sale_price    int          not null,
   free_shared   bit          not null,
+  like_count    int          not null,
   deleted       bit          not null,
   created_at    datetime     not null,
   updated_at    datetime     not null,

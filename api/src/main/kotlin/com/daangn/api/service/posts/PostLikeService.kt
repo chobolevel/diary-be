@@ -33,10 +33,12 @@ class PostLikeService(
                     it.set(post)
                     it.set(user)
                 }
-                repositoryWrapper.save(postLikeRequest)
+                val savedPostLike = repositoryWrapper.save(postLikeRequest)
+                savedPostLike.post!!.increaseLikeCount()
             }
             else -> {
                 postLike.delete()
+                postLike.post!!.decreaseLikeCount()
             }
         }
         return true
