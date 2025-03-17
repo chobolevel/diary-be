@@ -40,7 +40,7 @@ class PostLikeController(
     }
 
     @Operation(summary = "게시글 좋아요 목록 조회 API")
-    @GetMapping("/post/likes")
+    @GetMapping("/posts/likes")
     fun getPostLikes(
         @RequestParam(required = false) postId: String?,
         @RequestParam(required = false) userId: String?,
