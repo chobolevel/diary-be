@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
 
 @Repository
-class LikeCustomRepository: QuerydslRepositorySupport(Like::class.java) {
+class LikeCustomRepository : QuerydslRepositorySupport(Like::class.java) {
 
     fun searchByPredicates(
         booleanExpressions: Array<BooleanExpression>,

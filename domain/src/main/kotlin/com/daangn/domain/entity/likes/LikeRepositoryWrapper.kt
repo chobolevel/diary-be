@@ -35,9 +35,16 @@ class LikeRepositoryWrapper(
         )
     }
 
+    fun findByUserIdAndTargetId(userId: String, targetId: String): Like? {
+        return repository.findByUserIdAndTargetIdAndDeletedFalse(
+            userId = userId,
+            targetId = targetId
+        )
+    }
+
     private fun List<LikeOrderType>.toOrderSpecifiers(): Array<OrderSpecifier<*>> {
         return this.map {
-            when(it) {
+            when (it) {
                 LikeOrderType.CREATED_AT_ASC -> like.createdAt.asc()
                 LikeOrderType.CREATED_AT_DESC -> like.createdAt.desc()
             }

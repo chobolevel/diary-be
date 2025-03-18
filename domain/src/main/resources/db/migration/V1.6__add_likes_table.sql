@@ -10,8 +10,8 @@ create table daangn.likes
   updated_at datetime    not null comment '수정 일자'
 );
 
-create index likes_user_id_index
-  on daangn.likes (user_id);
+create index likes_user_id_target_id_index
+  on daangn.likes (user_id, target_id);
 
 create table daangn.likes_histories
 (

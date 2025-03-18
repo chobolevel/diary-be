@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import org.hibernate.envers.Audited
-import org.springframework.data.annotation.Immutable
 
 @Entity
 @Table(name = "likes")
@@ -26,13 +25,13 @@ class Like(
     var type: LikeType,
     @Column(nullable = false, length = 13)
     var targetId: String
-): Audit() {
+) : Audit() {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     var user: User? = null
     fun set(user: User) {
-        if(this.user != user) {
+        if (this.user != user) {
             this.user = user
         }
     }
