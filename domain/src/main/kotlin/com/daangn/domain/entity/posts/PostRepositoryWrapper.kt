@@ -46,6 +46,10 @@ class PostRepositoryWrapper(
         )
     }
 
+    fun existsById(id: String): Boolean {
+        return repository.existsById(id)
+    }
+
     private fun List<PostOrderType>.toOrderSpecifiers(): Array<OrderSpecifier<*>> {
         return this.map {
             when (it) {

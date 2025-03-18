@@ -6,6 +6,7 @@ import com.daangn.api.dto.likes.LikeResponseDto
 import com.daangn.api.posts.DummyPost
 import com.daangn.api.service.likes.LikeService
 import com.daangn.api.service.likes.converter.LikeConverter
+import com.daangn.api.service.likes.validator.LikeValidator
 import com.daangn.api.users.DummyUser
 import com.daangn.domain.dto.Pagination
 import com.daangn.domain.entity.likes.Like
@@ -13,6 +14,7 @@ import com.daangn.domain.entity.likes.LikeOrderType
 import com.daangn.domain.entity.likes.LikeQueryFilter
 import com.daangn.domain.entity.likes.LikeRepositoryWrapper
 import com.daangn.domain.entity.posts.Post
+import com.daangn.domain.entity.posts.PostRepositoryWrapper
 import com.daangn.domain.entity.users.User
 import com.daangn.domain.entity.users.UserRepositoryWrapper
 import org.assertj.core.api.Assertions.assertThat
@@ -22,6 +24,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito.anyString
+import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 
@@ -43,7 +47,13 @@ class LikeServiceTest {
     private lateinit var userRepositoryWrapper: UserRepositoryWrapper
 
     @Mock
+    private lateinit var postRepositoryWrapper: PostRepositoryWrapper
+
+    @Mock
     private lateinit var converter: LikeConverter
+
+    @Mock
+    private lateinit var validator: LikeValidator
 
     @InjectMocks
     private lateinit var service: LikeService
@@ -67,8 +77,10 @@ class LikeServiceTest {
                 targetId = request.targetId
             )
         ).thenReturn(null)
+        doNothing().`when`(validator).validate(request)
         `when`(converter.convert(request)).thenReturn(dummyLike)
         `when`(userRepositoryWrapper.findById(dummyUserId)).thenReturn(dummyUser)
+        `when`(postRepositoryWrapper.findById(anyString())).thenReturn(dummyPost)
         `when`(repositoryWrapper.save(dummyLike)).thenReturn(dummyLike)
 
         // when

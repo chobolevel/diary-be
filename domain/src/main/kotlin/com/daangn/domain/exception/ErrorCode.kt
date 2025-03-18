@@ -27,6 +27,6 @@ enum class ErrorCode(val message: String) {
     POST_NOT_FOUND("게시글을 찾을 수 없습니다."),
     ONLY_POST_WRITER_CAN_ACCESS("게시글 작성자만 접근할 수 있습니다."),
 
-    // POST LIKE
-    POST_LIKE_NOT_FOUND("게시글 좋아요를 찾을 수 없습니다.")
+    // LIKE
+    LIKE_TARGET_NOT_FOUND("좋아요 대상을 찾을 수 없습니다.")
 }
