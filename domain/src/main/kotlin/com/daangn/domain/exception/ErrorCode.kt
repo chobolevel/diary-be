@@ -28,5 +28,8 @@ enum class ErrorCode(val message: String) {
     ONLY_POST_WRITER_CAN_ACCESS("게시글 작성자만 접근할 수 있습니다."),
 
     // LIKE
-    LIKE_TARGET_NOT_FOUND("좋아요 대상을 찾을 수 없습니다.")
+    LIKE_TARGET_NOT_FOUND("좋아요 대상을 찾을 수 없습니다."),
+
+    // CHANNEL
+    CHANNEL_NOT_FOUND("채널을 찾을 수 없습니다.")
 }
