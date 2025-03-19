@@ -32,5 +32,8 @@ enum class ErrorCode(val message: String) {
 
     // CHANNEL
     CHANNEL_NOT_FOUND("채널을 찾을 수 없습니다."),
-    ALREADY_LEAVED_CHANNEL("이미 떠난 채널입니다.")
+    ALREADY_LEAVED_CHANNEL("이미 떠난 채널입니다."),
+
+    // CHANNEL MESSAGE
+    CHANNEL_MESSAGE_NOT_FOUND("채널 메세지를 찾을 수 없습니다.")
 }
