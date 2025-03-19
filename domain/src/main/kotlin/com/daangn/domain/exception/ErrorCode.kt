@@ -31,5 +31,6 @@ enum class ErrorCode(val message: String) {
     LIKE_TARGET_NOT_FOUND("좋아요 대상을 찾을 수 없습니다."),
 
     // CHANNEL
-    CHANNEL_NOT_FOUND("채널을 찾을 수 없습니다.")
+    CHANNEL_NOT_FOUND("채널을 찾을 수 없습니다."),
+    ALREADY_LEAVED_CHANNEL("이미 떠난 채널입니다.")
 }

@@ -32,6 +32,10 @@ class UserRepositoryWrapper(
         )
     }
 
+    fun findByIds(ids: List<String>): List<User> {
+        return repository.findByIdInAndResignedFalse(ids)
+    }
+
     @Throws(DataNotFoundException::class)
     fun findById(id: String): User {
         return repository.findByIdAndResignedFalse(id) ?: throw DataNotFoundException(

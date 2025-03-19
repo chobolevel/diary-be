@@ -1,7 +1,9 @@
 package com.daangn.api.channels
 
+import com.daangn.api.channels.users.DummyChannelUser
 import com.daangn.api.dto.channels.ChannelResponseDto
 import com.daangn.api.dto.channels.CreateChannelRequestDto
+import com.daangn.api.dto.channels.InviteChannelRequestDto
 import com.daangn.api.dto.channels.UpdateChannelRequestDto
 import com.daangn.api.dto.common.PaginationResponseDto
 import com.daangn.api.service.channels.ChannelService
@@ -13,7 +15,9 @@ import com.daangn.domain.entity.channels.Channel
 import com.daangn.domain.entity.channels.ChannelOrderType
 import com.daangn.domain.entity.channels.ChannelQueryFilter
 import com.daangn.domain.entity.channels.ChannelRepositoryWrapper
+import com.daangn.domain.entity.channels.users.ChannelUser
 import com.daangn.domain.entity.users.User
+import com.daangn.domain.entity.users.UserRepositoryWrapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -37,6 +41,9 @@ class ChannelServiceTest {
     private lateinit var repositoryWrapper: ChannelRepositoryWrapper
 
     @Mock
+    private lateinit var userRepositoryWrapper: UserRepositoryWrapper
+
+    @Mock
     private lateinit var converter: ChannelConverter
 
     @Mock
@@ -58,6 +65,7 @@ class ChannelServiceTest {
         val dummyUserId: String = dummyUser.id
         val request: CreateChannelRequestDto = DummyChannel.toCreateRequestDto()
         `when`(converter.convert(request)).thenReturn(dummyChannel)
+        `when`(userRepositoryWrapper.findById(dummyUserId)).thenReturn(dummyUser)
         `when`(repositoryWrapper.save(dummyChannel)).thenReturn(dummyChannel)
 
         // when
@@ -161,6 +169,46 @@ class ChannelServiceTest {
 
         // when
         val result: Boolean = service.delete(
+            userId = dummyUserId,
+            channelId = dummyChannelId
+        )
+
+        // then
+        assertThat(result).isTrue()
+    }
+
+    @Test
+    fun `채널 초대`() {
+        // given
+        val dummyUserId: String = dummyUser.id
+        val dummyChannelId: String = dummyChannel.id
+        val dummyUsers: List<User> = listOf(dummyUser)
+        val request: InviteChannelRequestDto = DummyChannel.toInviteRequestDto()
+        `when`(repositoryWrapper.findById(dummyChannelId)).thenReturn(dummyChannel)
+        `when`(userRepositoryWrapper.findByIds(request.userIds)).thenReturn(dummyUsers)
+
+        // when
+        val result: Boolean = service.invite(
+            userId = dummyUserId,
+            channelId = dummyChannelId,
+            request = request
+        )
+
+        // then
+        assertThat(result).isTrue()
+    }
+
+    @Test
+    fun `채널 떠나기`() {
+        // given
+        val dummyChannelUser: ChannelUser = DummyChannelUser.toEntity()
+        dummyChannel.channelUsers.add(dummyChannelUser)
+        val dummyUserId: String = dummyUser.id
+        val dummyChannelId: String = dummyChannel.id
+        `when`(repositoryWrapper.findById(dummyChannelId)).thenReturn(dummyChannel)
+
+        // when
+        val result: Boolean = service.leave(
             userId = dummyUserId,
             channelId = dummyChannelId
         )

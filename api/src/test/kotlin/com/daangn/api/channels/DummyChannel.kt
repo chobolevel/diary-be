@@ -2,7 +2,9 @@ package com.daangn.api.channels
 
 import com.daangn.api.dto.channels.ChannelResponseDto
 import com.daangn.api.dto.channels.CreateChannelRequestDto
+import com.daangn.api.dto.channels.InviteChannelRequestDto
 import com.daangn.api.dto.channels.UpdateChannelRequestDto
+import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.channels.Channel
 import com.daangn.domain.entity.channels.ChannelUpdateMask
 import io.hypersistence.tsid.TSID
@@ -25,10 +27,13 @@ object DummyChannel {
     fun toUpdateRequestDto(): UpdateChannelRequestDto {
         return updateRequest
     }
+    fun toInviteRequestDto(): InviteChannelRequestDto {
+        return inviteRequest
+    }
 
     private val createRequest: CreateChannelRequestDto by lazy {
         CreateChannelRequestDto(
-            name = name
+            name = name,
         )
     }
     private val channel: Channel by lazy {
@@ -41,6 +46,7 @@ object DummyChannel {
         ChannelResponseDto(
             id = id,
             name = name,
+            channelUsers = listOf(DummyUser.toResponseDto()),
             createdAt = createdAt,
             updatedAt = updatedAt,
         )
@@ -51,6 +57,11 @@ object DummyChannel {
             updateMask = listOf(
                 ChannelUpdateMask.NAME
             )
+        )
+    }
+    private val inviteRequest: InviteChannelRequestDto by lazy {
+        InviteChannelRequestDto(
+            userIds = listOf(DummyUser.toEntity().id)
         )
     }
 }

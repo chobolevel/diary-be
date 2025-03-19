@@ -2,12 +2,15 @@ package com.daangn.api.service.channels.converter
 
 import com.daangn.api.dto.channels.ChannelResponseDto
 import com.daangn.api.dto.channels.CreateChannelRequestDto
+import com.daangn.api.service.users.converter.UserConverter
 import com.daangn.domain.entity.channels.Channel
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
 
 @Component
-class ChannelConverter {
+class ChannelConverter(
+    private val userConverter: UserConverter
+) {
 
     fun convert(request: CreateChannelRequestDto): Channel {
         return Channel(
@@ -20,6 +23,7 @@ class ChannelConverter {
         return ChannelResponseDto(
             id = entity.id,
             name = entity.name,
+            channelUsers = entity.channelUsers.map { userConverter.convert(it.user!!) },
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli()
         )

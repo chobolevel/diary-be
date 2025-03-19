@@ -9,4 +9,6 @@ interface UserRepository : JpaRepository<User, String> {
     fun findByEmailAndResignedFalse(email: String): User?
 
     fun existsByEmailAndResignedFalse(email: String): Boolean
+
+    fun findByIdInAndResignedFalse(ids: List<String>): List<User>
 }

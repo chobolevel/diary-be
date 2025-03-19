@@ -3,6 +3,7 @@ package com.daangn.api.channels
 import com.daangn.api.controller.v1.common.channels.ChannelController
 import com.daangn.api.dto.channels.ChannelResponseDto
 import com.daangn.api.dto.channels.CreateChannelRequestDto
+import com.daangn.api.dto.channels.InviteChannelRequestDto
 import com.daangn.api.dto.common.PaginationResponseDto
 import com.daangn.api.dto.common.ResultResponseDto
 import com.daangn.api.service.channels.ChannelService
@@ -148,5 +149,56 @@ class ChannelControllerTest {
         assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(result.body?.data).isEqualTo(dummyChannelResponse)
+    }
+
+    @Test
+    fun `채널 초대`() {
+        // given
+        val dummyUserId: String = dummyUser.id
+        val dummyChannelId: String = dummyChannel.id
+        val request: InviteChannelRequestDto = DummyChannel.toInviteRequestDto()
+        `when`(
+            service.invite(
+                userId = dummyUserId,
+                channelId = dummyChannelId,
+                request = request
+            )
+        ).thenReturn(true)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.invite(
+            principal = dummyUserToken,
+            channelId = dummyChannelId,
+            request = request
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body?.data).isEqualTo(true)
+    }
+
+    @Test
+    fun `채널 떠나기`() {
+        // given
+        val dummyUserId: String = dummyUser.id
+        val dummyChannelId: String = dummyChannel.id
+        `when`(
+            service.leave(
+                userId = dummyUserId,
+                channelId = dummyChannelId
+            )
+        ).thenReturn(true)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.leave(
+            principal = dummyUserToken,
+            channelId = dummyChannelId
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body?.data).isEqualTo(true)
     }
 }

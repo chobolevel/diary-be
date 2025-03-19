@@ -2,6 +2,7 @@ package com.daangn.api.controller.v1.common.channels
 
 import com.daangn.api.annotation.HasAuthorityUser
 import com.daangn.api.dto.channels.CreateChannelRequestDto
+import com.daangn.api.dto.channels.InviteChannelRequestDto
 import com.daangn.api.dto.common.ResultResponseDto
 import com.daangn.api.service.channels.ChannelService
 import com.daangn.api.service.channels.query.ChannelQueryCreator
@@ -73,6 +74,34 @@ class ChannelController(
     @GetMapping("/channels/{id}")
     fun getChannel(@PathVariable("id") channelId: String): ResponseEntity<ResultResponseDto> {
         val result = service.getChannel(
+            channelId = channelId
+        )
+        return ResponseEntity.ok(ResultResponseDto(result))
+    }
+
+    @Operation(summary = "채널 초대 API")
+    @HasAuthorityUser
+    @PostMapping("/channels/{id}/invite")
+    fun invite(
+        principal: Principal,
+        @PathVariable("id") channelId: String,
+        @Valid @RequestBody
+        request: InviteChannelRequestDto
+    ): ResponseEntity<ResultResponseDto> {
+        val result = service.invite(
+            userId = principal.getUserId(),
+            channelId = channelId,
+            request = request
+        )
+        return ResponseEntity.ok(ResultResponseDto(result))
+    }
+
+    @Operation(summary = "채널 떠나기 API")
+    @HasAuthorityUser
+    @PostMapping("/channels/{id}/leave")
+    fun leave(principal: Principal, @PathVariable("id") channelId: String): ResponseEntity<ResultResponseDto> {
+        val result = service.leave(
+            userId = principal.getUserId(),
             channelId = channelId
         )
         return ResponseEntity.ok(ResultResponseDto(result))

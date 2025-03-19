@@ -18,3 +18,9 @@ data class UpdateChannelRequestDto(
     @field:Size(min = 1)
     val updateMask: List<ChannelUpdateMask>
 )
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+data class InviteChannelRequestDto(
+    @field:Size(min = 1)
+    val userIds: List<String>
+)

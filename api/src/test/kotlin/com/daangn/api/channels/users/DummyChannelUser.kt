@@ -1,5 +1,7 @@
 package com.daangn.api.channels.users
 
+import com.daangn.api.channels.DummyChannel
+import com.daangn.api.users.DummyUser
 import com.daangn.domain.entity.channels.users.ChannelUser
 import com.daangn.domain.entity.channels.users.ChannelUserGrade
 import io.hypersistence.tsid.TSID
@@ -18,6 +20,9 @@ object DummyChannelUser {
         ChannelUser(
             id = id,
             grade = grade
-        )
+        ).also {
+            it.channel = DummyChannel.toEntity()
+            it.user = DummyUser.toEntity()
+        }
     }
 }
