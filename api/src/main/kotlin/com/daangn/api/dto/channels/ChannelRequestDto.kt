@@ -9,7 +9,9 @@ import jakarta.validation.constraints.Size
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class CreateChannelRequestDto(
     @field:NotEmpty
-    val name: String
+    val name: String,
+    @field:Size(min = 1)
+    val userIds: List<String>
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)

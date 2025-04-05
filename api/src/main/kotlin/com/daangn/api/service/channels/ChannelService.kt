@@ -13,6 +13,7 @@ import com.daangn.domain.entity.channels.ChannelQueryFilter
 import com.daangn.domain.entity.channels.ChannelRepositoryWrapper
 import com.daangn.domain.entity.channels.users.ChannelUser
 import com.daangn.domain.entity.channels.users.ChannelUserGrade
+import com.daangn.domain.entity.users.User
 import com.daangn.domain.entity.users.UserRepositoryWrapper
 import com.daangn.domain.exception.ErrorCode
 import com.daangn.domain.exception.InvalidParameterException
@@ -38,6 +39,18 @@ class ChannelService(
             ).also { masterChannelUser ->
                 masterChannelUser.set(channel)
                 masterChannelUser.set(userRepositoryWrapper.findById(userId))
+            }
+
+            // set channel users
+            val users: List<User> = userRepositoryWrapper.findByIds(request.userIds)
+            users.forEach { user ->
+                ChannelUser(
+                    id = TSID.fast().toString(),
+                    grade = ChannelUserGrade.GENERAL
+                ).also { channelUser ->
+                    channelUser.set(channel)
+                    channelUser.set(user)
+                }
             }
         }
         return repositoryWrapper.save(channel).id
@@ -91,15 +104,14 @@ class ChannelService(
     @Transactional
     fun invite(userId: String, channelId: String, request: InviteChannelRequestDto): Boolean {
         val channel = repositoryWrapper.findById(channelId)
-        userRepositoryWrapper.findByIds(request.userIds).also { users ->
-            users.forEach { user ->
-                ChannelUser(
-                    id = TSID.fast().toString(),
-                    grade = ChannelUserGrade.GENERAL
-                ).also { channelUser ->
-                    channelUser.set(channel)
-                    channelUser.set(user)
-                }
+        val users = userRepositoryWrapper.findByIds(request.userIds)
+        users.forEach { user ->
+            ChannelUser(
+                id = TSID.fast().toString(),
+                grade = ChannelUserGrade.GENERAL
+            ).also { channelUser ->
+                channelUser.set(channel)
+                channelUser.set(user)
             }
         }
         return true

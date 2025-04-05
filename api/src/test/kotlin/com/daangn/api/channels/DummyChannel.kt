@@ -34,6 +34,7 @@ object DummyChannel {
     private val createRequest: CreateChannelRequestDto by lazy {
         CreateChannelRequestDto(
             name = name,
+            userIds = listOf(TSID.fast().toString())
         )
     }
     private val channel: Channel by lazy {

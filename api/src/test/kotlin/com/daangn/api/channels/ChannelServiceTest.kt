@@ -66,6 +66,7 @@ class ChannelServiceTest {
         val request: CreateChannelRequestDto = DummyChannel.toCreateRequestDto()
         `when`(converter.convert(request)).thenReturn(dummyChannel)
         `when`(userRepositoryWrapper.findById(dummyUserId)).thenReturn(dummyUser)
+        `when`(userRepositoryWrapper.findByIds(request.userIds)).thenReturn(listOf(dummyUser))
         `when`(repositoryWrapper.save(dummyChannel)).thenReturn(dummyChannel)
 
         // when
