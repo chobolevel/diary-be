@@ -35,7 +35,7 @@ plugins {
 
 // 루트 + 서브 프로젝트 관리
 allprojects {
-    group = "com.daangn"
+    group = "com.diary"
     version = "0.0.1-SNAPSHOT"
 
     apply {

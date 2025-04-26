@@ -5,7 +5,7 @@ server:
       cookie:
         path: "/"
         max-age: 31536000
-        domain: ENC(joTwjIfB6HGL2DXe7LB7w6e324BHnIf8fCGHoR3IKvK3ISv82QV4pcexq8u4qq8x)
+        domain: ENC(PTxMIw+OMnFf0ZCwh1QQjQj6Zoy99VpJmsEdkWpz36xHPRCZxgPt9P2OUN7TPLod)
         secure: true
         http-only: true
         same-site: none
@@ -18,7 +18,7 @@ logging:
 
 spring:
   application:
-    name: daangn
+    name: diary
   jpa:
     database: mysql
     open-in-view: false
@@ -43,7 +43,7 @@ spring:
     hibernate:
       ddl-auto: validate
   datasource:
-    url: jdbc:mysql://localhost:3306/daangn
+    url: ENC(M8RnDICFlnvqiuERLBkaE5PiJzUmRXt1Mf5b+gIiH7KMOCWOxko+LwnhL1+cfBGjJuGa4zjp/J7+y76e66zBbV7AJBwxdWBrYZxsvpiYHPg=)
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
@@ -69,19 +69,18 @@ jasypt:
     string-output-type: base64
 
 jwt:
-  issuer: ENC(Dyvi2Gv8C8vultqLAhzK7MzlRkzqShuZ9O/ayNZmLZ7f2t5+me4/mGUqs0GTK5Hb)
-  secret: ENC(QZDgxtDYww1roMy6/DRlGpxazoqi93mM54U1vAboIxCtUtLupeR0XfVpgQROeKdd)
-  token-prefix: ENC(hTj5hj241Ee5RxBsvZfP/4dmlYtrLv+DztGXcrXDWUzM2c/OpVY3Pmb0Eg91dqcS)
-  access-token-key: ENC(0xUSwwDpkBzO9/F9X8DIyGQB2XbNY7INRFQy5nSVj1R29TofUSvV85/yHXx4tXEb)
-  refresh-token-key: ENC(GnXawjFd58lia4WM9YaQwYZ2bD4JaOD08ltQ0sajlZxl63wbVI3XA/WHsCPwAGlx)
-  refresh-token-cache-key: ENC(aChwn/tZM9XNJZDF/NJ0yrJakkC9XQBIIdp3Deb9KCociisXbVaFkCerTBkbDG8f2wxuX1WLDxNkuRN/PIhUpw==)
+  issuer: ENC(IrVcIRyI9zo//V57Nsm8uwLDgHSEYXh5bUECfMUiwi+RvfUVw7TK8LvKR/L1b25b)
+  secret: ENC(iPH58HCZPwX+hn4CAE1jVLic1yqdoZEd8H1nNaRL9I+RjMHIbkiQHfMtaGBbyPK3AkH2k84jQQctcFqNQHwjjUbghieFOpXjc2rKfhZ4gvI=)
+  access-token-key: ENC(oyacngno8S+O91nE9wCzqUCnEVORn3GU4zMWIASRLI9P8oqLMM2JznCTvcLJaLiA)
+  refresh-token-key: ENC(oyacngno8S+O91nE9wCzqUCnEVORn3GU4zMWIASRLI9P8oqLMM2JznCTvcLJaLiA)
+  refresh-token-cache-key: ENC(jrDKzvR+c0B+RIebZLJUxiH6EKKcvU506aMIHr6QsLw2nQ5WSCoO2Y2EzkWyOG051bi16RkFLbizC84ryEZkWA==)
 
 cloud:
   aws:
     s3:
-      bucket: ENC(c5c/6JN5wLFV+9pPHdeWo/0f5zMs9gBCKbKb9IJqxTrs07WNhNhbjKJvxm4GPSkI)
+      bucket: ENC(mY/nEChyl+2UkJ+6ksyBpsrxAdPfllCiLsQRfeTkbYlx8HF9BzoWQTKsD2qtix3F)
     stack.auto: false
-    region.static: ENC(dPcr0PIoQKwyIueZm6/6D5acBM2u5q8xZHlqBkGAhMLtjTI+B71tWnZBLV528ZXr)
+    region.static: ENC(MGnH9MBS4YmcD5OiFlPXo54LIbzK9P6uGb4Z/JA/aIBJ4bnqcus6VslMKtvGfbzb)
     credentials:
-      accessKey: ENC(eouBLEvSVpa5uX+iDDFha2fUY34I0up3rz+ROFJwTvmXGGNS+pfd1cmA+4il7RGhQYqv2JNHJriCBYK2M9JhIg==)
-      secretKey: ENC(K8PSPaAl01gMHAiS+roxjDvin8jPbqpbDipUPin3UWRhQWjVaJ+AiUOJxyPIMza81XfknrT/0+yaVjY2FpcZIr9q+W/4Do7XeKFhcg87OiI=)
+      accessKey: ENC(S+dLvOJNzvqPqxvcaJYNIo4X9yuQ7G6WQaFZZxwX++zcTuAdf6lpwxlyDSu1GF68yqbvYPIlc++f+G7TD5K7tQ==)
+      secretKey: ENC(xxBozMXFLkVLXx7YJoa2ViB2K2trsZ6dm4oUKrtHriUUUrq+I2TGWZMKI5sFVQ6YY5VxL+2b3Kt+hCeJkHN7bQNaHI+CJABGeLJBrU3rgiU=)

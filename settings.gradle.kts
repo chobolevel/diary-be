@@ -1,2 +1,2 @@
-rootProject.name = "daangn"
+rootProject.name = "diary"
 include("domain", "api")

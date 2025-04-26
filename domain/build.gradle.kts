@@ -20,7 +20,7 @@ allOpen {
 }
 
 flyway {
-    url = "jdbc:mysql://localhost:3306/daangn"
+    url = "jdbc:mysql://localhost:3306/diary"
     user = "root"
     password = "1234"
     baselineVersion = "0"
