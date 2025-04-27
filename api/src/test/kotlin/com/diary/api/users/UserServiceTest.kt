@@ -1,4 +1,3 @@
 package com.diary.api.users
 
-class UserServiceTest {
-}
+class UserServiceTest
