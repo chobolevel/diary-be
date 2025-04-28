@@ -7,6 +7,7 @@ import com.diary.api.dto.users.UpdateUserRequestDto
 import com.diary.api.dto.users.UserResponseDto
 import com.diary.api.service.users.converter.UserConverter
 import com.diary.api.service.users.updater.UserUpdater
+import com.diary.api.service.users.validator.UserValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.users.User
 import com.diary.domain.entity.users.UserOrderType
@@ -24,12 +25,13 @@ class UserService(
     private val repositoryWrapper: UserRepositoryWrapper,
     private val converter: UserConverter,
     private val updater: UserUpdater,
-    private val passwordEncoder: BCryptPasswordEncoder
+    private val passwordEncoder: BCryptPasswordEncoder,
+    private val validator: UserValidator,
 ) {
 
     @Transactional
     fun join(request: CreateUserRequestDto): ID {
-        // add validation
+        validator.validate(request = request)
         val user: User = converter.convert(request = request)
         return repositoryWrapper.save(user).id
     }
@@ -67,7 +69,7 @@ class UserService(
 
     @Transactional
     fun update(id: ID, request: UpdateUserRequestDto): ID {
-        // add validation
+        validator.validate(request = request)
         val user: User = repositoryWrapper.findById(id = id)
         val updatedUser: User = updater.markAsUpdate(
             request = request,
@@ -85,7 +87,7 @@ class UserService(
 
     @Transactional
     fun changePassword(id: ID, request: ChangeUserPasswordRequestDto): ID {
-        // add validation
+        validator.validate(request = request)
         val user: User = repositoryWrapper.findById(id = id)
         matches(
             rawPassword = request.curPassword,

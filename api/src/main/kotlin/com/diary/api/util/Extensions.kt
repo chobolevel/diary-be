@@ -1,5 +1,7 @@
 package com.diary.api.util
 
+import com.diary.domain.exception.ErrorCode
+import com.diary.domain.exception.InvalidParameterException
 import jakarta.servlet.http.HttpServletRequest
 import java.security.Principal
 
@@ -21,4 +23,21 @@ fun HttpServletRequest.getCookie(key: String): String? {
         return null
     }
     return this.cookies.find { it.name == key }!!.value
+}
+
+fun Any?.validateIsNull(parameterName: String) {
+    when {
+        this is String && this.isEmpty() -> {
+            throw InvalidParameterException(
+                errorCode = ErrorCode.INVALID_PARAMETER,
+                message = "[$parameterName]은(는) 필수 값입니다."
+            )
+        }
+        this == null -> {
+            throw InvalidParameterException(
+                errorCode = ErrorCode.INVALID_PARAMETER,
+                message = "[$parameterName]은(는) 필수 값입니다."
+            )
+        }
+    }
 }

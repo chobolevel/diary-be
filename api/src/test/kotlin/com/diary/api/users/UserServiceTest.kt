@@ -8,6 +8,7 @@ import com.diary.api.dto.users.UserResponseDto
 import com.diary.api.service.users.UserService
 import com.diary.api.service.users.converter.UserConverter
 import com.diary.api.service.users.updater.UserUpdater
+import com.diary.api.service.users.validator.UserValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.users.User
 import com.diary.domain.entity.users.UserOrderType
@@ -42,6 +43,9 @@ class UserServiceTest {
 
     @Mock
     private lateinit var passwordEncoder: BCryptPasswordEncoder
+
+    @Mock
+    private lateinit var validator: UserValidator
 
     @InjectMocks
     private lateinit var service: UserService
