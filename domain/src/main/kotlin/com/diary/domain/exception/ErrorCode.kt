@@ -13,5 +13,6 @@ enum class ErrorCode(val message: String) {
     REFRESH_TOKEN_NOT_EXISTS("리프래시 토큰이 존재하지 않습니다."),
 
     // USER
-    USER_NOT_FOUND("회원을 찾을 수 없습니다.")
+    USER_NOT_FOUND("회원을 찾을 수 없습니다."),
+    USER_CURRENT_PASSWORD_NOT_MATCH("현재 비밀번호가 일치하지 않습니다.")
 }

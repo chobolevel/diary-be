@@ -1,6 +1,7 @@
 package com.diary.domain.entity.users
 
 import com.diary.domain.entity.common.BaseEntity
+import com.diary.domain.type.ID
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -15,20 +16,24 @@ import org.hibernate.envers.Audited
 class User(
     @Id
     @Column(nullable = false, updatable = false, unique = true, length = 13)
-    var id: String,
+    val id: ID,
     @Column(nullable = false, updatable = false, unique = true, length = 30)
-    var username: String,
+    val username: String,
     @Column(nullable = false, length = 255)
     var password: String,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    var signUpType: UserSignUpType,
+    val signUpType: UserSignUpType,
     @Column(nullable = false)
     var nickname: String,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     var scope: UserScopeType
 ) : BaseEntity() {
+
+    fun changePassword(newEncodedPassword: String) {
+        this.password = newEncodedPassword
+    }
 
     @Column(nullable = false)
     var resigned: Boolean = false
