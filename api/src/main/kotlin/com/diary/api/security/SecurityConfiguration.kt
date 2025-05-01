@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
@@ -16,7 +17,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 class SecurityConfiguration(
-    private val jwtProperties: JwtProperties
+    private val tokenProvider: TokenProvider,
+    private val jwtProperties: JwtProperties,
 ) {
 
     @Bean
@@ -67,13 +69,13 @@ class SecurityConfiguration(
             .authorizeHttpRequests { requests ->
                 requests.anyRequest().permitAll()
             }
-//            .addFilterBefore(
-//                OnceJwtAuthorizationFilter(
-//                    tokenProvider = tokenProvider,
-//                    jwtProperties = jwtProperties
-//                ),
-//                UsernamePasswordAuthenticationFilter::class.java
-//            )
+            .addFilterBefore(
+                OnceJwtAuthorizationFilter(
+                    tokenProvider = tokenProvider,
+                    jwtProperties = jwtProperties
+                ),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
             .build()
     }
 }
