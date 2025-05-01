@@ -23,5 +23,5 @@ class Revision {
 
     @RevisionTimestamp
     @Column(nullable = false, updatable = false)
-    var revisionType: String? = null
+    var revisionTimestamp: Long? = null
 }

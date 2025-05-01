@@ -7,6 +7,7 @@ data class UserQueryFilter(
     private val username: String?,
     private val signUpType: UserSignUpType?,
     private val nickname: String?,
+    private val role: UserRoleType?,
     private val resigned: Boolean?
 ) {
 
@@ -15,6 +16,7 @@ data class UserQueryFilter(
             username?.let { user.username.startsWith(it) },
             signUpType?.let { user.signUpType.eq(it) },
             nickname?.let { user.nickname.startsWith(it) },
+            role?.let { user.role.eq(it) },
             resigned?.let { user.resigned.eq(it) } ?: user.resigned.isFalse
         ).toTypedArray()
     }

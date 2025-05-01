@@ -1,13 +1,13 @@
 package com.diary.api.util
 
 object Regexps {
-    val emailRegexp: Regex by lazy {
-        "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$".toRegex()
+    val usernameRegex: Regex by lazy {
+        "^[a-zA-Z0-9]{6,}\$".toRegex()
     }
     val passwordRegexp: Regex by lazy {
-        "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#\$%^&*(),.?\":{}|<>]).{8,}\$".toRegex()
+        "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#\$]).{8,}\$".toRegex()
     }
-    val nameRegexp: Regex by lazy {
-        "^[a-zA-Z0-9가-힣\\s]+\$".toRegex()
+    val nicknameRegexp: Regex by lazy {
+        "^[a-zA-Z가-힣0-9]+\$".toRegex()
     }
 }
