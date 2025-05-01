@@ -7,6 +7,7 @@ create table diary.users
   sign_up_type varchar(20)  not null comment '회원 가입 유형',
   nickname     varchar(20)  not null comment '닉네임',
   scope        varchar(20)  not null comment '공개 범위(전체 공개, 친구 공개, 비공개)',
+  role         varchar(20)  not null comment '회원 권한',
   resigned     bit          not null comment '탈퇴 여부',
   created_at   datetime     not null comment '생성 일자',
   updated_at   datetime     not null comment '수정 일자'
@@ -26,6 +27,7 @@ create table diary.users_histories
   sign_up_type  varchar(20)  not null,
   nickname      varchar(20)  not null,
   scope         varchar(20)  not null,
+  role          varchar(20)  not null,
   resigned      bit          not null,
   created_at    datetime     not null comment '생성 일자',
   updated_at    datetime     not null,

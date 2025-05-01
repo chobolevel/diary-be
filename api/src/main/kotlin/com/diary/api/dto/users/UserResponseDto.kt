@@ -1,5 +1,6 @@
 package com.diary.api.dto.users
 
+import com.diary.domain.entity.users.UserRoleType
 import com.diary.domain.entity.users.UserScopeType
 import com.diary.domain.entity.users.UserSignUpType
 import com.diary.domain.type.ID
@@ -15,6 +16,8 @@ data class UserResponseDto(
     val nickname: String,
     val scope: UserScopeType,
     val scopeLabel: String,
+    val role: UserRoleType,
+    val roleLabel: String,
     val isResigned: Boolean,
     val createdAt: Long,
     val updatedAt: Long,

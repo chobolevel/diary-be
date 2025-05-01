@@ -32,6 +32,8 @@ class UserConverter(
             nickname = entity.nickname,
             scope = entity.scope,
             scopeLabel = entity.scope.desc,
+            role = entity.role,
+            roleLabel = entity.role.desc,
             isResigned = entity.resigned,
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli(),

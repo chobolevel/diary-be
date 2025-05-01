@@ -35,6 +35,10 @@ class User(
         this.password = newEncodedPassword
     }
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    var role: UserRoleType = UserRoleType.ROLE_USER
+
     @Column(nullable = false)
     var resigned: Boolean = false
     fun resign() {
@@ -53,6 +57,11 @@ enum class UserScopeType(val desc: String) {
     PUBLIC("전체 공개"),
     FRIENDS_ONLY("친구 공개"),
     PRIVATE("비공개")
+}
+
+enum class UserRoleType(val desc: String) {
+    ROLE_USER("일반 회원"),
+    ROLE_ADMIN("관리자")
 }
 
 enum class UserOrderType {

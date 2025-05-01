@@ -73,6 +73,7 @@ class UserServiceTest {
             username = null,
             signUpType = null,
             nickname = null,
+            role = null,
             resigned = null
         )
         val pagination = Pagination(

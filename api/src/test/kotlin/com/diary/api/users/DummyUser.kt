@@ -5,10 +5,13 @@ import com.diary.api.dto.users.CreateUserRequestDto
 import com.diary.api.dto.users.UpdateUserRequestDto
 import com.diary.api.dto.users.UserResponseDto
 import com.diary.domain.entity.users.User
+import com.diary.domain.entity.users.UserRoleType
 import com.diary.domain.entity.users.UserScopeType
 import com.diary.domain.entity.users.UserSignUpType
 import com.diary.domain.entity.users.UserUpdateMask
 import com.diary.domain.type.ID
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.AuthorityUtils
 
 object DummyUser {
     private val id: ID = "0KH4WDSJA2CHB"
@@ -17,6 +20,7 @@ object DummyUser {
     private val signUpType: UserSignUpType = UserSignUpType.GENERAL
     private val nickname: String = "알감자"
     private val scope: UserScopeType = UserScopeType.PUBLIC
+    private val role: UserRoleType = UserRoleType.ROLE_USER
     private val resigned: Boolean = false
     private val createdAt: Long = 0L
     private val updatedAt: Long = 0L
@@ -40,9 +44,18 @@ object DummyUser {
             nickname = nickname,
             scope = scope,
             scopeLabel = scope.desc,
+            role = role,
+            roleLabel = role.desc,
             isResigned = resigned,
             createdAt = createdAt,
             updatedAt = updatedAt,
+        )
+    }
+    private val dummyUserToken: UsernamePasswordAuthenticationToken by lazy {
+        UsernamePasswordAuthenticationToken(
+            id,
+            password,
+            AuthorityUtils.createAuthorityList(role.name)
         )
     }
     private val createRequest: CreateUserRequestDto by lazy {
@@ -73,6 +86,9 @@ object DummyUser {
     }
     fun toResponseDto(): UserResponseDto {
         return userResponse
+    }
+    fun toToken(): UsernamePasswordAuthenticationToken {
+        return dummyUserToken
     }
     fun toCreateRequestDto(): CreateUserRequestDto {
         return createRequest
