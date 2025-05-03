@@ -7,6 +7,7 @@ import com.diary.api.util.Regexps.nicknameRegexp
 import com.diary.api.util.Regexps.passwordRegexp
 import com.diary.api.util.Regexps.usernameRegex
 import com.diary.api.util.validateIsNull
+import com.diary.domain.entity.users.UserSignUpType
 import com.diary.domain.entity.users.UserUpdateMask
 import com.diary.domain.exception.ErrorCode
 import com.diary.domain.exception.InvalidParameterException
@@ -22,11 +23,16 @@ class UserValidator {
                 message = "[username]은(는) 반드시 영어 또는 숫자만 가능합니다.(최소 6자)"
             )
         }
-        if (!passwordRegexp.matches(request.password)) {
-            throw InvalidParameterException(
-                errorCode = ErrorCode.INVALID_PARAMETER,
-                message = "[password]은(는) 반드시 영어, 숫자, 특수문자(!@#$)로 구성되고 최소 8자 이상이어야 합니다."
-            )
+        when (request.signUpType) {
+            UserSignUpType.GENERAL -> {
+                if (!passwordRegexp.matches(request.password)) {
+                    throw InvalidParameterException(
+                        errorCode = ErrorCode.INVALID_PARAMETER,
+                        message = "[password]은(는) 반드시 영어, 숫자, 특수문자(!@#$)로 구성되고 최소 8자 이상이어야 합니다."
+                    )
+                }
+            }
+            else -> Unit
         }
         if (!nicknameRegexp.matches(request.nickname)) {
             throw InvalidParameterException(
