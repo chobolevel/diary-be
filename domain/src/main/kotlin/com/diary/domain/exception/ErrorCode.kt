@@ -14,5 +14,8 @@ enum class ErrorCode(val message: String) {
 
     // USER
     USER_NOT_FOUND("회원을 찾을 수 없습니다."),
-    USER_CURRENT_PASSWORD_NOT_MATCH("현재 비밀번호가 일치하지 않습니다.")
+    USER_CURRENT_PASSWORD_NOT_MATCH("현재 비밀번호가 일치하지 않습니다."),
+
+    // WEATHER
+    WEATHER_NOT_FOUND("날씨 정보를 찾을 수 없습니다.")
 }
