@@ -20,7 +20,7 @@ class Weather(
     @Column(nullable = false, length = 40)
     var icon: String,
     @Column(nullable = false)
-    var order: Int = 0,
+    var order: Int,
 ) : BaseEntity() {
 
     @Column(nullable = false)
