@@ -47,8 +47,8 @@ class WeatherService(
         )
     }
 
-    fun getWeather(id: ID): WeatherResponseDto {
-        val weather: Weather = repositoryWrapper.findById(id = id)
+    fun getWeather(weatherId: ID): WeatherResponseDto {
+        val weather: Weather = repositoryWrapper.findById(id = weatherId)
         return converter.convert(entity = weather)
     }
 

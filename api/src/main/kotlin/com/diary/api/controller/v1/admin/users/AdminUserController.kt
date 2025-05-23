@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "Admin User(괸라자 회원)", description = "관리자 회원 관리 API")
+@Tag(name = "User(괸라자 회원)", description = "관리자 회원 관리 API")
 @RestController
 @RequestMapping("/api/v1/admin")
 class AdminUserController(

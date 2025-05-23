@@ -5,7 +5,7 @@ server:
       cookie:
         path: "/"
         max-age: 31536000
-        domain: ENC(PTxMIw+OMnFf0ZCwh1QQjQj6Zoy99VpJmsEdkWpz36xHPRCZxgPt9P2OUN7TPLod)
+        domain: ENC(sS58ZgtLL1Ce9e8GM8fx9Oawdb65MCNS2cdyzK63bWtmvTqJeQfRLou2i7lxczWE)
         secure: true
         http-only: true
         same-site: none
@@ -45,15 +45,15 @@ spring:
   datasource:
     url: ENC(M8RnDICFlnvqiuERLBkaE5PiJzUmRXt1Mf5b+gIiH7KMOCWOxko+LwnhL1+cfBGjJuGa4zjp/J7+y76e66zBbV7AJBwxdWBrYZxsvpiYHPg=)
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 1234
+    username: ENC(/C8HxWtU1KbvhopxrAJn//CIimnUJ32VBmitPGXCAn8fBSx7Z8gDcRUm+BO3Y0yC)
+    password: ENC(j6cisZ5YuSmW70OIkjNxUf/FLCEmmH0Pz3XHCLPIx51GC/WhW24k3XDEQtsuoLwk)
   flyway:
     enabled: true
     baseline-version: 0
     out-of-order: true
   data:
     redis:
-      host: localhost
+      host: ENC(sS58ZgtLL1Ce9e8GM8fx9Oawdb65MCNS2cdyzK63bWtmvTqJeQfRLou2i7lxczWE)
       port: 6379
       password:
 
@@ -72,7 +72,7 @@ jwt:
   issuer: ENC(IrVcIRyI9zo//V57Nsm8uwLDgHSEYXh5bUECfMUiwi+RvfUVw7TK8LvKR/L1b25b)
   secret: ENC(iPH58HCZPwX+hn4CAE1jVLic1yqdoZEd8H1nNaRL9I+RjMHIbkiQHfMtaGBbyPK3AkH2k84jQQctcFqNQHwjjUbghieFOpXjc2rKfhZ4gvI=)
   access-token-key: ENC(oyacngno8S+O91nE9wCzqUCnEVORn3GU4zMWIASRLI9P8oqLMM2JznCTvcLJaLiA)
-  refresh-token-key: ENC(oyacngno8S+O91nE9wCzqUCnEVORn3GU4zMWIASRLI9P8oqLMM2JznCTvcLJaLiA)
+  refresh-token-key: ENC(UtZGrx5mKW5E1bRippO+bAHR/P252MMqmE5kTASYNMjJ5pEQPShToqoGYGK8XVQj)
   refresh-token-cache-key: ENC(jrDKzvR+c0B+RIebZLJUxiH6EKKcvU506aMIHr6QsLw2nQ5WSCoO2Y2EzkWyOG051bi16RkFLbizC84ryEZkWA==)
 
 cloud:

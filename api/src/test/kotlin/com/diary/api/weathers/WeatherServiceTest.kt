@@ -100,7 +100,7 @@ class WeatherServiceTest {
         `when`(converter.convert(entity = dummyWeather)).thenReturn(dummyWeatherResponse)
 
         // when
-        val result: WeatherResponseDto = service.getWeather(id = dummyWeatherId)
+        val result: WeatherResponseDto = service.getWeather(weatherId = dummyWeatherId)
 
         // then
         assertThat(result).isEqualTo(dummyWeatherResponse)
