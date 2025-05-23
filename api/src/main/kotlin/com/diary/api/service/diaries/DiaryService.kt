@@ -17,9 +17,12 @@ import com.diary.domain.entity.users.User
 import com.diary.domain.entity.users.UserRepositoryWrapper
 import com.diary.domain.entity.weathers.Weather
 import com.diary.domain.entity.weathers.WeatherRepositoryWrapper
+import com.diary.domain.exception.ErrorCode
+import com.diary.domain.exception.PolicyException
 import com.diary.domain.type.ID
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import kotlin.jvm.Throws
 
 @Service
 class DiaryService(
@@ -85,6 +88,7 @@ class DiaryService(
         request: UpdateDiaryRequestDto
     ): ID {
         val diary: Diary = repositoryWrapper.findById(id = diaryId)
+        diary.validateWriter(userId = userId)
         updater.markAsUpdate(
             request = request,
             entity = diary
@@ -98,7 +102,18 @@ class DiaryService(
         diaryId: ID
     ): Boolean {
         val diary: Diary = repositoryWrapper.findById(id = diaryId)
+        diary.validateWriter(userId = userId)
         diary.delete()
         return true
+    }
+
+    @Throws(PolicyException::class)
+    private fun Diary.validateWriter(userId: ID) {
+        if (this.writer!!.id != userId) {
+            throw PolicyException(
+                errorCode = ErrorCode.WRITER_ONLY_ACCESS,
+                message = ErrorCode.WRITER_ONLY_ACCESS.message
+            )
+        }
     }
 }
