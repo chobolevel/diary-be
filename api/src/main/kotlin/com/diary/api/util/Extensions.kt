@@ -41,3 +41,16 @@ fun Any?.validateIsNull(parameterName: String) {
         }
     }
 }
+
+fun Int?.validateIsSmallerThan(
+    compareTo: Int,
+    parameterName: String
+) {
+    this.validateIsNull(parameterName = parameterName)
+    if (this!! < compareTo) {
+        throw InvalidParameterException(
+            errorCode = ErrorCode.INVALID_PARAMETER,
+            message = "[$parameterName]은(는) 반드시 $compareTo 이상이어야 합니다."
+        )
+    }
+}

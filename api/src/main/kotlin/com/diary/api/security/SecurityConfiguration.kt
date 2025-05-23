@@ -33,6 +33,7 @@ class SecurityConfiguration(
                 config.configurationSource(
                     UrlBasedCorsConfigurationSource().also { cors ->
                         CorsConfiguration().apply {
+                            allowedOrigins = listOf("*")
                             allowedMethods = listOf("POST", "PUT", "DELETE", "GET", "OPTIONS", "HEAD")
                             allowedHeaders = listOf(
                                 "Authorization",
