@@ -20,5 +20,8 @@ enum class ErrorCode(val message: String) {
     WEATHER_NOT_FOUND("날씨 정보를 찾을 수 없습니다."),
 
     // EMOTION
-    EMOTION_NOT_FOUND("감정 정보를 찾을 수 없습니다.")
+    EMOTION_NOT_FOUND("감정 정보를 찾을 수 없습니다."),
+
+    // DIARY
+    DIARY_NOT_FOUND("일기를 찾을 수 없습니다.")
 }
