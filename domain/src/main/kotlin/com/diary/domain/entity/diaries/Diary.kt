@@ -69,6 +69,8 @@ enum class DiaryOrderType {
 }
 
 enum class DiaryUpdateMask {
+    WEATHER,
+    EMOTION,
     TITLE,
     CONTENT,
     IS_SECRET
