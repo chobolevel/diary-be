@@ -7,6 +7,7 @@ import com.diary.api.dto.emotions.UpdateEmotionRequestDto
 import com.diary.api.service.emotions.EmotionService
 import com.diary.api.service.emotions.converter.EmotionConverter
 import com.diary.api.service.emotions.updater.EmotionUpdater
+import com.diary.api.service.emotions.validator.EmotionValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.emotions.Emotion
 import com.diary.domain.entity.emotions.EmotionQueryFilter
@@ -36,6 +37,9 @@ class EmotionServiceTest {
 
     @Mock
     private lateinit var updater: EmotionUpdater
+
+    @Mock
+    private lateinit var validator: EmotionValidator
 
     @InjectMocks
     private lateinit var service: EmotionService
