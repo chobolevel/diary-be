@@ -7,6 +7,7 @@ import com.diary.api.dto.weathers.WeatherResponseDto
 import com.diary.api.service.weathers.WeatherService
 import com.diary.api.service.weathers.converter.WeatherConverter
 import com.diary.api.service.weathers.updater.WeatherUpdater
+import com.diary.api.service.weathers.validator.WeatherValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.weathers.Weather
 import com.diary.domain.entity.weathers.WeatherOrderType
@@ -37,6 +38,9 @@ class WeatherServiceTest {
 
     @Mock
     private lateinit var updater: WeatherUpdater
+
+    @Mock
+    private lateinit var validator: WeatherValidator
 
     @InjectMocks
     private lateinit var service: WeatherService
