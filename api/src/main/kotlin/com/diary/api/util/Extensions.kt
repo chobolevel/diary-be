@@ -54,3 +54,16 @@ fun Int?.validateIsSmallerThan(
         )
     }
 }
+
+fun String?.validateLengthSmallerThan(
+    length: Int,
+    parameterName: String,
+) {
+    this.validateIsNull(parameterName = parameterName)
+    if (this!!.length < length) {
+        throw InvalidParameterException(
+            errorCode = ErrorCode.INVALID_PARAMETER,
+            message = "[$parameterName]은(는) 공백 포함 ${length}자 이상이어야 합니다."
+        )
+    }
+}
