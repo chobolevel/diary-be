@@ -7,7 +7,7 @@ create table diary.diaries
   emotion_id varchar(13) not null comment '감정 아이디',
   title      varchar(80) not null comment '일기 제목',
   content    text        not null comment '일기 내용',
-  is_sercet  bit         not null comment '비밀글 여부',
+  is_secret  bit         not null comment '비밀글 여부',
   deleted    bit         not null comment '삭제 여부',
   created_at datetime    not null comment '생성 일자',
   updated_at datetime    not null comment '수정 일자'
@@ -23,7 +23,7 @@ create index diaries_weather_id_index
 create index diaries_writer_id_index
   on diary.diaries (writer_id);
 
-create table diary.diaries_hisotires
+create table diary.diaries_histories
 (
   id            varchar(13) not null,
   revision_id   bigint      not null,
