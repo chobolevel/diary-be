@@ -8,6 +8,7 @@ import com.diary.api.emotions.DummyEmotion
 import com.diary.api.service.diaries.DiaryService
 import com.diary.api.service.diaries.converter.DiaryConverter
 import com.diary.api.service.diaries.updater.DiaryUpdater
+import com.diary.api.service.diaries.validator.DiaryValidator
 import com.diary.api.users.DummyUser
 import com.diary.api.weathers.DummyWeather
 import com.diary.domain.dto.Pagination
@@ -60,6 +61,9 @@ class DiaryServiceTest {
 
     @Mock
     private lateinit var updater: DiaryUpdater
+
+    @Mock
+    private lateinit var validator: DiaryValidator
 
     @InjectMocks
     private lateinit var service: DiaryService

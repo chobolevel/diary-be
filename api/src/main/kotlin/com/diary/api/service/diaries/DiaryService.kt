@@ -6,6 +6,7 @@ import com.diary.api.dto.diaries.DiaryResponseDto
 import com.diary.api.dto.diaries.UpdateDiaryRequestDto
 import com.diary.api.service.diaries.converter.DiaryConverter
 import com.diary.api.service.diaries.updater.DiaryUpdater
+import com.diary.api.service.diaries.validator.DiaryValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.entity.diaries.DiaryOrderType
@@ -31,7 +32,8 @@ class DiaryService(
     private val weatherRepositoryWrapper: WeatherRepositoryWrapper,
     private val emotionRepositoryWrapper: EmotionRepositoryWrapper,
     private val converter: DiaryConverter,
-    private val updater: DiaryUpdater
+    private val updater: DiaryUpdater,
+    private val validator: DiaryValidator
 ) {
 
     @Transactional
@@ -39,6 +41,7 @@ class DiaryService(
         userId: ID,
         request: CreateDiaryRequestDto
     ): ID {
+        validator.validate(request = request)
         val diary: Diary = converter.convert(request = request).also { diary ->
             // mapping writer
             val user: User = userRepositoryWrapper.findById(id = userId)
@@ -87,6 +90,7 @@ class DiaryService(
         diaryId: ID,
         request: UpdateDiaryRequestDto
     ): ID {
+        validator.validate(request = request)
         val diary: Diary = repositoryWrapper.findById(id = diaryId)
         diary.validateWriter(userId = userId)
         updater.markAsUpdate(
