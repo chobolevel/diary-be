@@ -45,6 +45,20 @@ class DiaryLikeRepositoryWrapper(
         )
     }
 
+    fun findByDiaryIdAndUserIdOrNull(
+        diaryId: ID,
+        userId: ID
+    ): DiaryLike? {
+        return repository.findByDiaryIdAndUserIdAndDeletedFalse(
+            diaryId = diaryId,
+            userId = userId
+        )
+    }
+
+    fun countByDiaryId(diaryId: ID): Long {
+        return repository.countByDiaryIdAndDeletedFalse(diaryId = diaryId)
+    }
+
     private fun List<DiaryLikeOrderType>.toOrderSpecifiers(): Array<OrderSpecifier<*>> {
         return this.map {
             when (it) {
