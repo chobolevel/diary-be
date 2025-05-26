@@ -5,7 +5,9 @@ import com.diary.api.dto.diaries.DiaryResponseDto
 import com.diary.api.service.emotions.converter.EmotionConverter
 import com.diary.api.service.users.converter.UserConverter
 import com.diary.api.service.weathers.converter.WeatherConverter
+import com.diary.api.util.getCurrentUserId
 import com.diary.domain.entity.diaries.Diary
+import com.diary.domain.type.ID
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
 
@@ -26,7 +28,9 @@ class DiaryConverter(
     }
 
     fun convert(entity: Diary): DiaryResponseDto {
-        val (title, content) = when (entity.isSecret) {
+        val currentUserId: ID? = getCurrentUserId()
+        val isOwner: Boolean = entity.writer!!.id == currentUserId
+        val (title, content) = when (entity.isSecret && !isOwner) {
             true -> Pair("비밀 일기입니다.", "비밀 일기입니다.")
             false -> Pair(entity.title, entity.content)
         }
