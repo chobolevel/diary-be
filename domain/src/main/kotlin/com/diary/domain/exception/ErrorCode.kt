@@ -27,5 +27,6 @@ enum class ErrorCode(val message: String) {
     WRITER_ONLY_ACCESS("작성자 외 접근 금지"),
 
     // DIARY LIKE
-    DIARY_LIKE_NOT_FOUND("일기의 좋아요을 찾을 수 없습니다.")
+    DIARY_LIKE_NOT_FOUND("일기의 좋아요을 찾을 수 없습니다."),
+    DIARY_LIKE_ALREADY_EXISTS("이미 좋아요한 일기입니다.")
 }
