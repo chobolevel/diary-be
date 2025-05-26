@@ -2,11 +2,23 @@ package com.diary.api.util
 
 import com.diary.domain.exception.ErrorCode
 import com.diary.domain.exception.InvalidParameterException
+import com.diary.domain.type.ID
 import jakarta.servlet.http.HttpServletRequest
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 import java.security.Principal
 
-fun Principal.getUserId(): String {
+fun Principal.getUserId(): ID {
     return this.name
+}
+
+fun getCurrentUserId(): ID? {
+    val authentication: Authentication = SecurityContextHolder.getContext().authentication
+    return if (authentication.isAuthenticated) {
+        authentication.getUserId()
+    } else {
+        null
+    }
 }
 
 fun String.toSnakeCase(): String {
