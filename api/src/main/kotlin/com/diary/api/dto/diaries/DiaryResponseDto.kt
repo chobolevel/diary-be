@@ -16,6 +16,7 @@ data class DiaryResponseDto(
     val title: String,
     val content: String,
     val isSecret: Boolean,
+    val likeCount: Long,
     val createdAt: Long,
     val updatedAt: Long
 )

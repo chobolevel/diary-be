@@ -15,6 +15,7 @@ object DummyDiary {
     private val title: String = "일기 제목"
     private val content: String = "일기 내용을 입력했습니다."
     private val isSecret: Boolean = false
+    private val likeCount: Long = 0L
     private val createdAt: Long = 0L
     private val updatedAt: Long = 0L
 
@@ -35,6 +36,7 @@ object DummyDiary {
             title = title,
             content = content,
             isSecret = isSecret,
+            likeCount = likeCount,
             createdAt = createdAt,
             updatedAt = updatedAt
         )
