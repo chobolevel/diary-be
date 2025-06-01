@@ -46,3 +46,11 @@ class DiaryImage(
         this.deleted = true
     }
 }
+
+enum class DiaryImageUpdateMask {
+    NAME,
+    WIDTH,
+    HEIGHT,
+    URL,
+    ORDER
+}
