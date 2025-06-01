@@ -7,6 +7,7 @@ import com.diary.api.service.users.converter.UserConverter
 import com.diary.api.service.weathers.converter.WeatherConverter
 import com.diary.api.util.getCurrentUserId
 import com.diary.domain.entity.diaries.Diary
+import com.diary.domain.entity.diaries.likes.DiaryLikeRepositoryWrapper
 import com.diary.domain.type.ID
 import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
@@ -16,6 +17,7 @@ class DiaryConverter(
     private val userConverter: UserConverter,
     private val weatherConverter: WeatherConverter,
     private val emotionConverter: EmotionConverter,
+    private val diaryLikeRepositoryWrapper: DiaryLikeRepositoryWrapper
 ) {
 
     fun convert(request: CreateDiaryRequestDto): Diary {
@@ -42,6 +44,7 @@ class DiaryConverter(
             title = title,
             content = content,
             isSecret = entity.isSecret,
+            likeCount = diaryLikeRepositoryWrapper.countByDiaryId(diaryId = entity.id),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli()
         )
