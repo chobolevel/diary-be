@@ -1,6 +1,10 @@
 package com.diary.api.diaries.images
 
+import com.diary.api.dto.diaries.images.CreateDiaryImageRequestDto
+import com.diary.api.dto.diaries.images.DiaryImageResponseDto
+import com.diary.api.dto.diaries.images.UpdateDiaryImageRequestDto
 import com.diary.domain.entity.diaries.images.DiaryImage
+import com.diary.domain.entity.diaries.images.DiaryImageUpdateMask
 import com.diary.domain.type.ID
 
 object DummyDiaryImage {
@@ -23,8 +27,48 @@ object DummyDiaryImage {
             order = order
         )
     }
+    private val dummyDiaryImageResponse: DiaryImageResponseDto by lazy {
+        DiaryImageResponseDto(
+            id = id,
+            name = name,
+            width = width,
+            height = height,
+            url = url,
+            order = order,
+            createdAt = createdAt,
+            updatedAt = updatedAt
+        )
+    }
+    private val createRequest: CreateDiaryImageRequestDto by lazy {
+        CreateDiaryImageRequestDto(
+            name = name,
+            width = width,
+            height = height,
+            url = url,
+            order = order
+        )
+    }
+    private val updateRequest: UpdateDiaryImageRequestDto by lazy {
+        UpdateDiaryImageRequestDto(
+            name = "test.jpeg",
+            width = null,
+            height = null,
+            url = null,
+            order = null,
+            updateMask = listOf(DiaryImageUpdateMask.NAME)
+        )
+    }
 
     fun toEntity(): DiaryImage {
         return dummyDiaryImage
+    }
+    fun toResponseDto(): DiaryImageResponseDto {
+        return dummyDiaryImageResponse
+    }
+    fun toCreateRequestDto(): CreateDiaryImageRequestDto {
+        return createRequest
+    }
+    fun toUpdateRequestDto(): UpdateDiaryImageRequestDto {
+        return updateRequest
     }
 }

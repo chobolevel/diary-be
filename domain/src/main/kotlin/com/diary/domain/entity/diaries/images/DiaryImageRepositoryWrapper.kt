@@ -3,10 +3,10 @@ package com.diary.domain.entity.diaries.images
 import com.diary.domain.exception.DataNotFoundException
 import com.diary.domain.exception.ErrorCode
 import com.diary.domain.type.ID
-import org.springframework.context.annotation.ComponentScan
+import org.springframework.stereotype.Component
 import kotlin.jvm.Throws
 
-@ComponentScan
+@Component
 class DiaryImageRepositoryWrapper(
     private val repository: DiaryImageRepository
 ) {
