@@ -1,5 +1,6 @@
 package com.diary.api.service.uploads
 
+import com.diary.api.dto.uploads.UploadResponseDto
 import com.diary.api.properties.AwsProperties
 import com.diary.api.service.uploads.validator.UploadValidator
 import org.springframework.stereotype.Service
@@ -20,7 +21,7 @@ class UploadService(
     fun generatePresignedUrl(
         contentType: String,
         filename: String
-    ): String {
+    ): UploadResponseDto {
         validator.validate(
             contentType = contentType,
             filename = filename
@@ -44,8 +45,15 @@ class UploadService(
                 // 요청 구성 설정
                 .putObjectRequest(putObjectRequest)
         }
+        val httpRequest = presignedRequest.httpRequest()
+        val objectUrl: String = "${httpRequest.protocol()}://${httpRequest.host()}/$key"
+        val presignedUrl: String = presignedRequest.url().toString()
 
-        return presignedRequest.url().toString()
+        return UploadResponseDto(
+            filename = filename,
+            objectUrl = objectUrl,
+            presignedUrl = presignedUrl
+        )
     }
 
     private fun generateKey(filename: String): String {
