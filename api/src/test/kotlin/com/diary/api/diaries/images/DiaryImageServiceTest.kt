@@ -6,6 +6,7 @@ import com.diary.api.dto.diaries.images.UpdateDiaryImageRequestDto
 import com.diary.api.service.diaries.DiaryImageService
 import com.diary.api.service.diaries.converter.DiaryImageConverter
 import com.diary.api.service.diaries.updater.DiaryImageUpdater
+import com.diary.api.service.diaries.validator.DiaryImageValidator
 import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.entity.diaries.DiaryRepositoryWrapper
 import com.diary.domain.entity.diaries.images.DiaryImage
@@ -39,6 +40,9 @@ class DiaryImageServiceTest {
 
     @Mock
     private lateinit var updater: DiaryImageUpdater
+
+    @Mock
+    private lateinit var validator: DiaryImageValidator
 
     @InjectMocks
     private lateinit var service: DiaryImageService
