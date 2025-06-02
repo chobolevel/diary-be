@@ -7,6 +7,7 @@ import com.diary.api.dto.diaries.UpdateDiaryRequestDto
 import com.diary.api.service.diaries.converter.DiaryConverter
 import com.diary.api.service.diaries.updater.DiaryUpdater
 import com.diary.api.service.diaries.validator.DiaryValidator
+import com.diary.api.util.validateWriter
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.entity.diaries.DiaryOrderType
@@ -18,12 +19,9 @@ import com.diary.domain.entity.users.User
 import com.diary.domain.entity.users.UserRepositoryWrapper
 import com.diary.domain.entity.weathers.Weather
 import com.diary.domain.entity.weathers.WeatherRepositoryWrapper
-import com.diary.domain.exception.ErrorCode
-import com.diary.domain.exception.PolicyException
 import com.diary.domain.type.ID
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import kotlin.jvm.Throws
 
 @Service
 class DiaryService(
@@ -109,15 +107,5 @@ class DiaryService(
         diary.validateWriter(userId = userId)
         diary.delete()
         return true
-    }
-
-    @Throws(PolicyException::class)
-    private fun Diary.validateWriter(userId: ID) {
-        if (this.writer!!.id != userId) {
-            throw PolicyException(
-                errorCode = ErrorCode.WRITER_ONLY_ACCESS,
-                message = ErrorCode.WRITER_ONLY_ACCESS.message
-            )
-        }
     }
 }

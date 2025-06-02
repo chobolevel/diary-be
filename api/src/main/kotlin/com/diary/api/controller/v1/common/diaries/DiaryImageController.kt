@@ -5,6 +5,7 @@ import com.diary.api.dto.common.ResultResponseDto
 import com.diary.api.dto.diaries.images.CreateDiaryImageRequestDto
 import com.diary.api.dto.diaries.images.UpdateDiaryImageRequestDto
 import com.diary.api.service.diaries.DiaryImageService
+import com.diary.api.util.getUserId
 import com.diary.domain.type.ID
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.security.Principal
 
 @Tag(name = "Diary Image(일기 이미지)", description = "일기 이미지 관리 API")
 @RestController
@@ -30,11 +32,13 @@ class DiaryImageController(
     @HasAuthorityUser
     @PostMapping("/diaries/{diaryId}/images")
     fun create(
+        principal: Principal,
         @PathVariable diaryId: ID,
         @Valid @RequestBody
         request: CreateDiaryImageRequestDto
     ): ResponseEntity<ResultResponseDto> {
         val result: ID = service.create(
+            userId = principal.getUserId(),
             diaryId = diaryId,
             request = request
         )
@@ -45,12 +49,14 @@ class DiaryImageController(
     @HasAuthorityUser
     @PutMapping("/diaries/{diaryId}/images/{diaryImageId}")
     fun update(
+        principal: Principal,
         @PathVariable diaryId: ID,
         @PathVariable diaryImageId: ID,
         @Valid @RequestBody
         request: UpdateDiaryImageRequestDto
     ): ResponseEntity<ResultResponseDto> {
         val result: ID = service.update(
+            userId = principal.getUserId(),
             diaryId = diaryId,
             diaryImageId = diaryImageId,
             request = request
@@ -62,10 +68,12 @@ class DiaryImageController(
     @HasAuthorityUser
     @DeleteMapping("/diaries/{diaryId}/images/{diaryImageId}")
     fun delete(
+        principal: Principal,
         @PathVariable diaryId: ID,
         @PathVariable diaryImageId: ID
     ): ResponseEntity<ResultResponseDto> {
         val result: Boolean = service.delete(
+            userId = principal.getUserId(),
             diaryId = diaryId,
             diaryImageId = diaryImageId
         )

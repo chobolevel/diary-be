@@ -1,7 +1,9 @@
 package com.diary.api.util
 
+import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.exception.ErrorCode
 import com.diary.domain.exception.InvalidParameterException
+import com.diary.domain.exception.PolicyException
 import com.diary.domain.type.ID
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.core.Authentication
@@ -76,6 +78,18 @@ fun String?.validateLengthSmallerThan(
         throw InvalidParameterException(
             errorCode = ErrorCode.INVALID_PARAMETER,
             message = "[$parameterName]은(는) 공백 포함 ${length}자 이상이어야 합니다."
+        )
+    }
+}
+
+// domain extensions
+
+@Throws(PolicyException::class)
+fun Diary.validateWriter(userId: ID) {
+    if (this.writer!!.id != userId) {
+        throw PolicyException(
+            errorCode = ErrorCode.WRITER_ONLY_ACCESS,
+            message = ErrorCode.WRITER_ONLY_ACCESS.message
         )
     }
 }
