@@ -13,14 +13,16 @@ class AwsConfiguration(
 ) {
 
     @Bean
-    fun presigner(): S3Presigner {
+    fun awsCredentials(): AwsBasicCredentials {
         // 자격 증명 설정
-        // AWSBasicCredentials = AWS에서 사용하는 단순한 access key/secret key 이용한 인증 객체
+        // AWS 제공 access key/secret key 이용한 인증 객체
         // 이를 통해 S3와 통신할 수 있는 권한 획득
-        val credentials: AwsBasicCredentials =
-            AwsBasicCredentials.create(awsProperties.s3.accessKey, awsProperties.s3.secretKey)
+        return AwsBasicCredentials.create(awsProperties.s3.accessKey, awsProperties.s3.secretKey)
+    }
 
-        // AWS SDK에서 제공하는 presigned url 생성을 위한 빌더 객체
+    @Bean
+    fun presigner(credentials: AwsBasicCredentials): S3Presigner {
+        // AWS SDK 제공 presigned url 생성을 위한 빌더 객체
         return S3Presigner.builder()
             .region(awsProperties.s3.region)
             .credentialsProvider(StaticCredentialsProvider.create(credentials))
