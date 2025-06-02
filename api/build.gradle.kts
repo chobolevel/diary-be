@@ -25,7 +25,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt:0.9.1")
 
     // aws s3
-    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+    implementation("software.amazon.awssdk:s3:2.25.15")
 
     // tsid
     implementation("io.hypersistence:hypersistence-utils-hibernate-60:3.7.3")

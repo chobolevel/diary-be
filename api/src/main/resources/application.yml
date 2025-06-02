@@ -75,12 +75,10 @@ jwt:
   refresh-token-key: ENC(UtZGrx5mKW5E1bRippO+bAHR/P252MMqmE5kTASYNMjJ5pEQPShToqoGYGK8XVQj)
   refresh-token-cache-key: ENC(jrDKzvR+c0B+RIebZLJUxiH6EKKcvU506aMIHr6QsLw2nQ5WSCoO2Y2EzkWyOG051bi16RkFLbizC84ryEZkWA==)
 
-cloud:
-  aws:
-    s3:
-      bucket: ENC(mY/nEChyl+2UkJ+6ksyBpsrxAdPfllCiLsQRfeTkbYlx8HF9BzoWQTKsD2qtix3F)
-    stack.auto: false
-    region.static: ENC(MGnH9MBS4YmcD5OiFlPXo54LIbzK9P6uGb4Z/JA/aIBJ4bnqcus6VslMKtvGfbzb)
-    credentials:
-      accessKey: ENC(S+dLvOJNzvqPqxvcaJYNIo4X9yuQ7G6WQaFZZxwX++zcTuAdf6lpwxlyDSu1GF68yqbvYPIlc++f+G7TD5K7tQ==)
-      secretKey: ENC(xxBozMXFLkVLXx7YJoa2ViB2K2trsZ6dm4oUKrtHriUUUrq+I2TGWZMKI5sFVQ6YY5VxL+2b3Kt+hCeJkHN7bQNaHI+CJABGeLJBrU3rgiU=)
+# aws
+aws:
+  s3:
+    bucket: ENC(+bnFonf/GWGSQko5ARxW9/niIBTAaO16GrStLMPdZXIRzLc+kggTDB9xcF1znFGM)
+    region: ENC(x3TAleOp6Mr7VE3nhkHNGSVNkYqRDvi9mmaKri1oekfQX5ClzBQKnqmx0GvM6fp8)
+    access-key: ENC(8+XNwXzKzzztxlXvzdO/DL4us94LOjVzD6pk2xMGaPKHbRwpPmkaL17D7ly60H5nZM0uz6LZHyq0GZymYxOYxg==)
+    secret-key: ENC(e5j40GEzC+0f0+fHMXN/9OzTJ1MlfxSkOXJiIH0aJdyB3qpJFtRfwWHxC5j7vZeSmom/KgDFHo/IvjNLedIQ5Hd9X6SU5IgZd+9ZIHzJb8U=)
