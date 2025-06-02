@@ -6,8 +6,10 @@ import com.diary.api.dto.common.ResultResponseDto
 import com.diary.api.dto.diaries.images.CreateDiaryImageRequestDto
 import com.diary.api.dto.diaries.images.UpdateDiaryImageRequestDto
 import com.diary.api.service.diaries.DiaryImageService
+import com.diary.api.users.DummyUser
 import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.entity.diaries.images.DiaryImage
+import com.diary.domain.entity.users.User
 import com.diary.domain.type.ID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -19,10 +21,14 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 
 @ExtendWith(MockitoExtension::class)
 @DisplayName("일기 이미지 컨트롤러 단위 테스트")
 class DiaryImageControllerTest {
+
+    private val dummyUser: User = DummyUser.toEntity()
+    private val dummyUserToken: UsernamePasswordAuthenticationToken = DummyUser.toToken()
 
     private val dummyDiary: Diary = DummyDiary.toEntity()
 
@@ -37,11 +43,13 @@ class DiaryImageControllerTest {
     @Test
     fun `일기 이미지 등록`() {
         // given
+        val dummyUserId: ID = dummyUser.id
         val dummyDiaryId: ID = dummyDiary.id
         val dummyDiaryImageId: ID = dummyDiaryImage.id
         val request: CreateDiaryImageRequestDto = DummyDiaryImage.toCreateRequestDto()
         `when`(
             service.create(
+                userId = dummyUserId,
                 diaryId = dummyDiaryId,
                 request = request
             )
@@ -49,6 +57,7 @@ class DiaryImageControllerTest {
 
         // when
         val result: ResponseEntity<ResultResponseDto> = controller.create(
+            principal = dummyUserToken,
             diaryId = dummyDiaryId,
             request = request
         )
@@ -62,11 +71,13 @@ class DiaryImageControllerTest {
     @Test
     fun `일기 이미지 수정`() {
         // given
+        val dummyUserId: ID = dummyUser.id
         val dummyDiaryId: ID = dummyDiary.id
         val dummyDiaryImageId: ID = dummyDiaryImage.id
         val request: UpdateDiaryImageRequestDto = DummyDiaryImage.toUpdateRequestDto()
         `when`(
             service.update(
+                userId = dummyUserId,
                 diaryId = dummyDiaryId,
                 diaryImageId = dummyDiaryImageId,
                 request = request
@@ -75,6 +86,7 @@ class DiaryImageControllerTest {
 
         // when
         val result: ResponseEntity<ResultResponseDto> = controller.update(
+            principal = dummyUserToken,
             diaryId = dummyDiaryId,
             diaryImageId = dummyDiaryImageId,
             request = request
@@ -89,10 +101,12 @@ class DiaryImageControllerTest {
     @Test
     fun `일기 이미지 삭제`() {
         // given
+        val dummyUserId: ID = dummyUser.id
         val dummyDiaryId: ID = dummyDiary.id
         val dummyDiaryImageId: ID = dummyDiaryImage.id
         `when`(
             service.delete(
+                userId = dummyUserId,
                 diaryId = dummyDiaryId,
                 diaryImageId = dummyDiaryImageId,
             )
@@ -100,6 +114,7 @@ class DiaryImageControllerTest {
 
         // when
         val result: ResponseEntity<ResultResponseDto> = controller.delete(
+            principal = dummyUserToken,
             diaryId = dummyDiaryId,
             diaryImageId = dummyDiaryImageId
         )

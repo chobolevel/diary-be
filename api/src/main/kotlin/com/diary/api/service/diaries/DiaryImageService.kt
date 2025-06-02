@@ -5,6 +5,7 @@ import com.diary.api.dto.diaries.images.UpdateDiaryImageRequestDto
 import com.diary.api.service.diaries.converter.DiaryImageConverter
 import com.diary.api.service.diaries.updater.DiaryImageUpdater
 import com.diary.api.service.diaries.validator.DiaryImageValidator
+import com.diary.api.util.validateWriter
 import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.entity.diaries.DiaryRepositoryWrapper
 import com.diary.domain.entity.diaries.images.DiaryImage
@@ -24,6 +25,7 @@ class DiaryImageService(
 
     @Transactional
     fun create(
+        userId: ID,
         diaryId: ID,
         request: CreateDiaryImageRequestDto
     ): ID {
@@ -31,6 +33,7 @@ class DiaryImageService(
         val diaryImage: DiaryImage = converter.convert(request = request).also { diaryImage ->
             // mapping diary
             val diary: Diary = diaryRepositoryWrapper.findById(id = diaryId)
+            diary.validateWriter(userId = userId)
             diaryImage.set(diary = diary)
         }
         return repositoryWrapper.save(diaryImage = diaryImage).id
@@ -38,6 +41,7 @@ class DiaryImageService(
 
     @Transactional
     fun update(
+        userId: ID,
         diaryId: ID,
         diaryImageId: ID,
         request: UpdateDiaryImageRequestDto
@@ -47,6 +51,7 @@ class DiaryImageService(
             id = diaryImageId,
             diaryId = diaryId
         )
+        diaryImage.diary!!.validateWriter(userId = userId)
         updater.markAsUpdate(
             request = request,
             entity = diaryImage
@@ -56,6 +61,7 @@ class DiaryImageService(
 
     @Transactional
     fun delete(
+        userId: ID,
         diaryId: ID,
         diaryImageId: ID
     ): Boolean {
@@ -63,6 +69,7 @@ class DiaryImageService(
             id = diaryImageId,
             diaryId = diaryId
         )
+        diaryImage.diary!!.validateWriter(userId = userId)
         diaryImage.delete()
         return true
     }

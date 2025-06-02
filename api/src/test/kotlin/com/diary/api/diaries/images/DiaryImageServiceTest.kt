@@ -7,10 +7,12 @@ import com.diary.api.service.diaries.DiaryImageService
 import com.diary.api.service.diaries.converter.DiaryImageConverter
 import com.diary.api.service.diaries.updater.DiaryImageUpdater
 import com.diary.api.service.diaries.validator.DiaryImageValidator
+import com.diary.api.users.DummyUser
 import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.entity.diaries.DiaryRepositoryWrapper
 import com.diary.domain.entity.diaries.images.DiaryImage
 import com.diary.domain.entity.diaries.images.DiaryImageRepositoryWrapper
+import com.diary.domain.entity.users.User
 import com.diary.domain.type.ID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -24,6 +26,8 @@ import org.mockito.junit.jupiter.MockitoExtension
 @ExtendWith(MockitoExtension::class)
 @DisplayName("일기 이미지 서비스 로직 단위 테스트")
 class DiaryImageServiceTest {
+
+    private val dummyUser: User = DummyUser.toEntity()
 
     private val dummyDiary: Diary = DummyDiary.toEntity()
 
@@ -50,6 +54,7 @@ class DiaryImageServiceTest {
     @Test
     fun `일기 이미지 등록`() {
         // given
+        val dummyUserId: ID = dummyUser.id
         val dummyDiaryId: ID = dummyDiary.id
         val request: CreateDiaryImageRequestDto = DummyDiaryImage.toCreateRequestDto()
         `when`(converter.convert(request = request)).thenReturn(dummyDiaryImage)
@@ -58,6 +63,7 @@ class DiaryImageServiceTest {
 
         // when
         val result: ID = service.create(
+            userId = dummyUserId,
             diaryId = dummyDiaryId,
             request = request
         )
@@ -69,6 +75,7 @@ class DiaryImageServiceTest {
     @Test
     fun `일기 이미지 수정`() {
         // given
+        val dummyUserId: ID = dummyUser.id
         val dummyDiaryId: ID = dummyDiary.id
         val dummyDiaryImageId: ID = dummyDiaryImage.id
         val request: UpdateDiaryImageRequestDto = DummyDiaryImage.toUpdateRequestDto()
@@ -87,6 +94,7 @@ class DiaryImageServiceTest {
 
         // when
         val result: ID = service.update(
+            userId = dummyUserId,
             diaryId = dummyDiaryId,
             diaryImageId = dummyDiaryImageId,
             request = request
@@ -99,6 +107,7 @@ class DiaryImageServiceTest {
     @Test
     fun `일기 이미지 삭제`() {
         // given
+        val dummyUserId: ID = dummyUser.id
         val dummyDiaryId: ID = dummyDiary.id
         val dummyDiaryImageId: ID = dummyDiaryImage.id
         `when`(
@@ -110,6 +119,7 @@ class DiaryImageServiceTest {
 
         // when
         val result: Boolean = service.delete(
+            userId = dummyUserId,
             diaryId = dummyDiaryId,
             diaryImageId = dummyDiaryImageId
         )
