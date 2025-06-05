@@ -29,7 +29,7 @@ class UserEntityTest {
         val amount: Int = 10000
 
         // when
-        dummyUser.calcPoint(amount = amount)
+        dummyUser.addPoint(amount = amount)
 
         // then
         assertThat(dummyUser.point).isEqualTo(amount)
@@ -39,13 +39,13 @@ class UserEntityTest {
     fun `포인트 회수`() {
         // given
         dummyUser.point = 0
-        val amount: Int = -10000
+        val amount: Int = 10000
 
         // when
-        dummyUser.calcPoint(amount = amount)
+        dummyUser.subPoint(amount = amount)
 
         // then
-        assertThat(dummyUser.point).isEqualTo(amount)
+        assertThat(dummyUser.point).isEqualTo(-amount)
     }
 
     @Test

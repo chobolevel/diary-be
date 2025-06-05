@@ -37,11 +37,17 @@ class User(
 
     @Column(nullable = false)
     var point: Int = 0
-    fun calcPoint(amount: Int) {
+    fun addPoint(amount: Int) {
         if (amount == 0) {
             return
         }
         this.point += amount
+    }
+    fun subPoint(amount: Int) {
+        if (amount == 0) {
+            return
+        }
+        this.point -= amount
     }
 
     @Enumerated(EnumType.STRING)
