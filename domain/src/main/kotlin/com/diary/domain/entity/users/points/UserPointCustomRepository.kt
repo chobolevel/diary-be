@@ -1,21 +1,21 @@
 package com.diary.domain.entity.users.points
 
 import com.diary.domain.dto.Pagination
-import com.diary.domain.entity.users.points.QUserPointHistory.userPointHistory
+import com.diary.domain.entity.users.points.QUserPoint.userPoint
 import com.querydsl.core.types.OrderSpecifier
 import com.querydsl.core.types.dsl.BooleanExpression
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
 
 @Repository
-class UserPointHistoryCustomRepository : QuerydslRepositorySupport(UserPointHistory::class.java) {
+class UserPointCustomRepository : QuerydslRepositorySupport(UserPoint::class.java) {
 
     fun search(
         booleanExpressions: Array<BooleanExpression>,
         pagination: Pagination,
         orderSpecifiers: Array<OrderSpecifier<*>>
-    ): List<UserPointHistory> {
-        return from(userPointHistory)
+    ): List<UserPoint> {
+        return from(userPoint)
             .where(*booleanExpressions)
             .orderBy(*orderSpecifiers)
             .offset(pagination.offset)
@@ -24,7 +24,7 @@ class UserPointHistoryCustomRepository : QuerydslRepositorySupport(UserPointHist
     }
 
     fun count(booleanExpressions: Array<BooleanExpression>): Long {
-        return from(userPointHistory)
+        return from(userPoint)
             .where(*booleanExpressions)
             .fetchCount()
     }

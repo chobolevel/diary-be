@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "user_point_histories")
-class UserPointHistory(
+@Table(name = "user_points")
+class UserPoint(
     @Id
     @Column(nullable = false, updatable = false, unique = true, length = 13)
     val id: ID,
@@ -39,7 +39,7 @@ class UserPointHistory(
     }
 }
 
-enum class UserPointHistoryOrderType {
+enum class UserPointOrderType {
     CREATED_AT_ASC,
     CREATED_AT_DESC
 }
