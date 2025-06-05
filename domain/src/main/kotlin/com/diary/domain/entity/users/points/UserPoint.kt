@@ -5,6 +5,8 @@ import com.diary.domain.entity.users.User
 import com.diary.domain.type.ID
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
@@ -17,6 +19,9 @@ class UserPoint(
     @Id
     @Column(nullable = false, updatable = false, unique = true, length = 13)
     val id: ID,
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    var type: UserPointType,
     @Column(nullable = false)
     val amount: Int,
     @Column(nullable = false, length = 255)
@@ -37,6 +42,11 @@ class UserPoint(
     fun delete() {
         this.deleted = true
     }
+}
+
+enum class UserPointType(val desc: String) {
+    ADD("지급"),
+    SUB("차감")
 }
 
 enum class UserPointOrderType {

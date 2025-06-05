@@ -3,6 +3,7 @@ create table diary.user_points
   id         varchar(13)  not null comment '아이디'
         primary key,
   user_id    varchar(13)  not null comment '회원 아이디',
+  type       varchar(20)  not null comment '포인트 유형',
   amount     int          not null comment '포인트',
   reason     varchar(255) not null comment '포인트 지급/회수 사유',
   deleted    bit          not null comment '삭제 여부',

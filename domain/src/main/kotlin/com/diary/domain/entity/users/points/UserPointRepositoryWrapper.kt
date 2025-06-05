@@ -27,6 +27,10 @@ class UserPointRepositoryWrapper(
         )
     }
 
+    fun count(queryFilter: UserPointQueryFilter): Long {
+        return customRepository.count(booleanExpressions = queryFilter.toBooleanExpressions())
+    }
+
     private fun List<UserPointOrderType>.toOrderSpecifiers(): Array<OrderSpecifier<*>> {
         return this.map {
             when (it) {
