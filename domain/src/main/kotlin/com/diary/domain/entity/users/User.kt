@@ -35,6 +35,9 @@ class User(
         this.password = newEncodedPassword
     }
 
+    @Column(nullable = false)
+    var point: Int = 0
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     var role: UserRoleType = UserRoleType.ROLE_USER
