@@ -35,6 +35,21 @@ class User(
         this.password = newEncodedPassword
     }
 
+    @Column(nullable = false)
+    var point: Int = 0
+    fun addPoint(amount: Int) {
+        if (amount == 0) {
+            return
+        }
+        this.point += amount
+    }
+    fun subPoint(amount: Int) {
+        if (amount == 0) {
+            return
+        }
+        this.point -= amount
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     var role: UserRoleType = UserRoleType.ROLE_USER

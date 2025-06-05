@@ -23,6 +23,32 @@ class UserEntityTest {
     }
 
     @Test
+    fun `포인트 지급`() {
+        // given
+        dummyUser.point = 0
+        val amount: Int = 10000
+
+        // when
+        dummyUser.addPoint(amount = amount)
+
+        // then
+        assertThat(dummyUser.point).isEqualTo(amount)
+    }
+
+    @Test
+    fun `포인트 회수`() {
+        // given
+        dummyUser.point = 0
+        val amount: Int = 10000
+
+        // when
+        dummyUser.subPoint(amount = amount)
+
+        // then
+        assertThat(dummyUser.point).isEqualTo(-amount)
+    }
+
+    @Test
     fun `회원 탈퇴`() {
         // given
 

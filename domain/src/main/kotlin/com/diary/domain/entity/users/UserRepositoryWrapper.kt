@@ -4,6 +4,7 @@ import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.users.QUser.user
 import com.diary.domain.exception.DataNotFoundException
 import com.diary.domain.exception.ErrorCode
+import com.diary.domain.type.ID
 import com.querydsl.core.types.OrderSpecifier
 import org.springframework.stereotype.Component
 import kotlin.jvm.Throws
@@ -39,8 +40,16 @@ class UserRepositoryWrapper(
     }
 
     @Throws(DataNotFoundException::class)
-    fun findById(id: String): User {
+    fun findById(id: ID): User {
         return repository.findByIdAndResignedFalse(id) ?: throw DataNotFoundException(
+            errorCode = ErrorCode.USER_NOT_FOUND,
+            message = ErrorCode.USER_NOT_FOUND.message
+        )
+    }
+
+    @Throws(DataNotFoundException::class)
+    fun findByIdWithLock(id: ID): User {
+        return repository.findByIdAndResignedFalseWithLock(id) ?: throw DataNotFoundException(
             errorCode = ErrorCode.USER_NOT_FOUND,
             message = ErrorCode.USER_NOT_FOUND.message
         )
