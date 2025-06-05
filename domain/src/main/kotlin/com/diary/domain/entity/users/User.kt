@@ -1,13 +1,18 @@
 package com.diary.domain.entity.users
 
 import com.diary.domain.entity.common.BaseEntity
+import com.diary.domain.entity.users.images.UserImage
 import com.diary.domain.type.ID
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import jakarta.persistence.OrderBy
 import jakarta.persistence.Table
+import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 
 @Entity
@@ -59,6 +64,11 @@ class User(
     fun resign() {
         this.resigned = true
     }
+
+    @Where(clause = "deleted = false")
+    @OrderBy("order asc")
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val images: MutableList<UserImage> = mutableListOf()
 }
 
 enum class UserSignUpType(var desc: String) {
