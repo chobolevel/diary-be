@@ -4,6 +4,7 @@ import com.diary.api.dto.common.PaginationResponseDto
 import com.diary.api.dto.users.points.AddUserPointRequestDto
 import com.diary.api.dto.users.points.SubUserPointRequestDto
 import com.diary.api.service.users.converter.UserPointConverter
+import com.diary.api.service.users.validator.UserPointValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.users.User
 import com.diary.domain.entity.users.UserRepositoryWrapper
@@ -19,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional
 class UserPointService(
     private val repositoryWrapper: UserPointRepositoryWrapper,
     private val userRepositoryWrapper: UserRepositoryWrapper,
-    private val converter: UserPointConverter
+    private val converter: UserPointConverter,
+    private val validator: UserPointValidator,
 ) {
 
     @Transactional
@@ -27,6 +29,7 @@ class UserPointService(
         userId: ID,
         request: AddUserPointRequestDto
     ): ID {
+        validator.validate(request = request)
         val userPoint: UserPoint = converter.convert(request = request).also { userPoint ->
             // mapping user
             val user: User = userRepositoryWrapper.findByIdWithLock(id = userId)
@@ -41,6 +44,7 @@ class UserPointService(
         userId: ID,
         request: SubUserPointRequestDto
     ): ID {
+        validator.validate(request = request)
         val userPoint: UserPoint = converter.convert(request = request).also { userPoint ->
             // mapping user
             val user: User = userRepositoryWrapper.findByIdWithLock(id = userId)

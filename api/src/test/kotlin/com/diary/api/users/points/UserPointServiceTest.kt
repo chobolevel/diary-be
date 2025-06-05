@@ -6,6 +6,7 @@ import com.diary.api.dto.users.points.SubUserPointRequestDto
 import com.diary.api.dto.users.points.UserPointResponseDto
 import com.diary.api.service.users.UserPointService
 import com.diary.api.service.users.converter.UserPointConverter
+import com.diary.api.service.users.validator.UserPointValidator
 import com.diary.api.users.DummyUser
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.users.User
@@ -41,6 +42,9 @@ class UserPointServiceTest {
 
     @Mock
     private lateinit var converter: UserPointConverter
+
+    @Mock
+    private lateinit var validator: UserPointValidator
 
     @InjectMocks
     private lateinit var service: UserPointService
