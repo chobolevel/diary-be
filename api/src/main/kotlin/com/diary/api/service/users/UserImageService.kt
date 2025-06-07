@@ -4,6 +4,7 @@ import com.diary.api.dto.users.images.CreateUserImageRequestDto
 import com.diary.api.dto.users.images.UpdateUserImageRequestDto
 import com.diary.api.service.users.converter.UserImageConverter
 import com.diary.api.service.users.updater.UserImageUpdater
+import com.diary.api.service.users.validator.UserImageValidator
 import com.diary.domain.entity.users.User
 import com.diary.domain.entity.users.UserRepositoryWrapper
 import com.diary.domain.entity.users.images.UserImage
@@ -17,7 +18,8 @@ class UserImageService(
     private val repositoryWrapper: UserImageRepositoryWrapper,
     private val userRepositoryWrapper: UserRepositoryWrapper,
     private val converter: UserImageConverter,
-    private val updater: UserImageUpdater
+    private val updater: UserImageUpdater,
+    private val validator: UserImageValidator
 ) {
 
     @Transactional
@@ -25,6 +27,7 @@ class UserImageService(
         userId: ID,
         request: CreateUserImageRequestDto
     ): ID {
+        validator.validate(request = request)
         val userImage: UserImage = converter.convert(request = request).also { userImage ->
             // mapping user
             val user: User = userRepositoryWrapper.findById(id = userId)
@@ -39,6 +42,7 @@ class UserImageService(
         userImageId: ID,
         request: UpdateUserImageRequestDto
     ): ID {
+        validator.validate(request = request)
         val userImage: UserImage = repositoryWrapper.findByIdAndUserId(
             id = userImageId,
             userId = userId
