@@ -6,7 +6,9 @@ import com.diary.api.dto.common.ResultResponseDto
 import com.diary.api.dto.diaries.CreateDiaryRequestDto
 import com.diary.api.dto.diaries.DiaryResponseDto
 import com.diary.api.dto.diaries.UpdateDiaryRequestDto
+import com.diary.api.dto.users.points.AddUserPointRequestDto
 import com.diary.api.service.diaries.DiaryService
+import com.diary.api.service.users.UserPointService
 import com.diary.api.util.getUserId
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.diaries.DiaryOrderType
@@ -32,7 +34,8 @@ import java.security.Principal
 @RestController
 @RequestMapping("/api/v1")
 class DiaryController(
-    private val service: DiaryService
+    private val service: DiaryService,
+    private val userPointService: UserPointService
 ) {
 
     @Operation(summary = "일기 등록 API")
@@ -46,6 +49,13 @@ class DiaryController(
         val result: ID = service.create(
             userId = principal.getUserId(),
             request = request
+        )
+        userPointService.addPoint(
+            userId = principal.getUserId(),
+            request = AddUserPointRequestDto(
+                amount = 200,
+                reason = "일기 작성 완료! 200포인트 지급"
+            )
         )
         return ResponseEntity.status(HttpStatus.CREATED).body(ResultResponseDto(result))
     }

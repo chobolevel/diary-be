@@ -6,12 +6,16 @@ import com.diary.api.dto.common.ResultResponseDto
 import com.diary.api.dto.diaries.CreateDiaryRequestDto
 import com.diary.api.dto.diaries.DiaryResponseDto
 import com.diary.api.dto.diaries.UpdateDiaryRequestDto
+import com.diary.api.dto.users.points.AddUserPointRequestDto
 import com.diary.api.service.diaries.DiaryService
+import com.diary.api.service.users.UserPointService
 import com.diary.api.users.DummyUser
+import com.diary.api.users.points.DummyUserPoint
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.diaries.Diary
 import com.diary.domain.entity.diaries.DiaryQueryFilter
 import com.diary.domain.entity.users.User
+import com.diary.domain.entity.users.points.UserPoint
 import com.diary.domain.type.ID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -38,21 +42,35 @@ class DiaryControllerTest {
     @Mock
     private lateinit var service: DiaryService
 
+    @Mock
+    private lateinit var userPointService: UserPointService
+
     @InjectMocks
     private lateinit var controller: DiaryController
 
     @Test
     fun `일기 등록`() {
         // given
+        val dummyUserPoint: UserPoint = DummyUserPoint.toEntity()
         val dummyUserId: ID = dummyUser.id
         val dummyDiaryId: ID = dummyDiary.id
         val request: CreateDiaryRequestDto = DummyDiary.toCreateRequestDto()
+        val addUserPointRequest: AddUserPointRequestDto = AddUserPointRequestDto(
+            amount = 200,
+            reason = "일기 작성 완료! 200포인트 지급"
+        )
         `when`(
             service.create(
                 userId = dummyUserId,
                 request = request
             )
         ).thenReturn(dummyDiaryId)
+        `when`(
+            userPointService.addPoint(
+                userId = dummyUserId,
+                request = addUserPointRequest
+            )
+        ).thenReturn(dummyUserPoint.id)
 
         // when
         val result: ResponseEntity<ResultResponseDto> = controller.create(
