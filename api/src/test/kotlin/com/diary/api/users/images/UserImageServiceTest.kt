@@ -5,6 +5,7 @@ import com.diary.api.dto.users.images.UpdateUserImageRequestDto
 import com.diary.api.service.users.UserImageService
 import com.diary.api.service.users.converter.UserImageConverter
 import com.diary.api.service.users.updater.UserImageUpdater
+import com.diary.api.service.users.validator.UserImageValidator
 import com.diary.api.users.DummyUser
 import com.diary.domain.entity.users.User
 import com.diary.domain.entity.users.UserRepositoryWrapper
@@ -39,6 +40,9 @@ class UserImageServiceTest {
 
     @Mock
     private lateinit var updater: UserImageUpdater
+
+    @Mock
+    private lateinit var validator: UserImageValidator
 
     @InjectMocks
     private lateinit var service: UserImageService
