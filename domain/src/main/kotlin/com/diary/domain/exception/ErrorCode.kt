@@ -34,5 +34,8 @@ enum class ErrorCode(val message: String) {
     DIARY_LIKE_ALREADY_EXISTS("이미 좋아요한 일기입니다."),
 
     // DIARY IMAGE
-    DIARY_IMAGE_NOT_FOUND("일기 이미지를 찾을 수 없습니다.")
+    DIARY_IMAGE_NOT_FOUND("일기 이미지를 찾을 수 없습니다."),
+
+    // PRODUCT CATEGORY
+    PRODUCT_CATEGORY_NOT_FOUND("상품 카테고리를 찾을 수 없습니다.")
 }
