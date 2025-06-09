@@ -2,13 +2,17 @@ package com.diary.domain.entity.products.categories
 
 import com.diary.domain.entity.common.BaseEntity
 import com.diary.domain.type.ID
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
+import jakarta.persistence.OrderBy
 import jakarta.persistence.Table
+import org.hibernate.annotations.Where
 import org.hibernate.envers.Audited
 
 @Entity
@@ -29,7 +33,7 @@ class ProductCategory(
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     var parent: ProductCategory? = null
-    fun set(parent: ProductCategory) {
+    fun set(parent: ProductCategory?) {
         if (this.parent != parent) {
             this.parent = parent
         }
@@ -40,6 +44,11 @@ class ProductCategory(
     fun delete() {
         this.deleted = true
     }
+
+    @Where(clause = "deleted = false")
+    @OrderBy("order asc")
+    @OneToMany(mappedBy = "parent", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val child: List<ProductCategory> = listOf()
 }
 
 enum class ProductCategoryUpdateMask {
