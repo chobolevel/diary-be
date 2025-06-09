@@ -7,6 +7,7 @@ import com.diary.api.dto.products.categories.UpdateProductCategoryRequestDto
 import com.diary.api.service.products.ProductCategoryService
 import com.diary.api.service.products.converter.ProductCategoryConverter
 import com.diary.api.service.products.updater.ProductCategoryUpdater
+import com.diary.api.service.products.validator.ProductCategoryValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.products.categories.ProductCategory
 import com.diary.domain.entity.products.categories.ProductCategoryOrderType
@@ -37,6 +38,9 @@ class ProductCategoryServiceTest {
 
     @Mock
     private lateinit var updater: ProductCategoryUpdater
+
+    @Mock
+    private lateinit var validator: ProductCategoryValidator
 
     @InjectMocks
     private lateinit var service: ProductCategoryService

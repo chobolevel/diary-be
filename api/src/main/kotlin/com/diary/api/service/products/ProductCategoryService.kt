@@ -6,6 +6,7 @@ import com.diary.api.dto.products.categories.ProductCategoryResponseDto
 import com.diary.api.dto.products.categories.UpdateProductCategoryRequestDto
 import com.diary.api.service.products.converter.ProductCategoryConverter
 import com.diary.api.service.products.updater.ProductCategoryUpdater
+import com.diary.api.service.products.validator.ProductCategoryValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.products.categories.ProductCategory
 import com.diary.domain.entity.products.categories.ProductCategoryOrderType
@@ -19,11 +20,13 @@ import org.springframework.transaction.annotation.Transactional
 class ProductCategoryService(
     private val repositoryWrapper: ProductCategoryRepositoryWrapper,
     private val converter: ProductCategoryConverter,
-    private val updater: ProductCategoryUpdater
+    private val updater: ProductCategoryUpdater,
+    private val validator: ProductCategoryValidator
 ) {
 
     @Transactional
     fun create(request: CreateProductCategoryRequestDto): ID {
+        validator.validate(request = request)
         val productCategory: ProductCategory = converter.convert(request = request).also { productCategory ->
             // mapping parent
             request.parentId?.let { parentId ->
@@ -63,6 +66,7 @@ class ProductCategoryService(
         productCategoryId: ID,
         request: UpdateProductCategoryRequestDto
     ): ID {
+        validator.validate(request = request)
         val productCategory: ProductCategory = repositoryWrapper.findById(id = productCategoryId)
         updater.markAsUpdate(
             request = request,
