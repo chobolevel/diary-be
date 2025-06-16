@@ -6,6 +6,7 @@ import com.diary.api.dto.products.ProductResponseDto
 import com.diary.api.dto.products.UpdateProductRequestDto
 import com.diary.api.service.products.converter.ProductConverter
 import com.diary.api.service.products.updater.ProductUpdater
+import com.diary.api.service.products.validator.ProductValidator
 import com.diary.domain.dto.Pagination
 import com.diary.domain.entity.products.Product
 import com.diary.domain.entity.products.ProductOrderType
@@ -22,11 +23,13 @@ class ProductService(
     private val repositoryWrapper: ProductRepositoryWrapper,
     private val productCategoryRepositoryWrapper: ProductCategoryRepositoryWrapper,
     private val converter: ProductConverter,
-    private val updater: ProductUpdater
+    private val updater: ProductUpdater,
+    private val validator: ProductValidator
 ) {
 
     @Transactional
     fun create(request: CreateProductRequestDto): ID {
+        validator.validate(request = request)
         val product: Product = converter.convert(request = request).also { product ->
             // mapping product category
             val productCategory: ProductCategory = productCategoryRepositoryWrapper.findById(id = request.productCategoryId)
@@ -66,6 +69,7 @@ class ProductService(
         productId: ID,
         request: UpdateProductRequestDto
     ): ID {
+        validator.validate(request = request)
         val product: Product = repositoryWrapper.findById(id = productId)
         updater.markAsUpdate(
             request = request,
