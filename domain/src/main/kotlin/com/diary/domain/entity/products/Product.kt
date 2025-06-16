@@ -58,3 +58,10 @@ enum class ProductOrderType {
     CREATED_AT_ASC,
     CREATED_AT_DESC
 }
+
+enum class ProductUpdateMask {
+    CATEGORY,
+    NAME,
+    STATUS,
+    ORDER
+}
