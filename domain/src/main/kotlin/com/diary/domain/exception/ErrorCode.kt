@@ -37,5 +37,8 @@ enum class ErrorCode(val message: String) {
     DIARY_IMAGE_NOT_FOUND("일기 이미지를 찾을 수 없습니다."),
 
     // PRODUCT CATEGORY
-    PRODUCT_CATEGORY_NOT_FOUND("상품 카테고리를 찾을 수 없습니다.")
+    PRODUCT_CATEGORY_NOT_FOUND("상품 카테고리를 찾을 수 없습니다."),
+
+    // PRODUCT
+    PRODUCT_NOT_FOUND("상품을 찾을 수 없습니다.")
 }
