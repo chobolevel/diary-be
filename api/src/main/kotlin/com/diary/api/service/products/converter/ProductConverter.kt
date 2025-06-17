@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class ProductConverter(
-    private val productCategoryConverter: ProductCategoryConverter
+    private val productCategoryConverter: ProductCategoryConverter,
+    private val productOptionConverter: ProductOptionConverter
 ) {
 
     fun convert(request: CreateProductRequestDto): Product {
@@ -29,6 +30,7 @@ class ProductConverter(
             status = entity.status,
             statusLabel = entity.status.desc,
             order = entity.order,
+            productOptions = productOptionConverter.convert(entities = entity.productOptions),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli(),
         )

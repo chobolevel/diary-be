@@ -4,6 +4,7 @@ import com.diary.api.dto.products.CreateProductRequestDto
 import com.diary.api.dto.products.ProductResponseDto
 import com.diary.api.dto.products.UpdateProductRequestDto
 import com.diary.api.products.categories.DummyProductCategory
+import com.diary.api.products.options.DummyProductOption
 import com.diary.domain.entity.products.Product
 import com.diary.domain.entity.products.ProductStatus
 import com.diary.domain.entity.products.ProductUpdateMask
@@ -33,6 +34,7 @@ object DummyProduct {
             status = status,
             statusLabel = status.desc,
             order = order,
+            productOptions = listOf(DummyProductOption.toResponseDto()),
             createdAt = createdAt,
             updatedAt = updatedAt,
         )
