@@ -5,12 +5,17 @@ import com.diary.domain.entity.products.ProductUpdateMask
 import com.diary.domain.type.ID
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class CreateProductRequestDto(
+    @field:NotNull
     val productCategoryId: ID,
+    @field:NotEmpty
     val name: String,
+    @field:NotNull
     val order: Int,
 )
 
