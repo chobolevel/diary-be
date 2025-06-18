@@ -1,0 +1,125 @@
+package com.diary.api.products.options.values
+
+import com.diary.api.controller.v1.admin.products.AdminProductOptionValueController
+import com.diary.api.dto.common.ResultResponseDto
+import com.diary.api.dto.products.options.values.CreateProductOptionValueRequestDto
+import com.diary.api.dto.products.options.values.UpdateProductOptionValueRequestDto
+import com.diary.api.products.DummyProduct
+import com.diary.api.products.options.DummyProductOption
+import com.diary.api.service.products.ProductOptionValueService
+import com.diary.domain.entity.products.Product
+import com.diary.domain.entity.products.options.ProductOption
+import com.diary.domain.entity.products.options.values.ProductOptionValue
+import com.diary.domain.type.ID
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+
+@ExtendWith(MockitoExtension::class)
+@DisplayName("상품 옵션 값 컨트롤러 단위 테스트")
+class AdminProductOptionValueControllerTest {
+
+    private val dummyProduct: Product = DummyProduct.toEntity()
+
+    private val dummyProductOption: ProductOption = DummyProductOption.toEntity()
+
+    private val dummyProductOptionValue: ProductOptionValue = DummyProductOptionValue.toEntity()
+
+    @Mock
+    private lateinit var service: ProductOptionValueService
+
+    @InjectMocks
+    private lateinit var controller: AdminProductOptionValueController
+
+    @Test
+    fun `상품 옵션 값 등록`() {
+        // given
+        val dummyProductId: ID = dummyProduct.id
+        val dummyProductOptionId: ID = dummyProductOption.id
+        val dummyProductOptionValueId: ID = dummyProductOptionValue.id
+        val request: CreateProductOptionValueRequestDto = DummyProductOptionValue.toCreateRequestDto()
+        `when`(
+            service.create(
+                productId = dummyProductId,
+                productOptionId = dummyProductOptionId,
+                request = request
+            )
+        ).thenReturn(dummyProductOptionValueId)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.create(
+            productId = dummyProductId,
+            productOptionId = dummyProductOptionId,
+            request = request
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.CREATED)
+        assertThat(result.body?.data).isEqualTo(dummyProductOptionValueId)
+    }
+
+    @Test
+    fun `상품 옵션 값 정보 수정`() {
+        // given
+        val dummyProductId: ID = dummyProduct.id
+        val dummyProductOptionId: ID = dummyProductOption.id
+        val dummyProductOptionValueId: ID = dummyProductOptionValue.id
+        val request: UpdateProductOptionValueRequestDto = DummyProductOptionValue.toUpdateRequestDto()
+        `when`(
+            service.update(
+                productId = dummyProductId,
+                productOptionId = dummyProductOptionId,
+                productOptionValueId = dummyProductOptionValueId,
+                request = request
+            )
+        ).thenReturn(dummyProductOptionValueId)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.update(
+            productId = dummyProductId,
+            productOptionId = dummyProductOptionId,
+            productOptionValueId = dummyProductOptionValueId,
+            request = request
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body?.data).isEqualTo(dummyProductOptionValueId)
+    }
+
+    @Test
+    fun `상품 옵션 값 삭제 `() {
+        // given
+        val dummyProductId: ID = dummyProduct.id
+        val dummyProductOptionId: ID = dummyProductOption.id
+        val dummyProductOptionValueId: ID = dummyProductOptionValue.id
+        `when`(
+            service.delete(
+                productId = dummyProductId,
+                productOptionId = dummyProductOptionId,
+                productOptionValueId = dummyProductOptionValueId,
+            )
+        ).thenReturn(true)
+
+        // when
+        val result: ResponseEntity<ResultResponseDto> = controller.delete(
+            productId = dummyProductId,
+            productOptionId = dummyProductOptionId,
+            productOptionValueId = dummyProductOptionValueId,
+        )
+
+        // then
+        assertThat(result).isExactlyInstanceOf(ResponseEntity::class.java)
+        assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body?.data).isEqualTo(true)
+    }
+}
