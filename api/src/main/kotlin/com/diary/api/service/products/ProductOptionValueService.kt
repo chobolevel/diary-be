@@ -4,6 +4,7 @@ import com.diary.api.dto.products.options.values.CreateProductOptionValueRequest
 import com.diary.api.dto.products.options.values.UpdateProductOptionValueRequestDto
 import com.diary.api.service.products.converter.ProductOptionValueConverter
 import com.diary.api.service.products.updater.ProductOptionValueUpdater
+import com.diary.api.service.products.validator.ProductOptionValueValidator
 import com.diary.domain.entity.products.options.ProductOption
 import com.diary.domain.entity.products.options.ProductOptionRepositoryWrapper
 import com.diary.domain.entity.products.options.values.ProductOptionValue
@@ -17,7 +18,8 @@ class ProductOptionValueService(
     private val repositoryWrapper: ProductOptionValueRepositoryWrapper,
     private val productOptionRepositoryWrapper: ProductOptionRepositoryWrapper,
     private val converter: ProductOptionValueConverter,
-    private val updater: ProductOptionValueUpdater
+    private val updater: ProductOptionValueUpdater,
+    private val validator: ProductOptionValueValidator
 ) {
 
     @Transactional
@@ -26,6 +28,7 @@ class ProductOptionValueService(
         productOptionId: ID,
         request: CreateProductOptionValueRequestDto
     ): ID {
+        validator.validate(request = request)
         val productOptionValue: ProductOptionValue = converter.convert(request = request).also { productOptionValue ->
             // mapping product option
             val productOption: ProductOption = productOptionRepositoryWrapper.findByIdAndProductId(
@@ -44,6 +47,7 @@ class ProductOptionValueService(
         productOptionValueId: ID,
         request: UpdateProductOptionValueRequestDto
     ): ID {
+        validator.validate(request = request)
         val productOptionValue: ProductOptionValue = repositoryWrapper.findByIdProductIdAndProductOptionId(
             id = productOptionValueId,
             productId = productId,

@@ -7,6 +7,7 @@ import com.diary.api.products.options.DummyProductOption
 import com.diary.api.service.products.ProductOptionValueService
 import com.diary.api.service.products.converter.ProductOptionValueConverter
 import com.diary.api.service.products.updater.ProductOptionValueUpdater
+import com.diary.api.service.products.validator.ProductOptionValueValidator
 import com.diary.domain.entity.products.Product
 import com.diary.domain.entity.products.options.ProductOption
 import com.diary.domain.entity.products.options.ProductOptionRepositoryWrapper
@@ -43,6 +44,9 @@ class ProductOptionValueServiceTest {
 
     @Mock
     private lateinit var updater: ProductOptionValueUpdater
+
+    @Mock
+    private lateinit var validator: ProductOptionValueValidator
 
     @InjectMocks
     private lateinit var service: ProductOptionValueService
