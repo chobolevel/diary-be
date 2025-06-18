@@ -43,5 +43,8 @@ enum class ErrorCode(val message: String) {
     PRODUCT_NOT_FOUND("상품을 찾을 수 없습니다."),
 
     // PRODUCT OPTION
-    PRODUCT_OPTION_NOT_FOUND("상품 옵션을 찾을 수 없습니다.")
+    PRODUCT_OPTION_NOT_FOUND("상품 옵션을 찾을 수 없습니다."),
+
+    // PRODUCT OPTION VALUE
+    PRODUCT_OPTION_VALUE_NOT_FOUND("상품 옵션 값을 찾을 수 없습니다.")
 }
