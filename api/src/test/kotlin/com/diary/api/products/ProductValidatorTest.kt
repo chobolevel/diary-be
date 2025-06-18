@@ -2,6 +2,7 @@ package com.diary.api.products
 
 import com.diary.api.dto.products.CreateProductRequestDto
 import com.diary.api.dto.products.UpdateProductRequestDto
+import com.diary.api.products.options.DummyProductOption
 import com.diary.api.service.products.validator.ProductValidator
 import com.diary.domain.entity.products.ProductUpdateMask
 import com.diary.domain.exception.ErrorCode
@@ -23,7 +24,8 @@ class ProductValidatorTest {
         val request = CreateProductRequestDto(
             productCategoryId = "0KH4WDSJA2CHB",
             name = "2025 T1 Uniform Jersey",
-            order = 0
+            order = 0,
+            options = listOf(DummyProductOption.toCreateRequestDto())
         )
 
         // when

@@ -2,6 +2,7 @@ package com.diary.api.products.options
 
 import com.diary.api.dto.products.options.CreateProductOptionRequestDto
 import com.diary.api.dto.products.options.UpdateProductOptionRequestDto
+import com.diary.api.products.options.values.DummyProductOptionValue
 import com.diary.api.service.products.validator.ProductOptionValidator
 import com.diary.domain.entity.products.options.ProductOptionUpdateMask
 import com.diary.domain.exception.ErrorCode
@@ -22,7 +23,8 @@ class ProductOptionValidatorTest {
         // given
         val request = CreateProductOptionRequestDto(
             name = "사이즈",
-            order = 0
+            order = 0,
+            values = listOf(DummyProductOptionValue.toCreateRequestDto())
         )
 
         // when

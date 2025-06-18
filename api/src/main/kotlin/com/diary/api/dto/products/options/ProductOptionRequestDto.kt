@@ -1,5 +1,6 @@
 package com.diary.api.dto.products.options
 
+import com.diary.api.dto.products.options.values.CreateProductOptionValueRequestDto
 import com.diary.domain.entity.products.options.ProductOptionUpdateMask
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
@@ -13,6 +14,8 @@ data class CreateProductOptionRequestDto(
     val name: String,
     @field:NotNull
     val order: Int,
+    @field:Size(min = 1)
+    val values: List<CreateProductOptionValueRequestDto>
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)

@@ -35,7 +35,6 @@ class ProductOption(
         if (this.product != product) {
             this.product = product
         }
-        product.add(this)
     }
 
     @Column(nullable = false)

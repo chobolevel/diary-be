@@ -5,8 +5,12 @@ import com.diary.api.dto.products.CreateProductRequestDto
 import com.diary.api.dto.products.ProductResponseDto
 import com.diary.api.dto.products.UpdateProductRequestDto
 import com.diary.api.products.categories.DummyProductCategory
+import com.diary.api.products.options.DummyProductOption
+import com.diary.api.products.options.values.DummyProductOptionValue
 import com.diary.api.service.products.ProductService
 import com.diary.api.service.products.converter.ProductConverter
+import com.diary.api.service.products.converter.ProductOptionConverter
+import com.diary.api.service.products.converter.ProductOptionValueConverter
 import com.diary.api.service.products.updater.ProductUpdater
 import com.diary.api.service.products.validator.ProductValidator
 import com.diary.domain.dto.Pagination
@@ -16,6 +20,8 @@ import com.diary.domain.entity.products.ProductQueryFilter
 import com.diary.domain.entity.products.ProductRepositoryWrapper
 import com.diary.domain.entity.products.categories.ProductCategory
 import com.diary.domain.entity.products.categories.ProductCategoryRepositoryWrapper
+import com.diary.domain.entity.products.options.ProductOption
+import com.diary.domain.entity.products.options.values.ProductOptionValue
 import com.diary.domain.type.ID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -35,6 +41,10 @@ class ProductServiceTest {
 
     private val dummyProductCategory: ProductCategory = DummyProductCategory.toEntity()
 
+    private val dummyProductOption: ProductOption = DummyProductOption.toEntity()
+
+    private val dummyProductOptionValue: ProductOptionValue = DummyProductOptionValue.toEntity()
+
     @Mock
     private lateinit var repositoryWrapper: ProductRepositoryWrapper
 
@@ -43,6 +53,12 @@ class ProductServiceTest {
 
     @Mock
     private lateinit var converter: ProductConverter
+
+    @Mock
+    private lateinit var productOptionConverter: ProductOptionConverter
+
+    @Mock
+    private lateinit var productOptionValueConverter: ProductOptionValueConverter
 
     @Mock
     private lateinit var updater: ProductUpdater
@@ -59,6 +75,8 @@ class ProductServiceTest {
         val request: CreateProductRequestDto = DummyProduct.toCreateRequestDto()
         `when`(converter.convert(request = request)).thenReturn(dummyProduct)
         `when`(productCategoryRepositoryWrapper.findById(id = request.productCategoryId)).thenReturn(dummyProductCategory)
+        `when`(productOptionConverter.convert(request.options.get(0))).thenReturn(dummyProductOption)
+        `when`(productOptionValueConverter.convert(request = request.options.get(0).values.get(0))).thenReturn(dummyProductOptionValue)
         `when`(repositoryWrapper.save(product = dummyProduct)).thenReturn(dummyProduct)
 
         // when

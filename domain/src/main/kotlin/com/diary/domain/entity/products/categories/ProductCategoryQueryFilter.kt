@@ -10,7 +10,7 @@ data class ProductCategoryQueryFilter(
     fun toBooleanExpressions(): Array<BooleanExpression> {
         return listOfNotNull(
             name?.let { productCategory.name.startsWith(it) },
-            productCategory.deleted.isTrue
+            productCategory.deleted.isFalse
         ).toTypedArray()
     }
 }

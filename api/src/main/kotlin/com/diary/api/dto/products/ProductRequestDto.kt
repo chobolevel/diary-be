@@ -1,5 +1,6 @@
 package com.diary.api.dto.products
 
+import com.diary.api.dto.products.options.CreateProductOptionRequestDto
 import com.diary.domain.entity.products.ProductStatus
 import com.diary.domain.entity.products.ProductUpdateMask
 import com.diary.domain.type.ID
@@ -17,6 +18,8 @@ data class CreateProductRequestDto(
     val name: String,
     @field:NotNull
     val order: Int,
+    @field:Size(min = 1)
+    val options: List<CreateProductOptionRequestDto>
 )
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)

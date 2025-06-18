@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "Product Option(상품 옵션)", description = "관리자 상품 옵션 관리 API")
+@RestController
+@RequestMapping("/api/v1/admin")
 class AdminProductOptionController(
     private val service: ProductOptionService
 ) {
