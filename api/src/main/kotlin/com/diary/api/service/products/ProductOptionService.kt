@@ -3,6 +3,7 @@ package com.diary.api.service.products
 import com.diary.api.dto.products.options.CreateProductOptionRequestDto
 import com.diary.api.dto.products.options.UpdateProductOptionRequestDto
 import com.diary.api.service.products.converter.ProductOptionConverter
+import com.diary.api.service.products.converter.ProductOptionValueConverter
 import com.diary.api.service.products.updater.ProductOptionUpdater
 import com.diary.api.service.products.validator.ProductOptionValidator
 import com.diary.domain.entity.products.Product
@@ -18,6 +19,7 @@ class ProductOptionService(
     private val repositoryWrapper: ProductOptionRepositoryWrapper,
     private val productRepositoryWrapper: ProductRepositoryWrapper,
     private val converter: ProductOptionConverter,
+    private val productOptionValueConverter: ProductOptionValueConverter,
     private val updater: ProductOptionUpdater,
     private val validator: ProductOptionValidator
 ) {
@@ -32,6 +34,13 @@ class ProductOptionService(
             // mapping product
             val product: Product = productRepositoryWrapper.findById(id = productId)
             productOption.set(product = product)
+
+            // mapping product option values
+            request.values.forEach { createProductOptionValueRequest ->
+                productOptionValueConverter.convert(request = createProductOptionValueRequest).also { productOptionValue ->
+                    productOptionValue.set(productOption = productOption)
+                }
+            }
         }
         return repositoryWrapper.save(productOption = productOption).id
     }

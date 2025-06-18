@@ -3,14 +3,17 @@ package com.diary.api.products.options
 import com.diary.api.dto.products.options.CreateProductOptionRequestDto
 import com.diary.api.dto.products.options.UpdateProductOptionRequestDto
 import com.diary.api.products.DummyProduct
+import com.diary.api.products.options.values.DummyProductOptionValue
 import com.diary.api.service.products.ProductOptionService
 import com.diary.api.service.products.converter.ProductOptionConverter
+import com.diary.api.service.products.converter.ProductOptionValueConverter
 import com.diary.api.service.products.updater.ProductOptionUpdater
 import com.diary.api.service.products.validator.ProductOptionValidator
 import com.diary.domain.entity.products.Product
 import com.diary.domain.entity.products.ProductRepositoryWrapper
 import com.diary.domain.entity.products.options.ProductOption
 import com.diary.domain.entity.products.options.ProductOptionRepositoryWrapper
+import com.diary.domain.entity.products.options.values.ProductOptionValue
 import com.diary.domain.type.ID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -29,6 +32,8 @@ class ProductOptionServiceTest {
 
     private val dummyProductOption: ProductOption = DummyProductOption.toEntity()
 
+    private val dummyProductOptionValue: ProductOptionValue = DummyProductOptionValue.toEntity()
+
     @Mock
     private lateinit var repositoryWrapper: ProductOptionRepositoryWrapper
 
@@ -37,6 +42,9 @@ class ProductOptionServiceTest {
 
     @Mock
     private lateinit var converter: ProductOptionConverter
+
+    @Mock
+    private lateinit var productOptionValueConverter: ProductOptionValueConverter
 
     @Mock
     private lateinit var updater: ProductOptionUpdater
@@ -54,6 +62,7 @@ class ProductOptionServiceTest {
         val request: CreateProductOptionRequestDto = DummyProductOption.toCreateRequestDto()
         `when`(converter.convert(request = request)).thenReturn(dummyProductOption)
         `when`(productRepositoryWrapper.findById(id = dummyProductId)).thenReturn(dummyProduct)
+        `when`(productOptionValueConverter.convert(request = request.values.get(0))).thenReturn(dummyProductOptionValue)
         `when`(repositoryWrapper.save(productOption = dummyProductOption)).thenReturn(dummyProductOption)
 
         // when

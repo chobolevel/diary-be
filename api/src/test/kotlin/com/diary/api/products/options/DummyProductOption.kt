@@ -3,6 +3,7 @@ package com.diary.api.products.options
 import com.diary.api.dto.products.options.CreateProductOptionRequestDto
 import com.diary.api.dto.products.options.ProductOptionResponseDto
 import com.diary.api.dto.products.options.UpdateProductOptionRequestDto
+import com.diary.api.products.options.values.DummyProductOptionValue
 import com.diary.domain.entity.products.options.ProductOption
 import com.diary.domain.entity.products.options.ProductOptionUpdateMask
 import com.diary.domain.type.ID
@@ -33,7 +34,8 @@ object DummyProductOption {
     private val createRequest: CreateProductOptionRequestDto by lazy {
         CreateProductOptionRequestDto(
             name = name,
-            order = order
+            order = order,
+            values = listOf(DummyProductOptionValue.toCreateRequestDto())
         )
     }
     private val updateRequest: UpdateProductOptionRequestDto by lazy {
