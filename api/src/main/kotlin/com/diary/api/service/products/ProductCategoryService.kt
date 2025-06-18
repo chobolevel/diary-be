@@ -37,6 +37,7 @@ class ProductCategoryService(
         return repositoryWrapper.save(productCategory = productCategory).id
     }
 
+    @Transactional(readOnly = true)
     fun getProductCategories(
         queryFilter: ProductCategoryQueryFilter,
         pagination: Pagination,
@@ -56,6 +57,7 @@ class ProductCategoryService(
         )
     }
 
+    @Transactional(readOnly = true)
     fun getProductCategory(productCategoryId: ID): ProductCategoryResponseDto {
         val productCategory: ProductCategory = repositoryWrapper.findById(id = productCategoryId)
         return converter.convert(entity = productCategory)

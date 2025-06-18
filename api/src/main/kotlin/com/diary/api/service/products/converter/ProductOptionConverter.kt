@@ -7,7 +7,9 @@ import io.hypersistence.tsid.TSID
 import org.springframework.stereotype.Component
 
 @Component
-class ProductOptionConverter {
+class ProductOptionConverter(
+    private val productOptionValueConverter: ProductOptionValueConverter,
+) {
 
     fun convert(request: CreateProductOptionRequestDto): ProductOption {
         return ProductOption(
@@ -22,6 +24,7 @@ class ProductOptionConverter {
             id = entity.id,
             name = entity.name,
             order = entity.order,
+            productOptionValues = productOptionValueConverter.convert(entities = entity.productOptionValues),
             createdAt = entity.createdAt!!.toInstant().toEpochMilli(),
             updatedAt = entity.updatedAt!!.toInstant().toEpochMilli(),
         )

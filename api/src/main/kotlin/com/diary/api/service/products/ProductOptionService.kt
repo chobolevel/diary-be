@@ -39,6 +39,7 @@ class ProductOptionService(
             request.values.forEach { createProductOptionValueRequest ->
                 productOptionValueConverter.convert(request = createProductOptionValueRequest).also { productOptionValue ->
                     productOptionValue.set(productOption = productOption)
+                    productOption.add(productOptionValue = productOptionValue)
                 }
             }
         }

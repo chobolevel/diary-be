@@ -27,6 +27,7 @@ object DummyProductOption {
             id = id,
             name = name,
             order = order,
+            productOptionValues = listOf(DummyProductOptionValue.toResponseDto()),
             createdAt = createdAt,
             updatedAt = updatedAt
         )

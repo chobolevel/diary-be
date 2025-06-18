@@ -43,7 +43,8 @@ object DummyProduct {
         CreateProductRequestDto(
             productCategoryId = "0KH4WDSJA2CHB",
             name = name,
-            order = order
+            order = order,
+            options = listOf(DummyProductOption.toCreateRequestDto())
         )
     }
     private val updateRequest: UpdateProductRequestDto by lazy {

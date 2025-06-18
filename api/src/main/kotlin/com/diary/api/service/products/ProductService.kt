@@ -5,6 +5,8 @@ import com.diary.api.dto.products.CreateProductRequestDto
 import com.diary.api.dto.products.ProductResponseDto
 import com.diary.api.dto.products.UpdateProductRequestDto
 import com.diary.api.service.products.converter.ProductConverter
+import com.diary.api.service.products.converter.ProductOptionConverter
+import com.diary.api.service.products.converter.ProductOptionValueConverter
 import com.diary.api.service.products.updater.ProductUpdater
 import com.diary.api.service.products.validator.ProductValidator
 import com.diary.domain.dto.Pagination
@@ -23,6 +25,8 @@ class ProductService(
     private val repositoryWrapper: ProductRepositoryWrapper,
     private val productCategoryRepositoryWrapper: ProductCategoryRepositoryWrapper,
     private val converter: ProductConverter,
+    private val productOptionConverter: ProductOptionConverter,
+    private val productOptionValueConverter: ProductOptionValueConverter,
     private val updater: ProductUpdater,
     private val validator: ProductValidator
 ) {
@@ -34,6 +38,18 @@ class ProductService(
             // mapping product category
             val productCategory: ProductCategory = productCategoryRepositoryWrapper.findById(id = request.productCategoryId)
             product.set(productCategory = productCategory)
+
+            // mapping product options
+            request.options.forEach { createProductOptionRequest ->
+                productOptionConverter.convert(request = createProductOptionRequest).also { productOption ->
+                    productOption.set(product = product)
+                    createProductOptionRequest.values.forEach { createProductOptionValueRequest ->
+                        productOptionValueConverter.convert(request = createProductOptionValueRequest).also { productOptionValue ->
+                            productOptionValue.set(productOption = productOption)
+                        }
+                    }
+                }
+            }
         }
         return repositoryWrapper.save(product = product).id
     }
